@@ -1,0 +1,867 @@
+<% if(message.length > 0) { %>
+  <div class="erroralert">
+    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+    <%= message %>
+  </div>
+<% } %>
+
+<% var userInfoArray = [] %>
+<% userInfoArray.push(userInfo) %>
+<% var userInfoJS = JSON.stringify(userInfoArray).replace(/\s/g, "") %>
+
+<div class="container-fluid">
+  <div class="row profile-row">
+		<div class="col-md-3">
+			<div class="profile-sidebar">
+        <% if (user.local.role === 'helper') { %>
+          <div class="profile-userpic">
+            <% var imgThumbnail = "/images/noimg.jpg" %>
+            <% var imgUrl = "/images/noimg.jpg" %>
+            <% if (userInfo.profile.photo.version) { %>
+              <% imgThumbnail =
+              "https://res.cloudinary.com/dbjdqrw9o/image/upload/w_300,h_300,c_thumb,g_face/v" + userInfo.profile.photo.version + '/' + userInfo._id + '.' + userInfo.profile.photo.format%>
+              <% imgUrl =
+              "https://res.cloudinary.com/dbjdqrw9o/image/upload/dpr_2.0/v" + userInfo.profile.photo.version + '/' + userInfo._id + '.' + userInfo.profile.photo.format%>
+            <% } %>
+            <a href="<%=imgUrl%>" data-fancybox data-caption="<%=userInfo.profile.firstname%> Profile Picture">
+              <img src="<%=imgThumbnail%>" alt="profile picture">
+            </a>
+  				</div>
+  				<div class="profile-usertitle">
+  					<div class="profile-usertitle-name">
+              <% if (userInfo.profile.firstname !== "") { %>
+                <%=userInfo.profile.firstname%>
+              <% } else { %>
+                First Name
+              <% } %>
+  					</div>
+  					<div class="profile-usertitle-job">
+  						<%=user.local.role%>
+  					</div>
+  				</div>
+          <div class="profile-userbuttons">
+            <a href="/browse/view/<%=userInfo._id%>" class="btn btn-grey">View Profile</a>
+          </div>
+        <% } %>
+        <% if (user.local.role === 'employer') { %>
+  				<div class="profile-userpic">
+            <img src='/images/employer.png' alt="profile image">
+  				</div>
+  				<div class="profile-usertitle">
+  					<div class="profile-usertitle-name">
+              <% if (userInfo.profile.fullname !== "") { %>
+                <%=userInfo.profile.fullname%>
+              <% } else { %>
+                Full Name
+              <% } %>
+  					</div>
+  					<div class="profile-usertitle-job">
+  						<%=user.local.role%>
+  					</div>
+  				</div>
+        <% } %>
+				<div class="profile-usermenu">
+					<ul class="nav">
+						<li>
+							<a href="/users/">
+							<i class="fa fa-user"></i>
+							My Account</a>
+						</li>
+            <li class="active">
+							<a href="/users/edit/">
+							<i class="fa fa-pencil-square-o"></i>
+							Edit Details</a>
+						</li>
+						<li>
+							<a href="/users/shortlists">
+							<i class="fa fa-thumb-tack"></i>
+							Shortlists</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-9">
+      <div class="profile-header">My Account</div>
+      <div class="container-fluid editdetails">
+        <p class="header">Edit Personal details
+          <a class="btn btn-darkgrey" href="/users">Back to My Account</a>
+        </p>
+        <div class="borderless">
+          <% if (user.local.role === 'helper') { %>
+            <form method="post" action="/users/<%=user.id%>/edit" enctype="application/x-www-form-urlencoded" class="edithelper" data-helper=<%= userInfoJS %>>
+              <input type="hidden" name="_method" value="PUT">
+              <div class="well well-md">
+                <h3>Profile</h3>
+                <p class="description">Please provide accurate information as they will be used in your application to Ministry of Manpower.</p>
+                <hr>
+                <div class="col-sm-12 nopadding">
+                  <div class="col-sm-4 rightpadding">
+                    <div class="form-group">
+                      <label for="firstname">First name *</label>
+                      <input type="text" class="form-control" id="firstname" name="helper[profile][firstname]" value="<%= userInfo.profile.firstname%>" maxlength="20" autocomplete="given-name">
+                    </div>
+                  </div>
+                  <div class="col-sm-4 rightpadding">
+                    <div class="form-group">
+                      <label for="middlename">Middle name</label>
+                      <input type="text" class="form-control" id="middlename" name="helper[profile][middlename]" value="<%= userInfo.profile.middlename%>" maxlength="20" autocomplete="additional-name">
+                    </div>
+                  </div>
+                  <div class="col-sm-4 nopadding">
+                    <div class="form-group">
+                      <label for="familyname">Family name *</label>
+                      <input type="text" class="form-control" id="familyname" name="helper[profile][familyname]" value="<%= userInfo.profile.familyname%>" maxlength="20" autocomplete="family-name">
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group form-group-dob">
+                  <label for="dob">Date of Birth *</label>
+                  <select class="form-control" id="dob-date">
+                    <option value="">dd</option>
+                    <option value="31">31</option>
+                    <option value="30">30</option>
+                    <option value="29">29</option>
+                    <option value="28">28</option>
+                    <option value="27">27</option>
+                    <option value="26">26</option>
+                    <option value="25">25</option>
+                    <option value="24">24</option>
+                    <option value="23">23</option>
+                    <option value="22">22</option>
+                    <option value="21">21</option>
+                    <option value="20">20</option>
+                    <option value="19">19</option>
+                    <option value="18">18</option>
+                    <option value="17">17</option>
+                    <option value="16">16</option>
+                    <option value="15">15</option>
+                    <option value="14">14</option>
+                    <option value="13">13</option>
+                    <option value="12">12</option>
+                    <option value="11">11</option>
+                    <option value="10">10</option>
+                    <option value="09">09</option>
+                    <option value="08">08</option>
+                    <option value="07">07</option>
+                    <option value="06">06</option>
+                    <option value="05">05</option>
+                    <option value="04">04</option>
+                    <option value="03">03</option>
+                    <option value="02">02</option>
+                    <option value="01">01</option>
+                  </select>
+                  <select class="form-control" id="dob-month">
+                    <option value="">mm</option>
+                    <option value="12">12</option>
+                    <option value="11">11</option>
+                    <option value="10">10</option>
+                    <option value="09">09</option>
+                    <option value="08">08</option>
+                    <option value="07">07</option>
+                    <option value="06">06</option>
+                    <option value="05">05</option>
+                    <option value="04">04</option>
+                    <option value="03">03</option>
+                    <option value="02">02</option>
+                    <option value="01">01</option>
+                  </select>
+                  <select class="form-control" id="dob-year">
+                    <option value="">yyyy</option>
+                  </select>
+                  <input type="text" class="hidden" id="dob" name="helper[profile][dob]" value="<%= userInfo.profile.dob%>">
+                </div>
+                <div class="form-group sixty">
+                  <label for="pob">Place of Birth *</label>
+                  <input type="text" class="form-control" id="pob" name="helper[profile][pob]" value="<%= userInfo.profile.pob%>" maxlength="100">
+                </div>
+                <div class="form-group forty">
+                  <label for="nationality">Nationality *</label>
+                  <select class="form-control" id="nationality" name="helper[profile][nationality]">
+                    <option value="">-- select one --</option>
+                    <option value="Philippines">Philippines</option>
+                    <option value="India">India</option>
+                    <option value="Indonesia">Indonesia</option>
+                    <option value="Myanmar">Myanmar</option>
+                    <option value="Sri_Lanka">Sri Lanka</option>
+                  </select>
+                </div>
+                <div class="col-sm-12 nopadding">
+                  <div class="col-sm-2 col-xs-4 heightrightpadding">
+                    <div class="form-group">
+                      <label for="countrycode">Code *</label>
+                      <input type="string" class="form-control" id="countrycode" name="helper[local][contact][countrycode]" value="<%= user.local.contact.countrycode%>">
+                    </div>
+                  </div>
+                  <% var contactnumber %>
+                  <% if (user.local.contact.number === 0) { %>
+                    <% contactnumber = null %>
+                  <% } else { %>
+                    <% contactnumber = user.local.contact.number %>
+                  <% } %>
+                  <div class="col-sm-4 col-xs-8 nopadding">
+                    <div class="form-group">
+                      <label for="contactnumber">Contact No. *</label>
+                      <input type="tel" class="form-control" id="contactnumber" name="helper[local][contact][number]" value="<%= contactnumber%>" placeholder="Numbers only">
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group sixty">
+                  <label for="residentialaddress">Residential Address *</label>
+                  <input type="text" class="form-control" id="residentialaddress" name="helper[profile][residentialaddress]" value="<%= userInfo.profile.residentialaddress%>" maxlength="100">
+                </div>
+                <div class="form-group forty">
+                  <label for="portrepatriated">Port Repatriated *</label>
+                  <select class="form-control" id="portrepatriated" name="helper[profile][portrepatriated]">
+                    <option value="">-- select one --</option>
+                    <option value="Ninoy_Aquino_International_Airport">Ninoy Aquino International Airport</option>
+                    <option value="Clark_International_Airport">Clark International Airport</option>
+                    <option value="Mactan-Cebu_International_Airport">Mactan-Cebu International Airport</option>
+                  </select>
+                </div>
+                <div class="form-group forty">
+                  <label for="religion">Religion *</label>
+                  <select class="form-control" id="religion" name="helper[profile][religion]">
+                    <option value="">-- select one --</option>
+                    <option value="Buddhist">Buddhist</option>
+                    <option value="Catholic">Catholic</option>
+                    <option value="Christian">Christian</option>
+                    <option value="Hinduism">Hinduism</option>
+                    <option value="Islam">Islam</option>
+                    <option value="Taoist">Taoist</option>
+                    <option value="Others">Others</option>
+                  </select>
+                </div>
+                <div class="form-group forty">
+                  <label for="dietaryrestriction">Dietary Restriction *</label>
+                  <select class="form-control" id="dietaryrestriction" name="helper[profile][dietaryrestriction]">
+                    <option value="">-- select one --</option>
+                    <option value="None">No Dietary Restriction</option>
+                    <option value="No_Beef">Cannot eat Beef</option>
+                    <option value="No_Pork">Cannot eat Pork</option>
+                    <option value="No_Meat">Cannot eat Meat At All</option>
+                  </select>
+                </div>
+                <div class="form-group forty">
+                  <label for="foodhandlingrestriction">Food Handling Restriction *</label>
+                  <select class="form-control" id="foodhandlingrestriction" name="helper[profile][foodhandlingrestriction]">
+                    <option value="">-- select one --</option>
+                    <option value="None">No Food Handling Restriction</option>
+                    <option value="No_Beef">Cannot handle Beef</option>
+                    <option value="No_Pork">Cannot handle Pork</option>
+                  </select>
+                </div>
+                <div class="form-group forty">
+                  <label for="allergies">Allergies <span class="substring">(if any)</span></label>
+                  <input type="text" class="form-control" id="allergies" name="helper[profile][allergies]" value="<%= userInfo.profile.allergies%>" maxlength="50">
+                </div>
+                <div class="col-sm-12 nopadding">
+                  <div class="col-sm-3 col-xs-6 heightrightpadding">
+                    <div class="form-group">
+                      <label for="heightcm">Height <span class="substring">(cm)</span> *</label>
+                      <input type="tel" class="form-control" id="heightcm" name="helper[profile][heightcm]" value="<%= userInfo.profile.heightcm%>"
+                      maxlength="3">
+                    </div>
+                  </div>
+                  <div class="col-sm-3 col-xs-6 nopadding">
+                    <div class="form-group">
+                      <label for="weightkg">Weight <span class="substring">(kg)</span> *</label>
+                      <input type="tel" class="form-control" id="weightkg" name="helper[profile][weightkg]" value="<%= userInfo.profile.weightkg%>"
+                      maxlength="3">
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group thirty">
+                  <label for="siblings">No of Siblings</label>
+                  <select class="form-control" id="siblings" name="helper[profile][siblings]">
+                    <option value="0">0</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                  </select>
+                </div>
+                <div class="form-group thirty">
+                  <label for="maritalstatus">Marital Status *</label>
+                  <select class="form-control" id="maritalstatus" name="helper[profile][maritalstatus]">
+                    <option value="">-- select one --</option>
+                    <option value="Single">Single</option>
+                    <option value="Married">Married</option>
+                    <option value="Widowed">Widowed</option>
+                    <option value="Separated">Separated</option>
+                    <option value="Divorced">Divorced</option>
+                  </select>
+                </div>
+                <div class="form-group thirty">
+                  <label for="children">No of Children</label>
+                  <select class="form-control" id="children" name="helper[profile][children]">
+                    <option value="0">0</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                  </select>
+                </div>
+                <div class="form-group form-group-children thirty hidden">
+                  <label for="ageofyoungest">Age of Youngest Child <span class="substring">(years)</span></label>
+                  <input type="tel" class="form-control" id="ageofyoungest" name="helper[profile][ageofyoungest]" value="<%= userInfo.profile.ageofyoungest%>"
+                  maxlength="2">
+                </div>
+              </div>
+              <div class="well well-md">
+                <h3>Education</h3>
+                <p class="description">Please provide accurate information as they will be used in your application to Ministry of Manpower.</p>
+                <hr>
+                <div class="form-group forty">
+                  <label for="educationlevel">Education Level *</label>
+                  <select class="form-control" id="educationlevel" name="helper[education][educationlevel]">
+                    <option value="">-- select one --</option>
+                    <option value="Primary">Primary/Elementary</option>
+                    <option value="Secondary">Secondary/High School</option>
+                    <option value="Undergraduate">Undergraduate Level - University/College</option>
+                    <option value="Graduate">Graduate Level - University/College</option>
+                  </select>
+                </div>
+                <div class="form-group forty">
+                  <label for="fieldofstudy">Field of Study *</label>
+                  <input type="text" class="form-control" id="fieldofstudy" name="helper[education][fieldofstudy]" value="<%= userInfo.education.fieldofstudy%>" maxlength="50">
+                </div>
+                <div class="form-group sixty">
+                  <label for="otherqualifications">Other Qualifications:</label>
+                  <textarea class="form-control" rows="3" id="otherqualifications" name="helper[education][otherqualifications]"maxlength="300"></textarea>
+                </div>
+              </div>
+              <div class="well well-md helperskills">
+                <h3>Skills</h3>
+                <p class="description">Please provide accurate information as they will be used in your application to Ministry of Manpower.</p>
+                <hr>
+                <div class="container-fluid">
+                  <div class="form-group col-sm-12 col-xs-12">
+                    <div class="col-sm-5 col-xs-4"></div>
+                    <div class="col-sm-2 col-xs-4 skillsheader">Yes</div>
+                    <div class="col-sm-2 col-xs-4 skillsheader">No</div>
+                  </div>
+                  <div class="form-group col-sm-12 col-xs-12">
+                    <div class="skillsradio">
+                      <div class="col-sm-5 col-xs-4 skillsquestion">Speak English<span>&#63;</span></div>
+                      <div class="col-sm-2 col-xs-4">
+                        <input type="radio" id="englishyes" name="helper[skills][english]" value="true">
+                        <label for="englishyes" class="fa fa-check yesSign skillsicon" aria-hidden="true"></label>
+                      </div>
+                      <div class="col-sm-2 col-xs-4">
+                        <input type="radio" id="englishno" name="helper[skills][english]" value="false">
+                        <label for="englishno" class="fa fa-times noSign skillsicon" aria-hidden="true"></label>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group col-sm-12 col-xs-12">
+                    <div class="skillsradio">
+                      <div class="col-sm-5 col-xs-4 skillsquestion">Worked in Singapore before<span>&#63;</span></div>
+                      <div class="col-sm-2 col-xs-4">
+                        <input type="radio" id="singaporeyes" name="helper[skills][singapore]" value="true">
+                        <label for="singaporeyes" class="fa fa-check yesSign skillsicon" aria-hidden="true"></label>
+                      </div>
+                      <div class="col-sm-2 col-xs-4">
+                        <input type="radio" id="singaporeno" name="helper[skills][singapore]" value="false">
+                        <label for="singaporeno" class="fa fa-times noSign skillsicon" aria-hidden="true"></label>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group col-sm-12 col-xs-12">
+                    <div class="skillsradio">
+                      <div class="col-sm-5 col-xs-4 skillsquestion">Take care of infants<span>&#63;</span></div>
+                      <div class="col-sm-2 col-xs-4">
+                        <input type="radio" id="infantcareyes" name="helper[skills][infantcare]" value="true">
+                        <label for="infantcareyes" class="fa fa-check yesSign skillsicon" aria-hidden="true"></label>
+                      </div>
+                      <div class="col-sm-2 col-xs-4">
+                        <input type="radio" id="infantcareno" name="helper[skills][infantcare]" value="false">
+                        <label for="infantcareno" class="fa fa-times noSign skillsicon" aria-hidden="true"></label>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group col-sm-12 col-xs-12">
+                    <div class="skillsradio">
+                      <div class="col-sm-5 col-xs-4 skillsquestion">Take care of children<span>&#63;</span></div>
+                      <div class="col-sm-2 col-xs-4">
+                        <input type="radio" id="childcareyes" name="helper[skills][childcare]" value="true">
+                        <label for="childcareyes" class="fa fa-check yesSign skillsicon" aria-hidden="true"></label>
+                      </div>
+                      <div class="col-sm-2 col-xs-4">
+                        <input type="radio" id="childcareno" name="helper[skills][childcare]" value="false">
+                        <label for="childcareno" class="fa fa-times noSign skillsicon" aria-hidden="true"></label>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group col-sm-12 col-xs-12">
+                    <div class="skillsradio">
+                      <div class="col-sm-5 col-xs-4 skillsquestion">Take care of elderly<span>&#63;</span></div>
+                      <div class="col-sm-2 col-xs-4">
+                        <input type="radio" id="elderlycareyes" name="helper[skills][elderlycare]" value="true">
+                        <label for="elderlycareyes" class="fa fa-check yesSign skillsicon" aria-hidden="true"></label>
+                      </div>
+                      <div class="col-sm-2 col-xs-4">
+                        <input type="radio" id="elderlycareno" name="helper[skills][elderlycare]" value="false">
+                        <label for="elderlycareno" class="fa fa-times noSign skillsicon" aria-hidden="true"></label>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group col-sm-12 col-xs-12">
+                    <div class="skillsradio">
+                      <div class="col-sm-5 col-xs-4 skillsquestion">Take care of disabled<span>&#63;</span></div>
+                      <div class="col-sm-2 col-xs-4">
+                        <input type="radio" id="disabledcareyes" name="helper[skills][disabledcare]" value="true">
+                        <label for="disabledcareyes" class="fa fa-check yesSign skillsicon" aria-hidden="true"></label>
+                      </div>
+                      <div class="col-sm-2 col-xs-4">
+                        <input type="radio" id="disabledcareno" name="helper[skills][disabledcare]" value="false">
+                        <label for="disabledcareno" class="fa fa-times noSign skillsicon" aria-hidden="true"></label>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group col-sm-12 col-xs-12">
+                    <div class="skillsradio">
+                      <div class="col-sm-5 col-xs-4 skillsquestion">Housework<span>&#63;</span></div>
+                      <div class="col-sm-2 col-xs-4">
+                        <input type="radio" id="houseworkyes" name="helper[skills][housework]" value="true">
+                        <label for="houseworkyes" class="fa fa-check yesSign skillsicon" aria-hidden="true"></label>
+                      </div>
+                      <div class="col-sm-2 col-xs-4">
+                        <input type="radio" id="houseworkno" name="helper[skills][housework]" value="false">
+                        <label for="houseworkno" class="fa fa-times noSign skillsicon" aria-hidden="true"></label>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group col-sm-12 col-xs-12">
+                    <div class="skillsradio">
+                      <div class="col-sm-5 col-xs-4 skillsquestion">Cooking<span>&#63;</span></div>
+                      <div class="col-sm-2 col-xs-4">
+                        <input type="radio" id="cookingyes" name="helper[skills][cooking]" value="true">
+                        <label for="cookingyes" class="fa fa-check yesSign skillsicon" aria-hidden="true"></label>
+                      </div>
+                      <div class="col-sm-2 col-xs-4">
+                        <input type="radio" id="cookingno" name="helper[skills][cooking]" value="false">
+                        <label for="cookingno" class="fa fa-times noSign skillsicon" aria-hidden="true"></label>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group col-sm-12 col-xs-12">
+                    <div class="skillsradio">
+                      <div class="col-sm-5 col-xs-4 skillsquestion">Handle dogs<span>&#63;</span></div>
+                      <div class="col-sm-2 col-xs-4">
+                        <input type="radio" id="handledogyes" name="helper[skills][handledog]" value="true">
+                        <label for="handledogyes" class="fa fa-check yesSign skillsicon" aria-hidden="true"></label>
+                      </div>
+                      <div class="col-sm-2 col-xs-4">
+                        <input type="radio" id="handledogno" name="helper[skills][handledog]" value="false">
+                        <label for="handledogno" class="fa fa-times noSign skillsicon" aria-hidden="true"></label>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group col-sm-12 col-xs-12">
+                    <div class="skillsradio">
+                      <div class="col-sm-5 col-xs-4 skillsquestion">Handle cats<span>&#63;</span></div>
+                      <div class="col-sm-2 col-xs-4">
+                        <input type="radio" id="handlecatyes" name="helper[skills][handlecat]" value="true">
+                        <label for="handlecatyes" class="fa fa-check yesSign skillsicon" aria-hidden="true"></label>
+                      </div>
+                      <div class="col-sm-2 col-xs-4">
+                        <input type="radio" id="handlecatno" name="helper[skills][handlecat]" value="false">
+                        <label for="handlecatno" class="fa fa-times noSign skillsicon" aria-hidden="true"></label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="well well-md">
+                <h3>Working Experience <span class="substring">optional</span></h3>
+                <p class="description">Please provide accurate information as they will be used in your application to Ministry of Manpower.</p>
+                <hr>
+                <div class="container-fluid nopadding">
+                  <div class="col-sm-12 col-xs-12 nopadding">
+                    <h4 class="workexperienceheader">First</h4>
+                    <div class="col-sm-3 col-xs-6">
+                      <div class="form-group">
+                        <label for="firstfrom">From</label>
+                        <select class="form-control workingexperienceyear" id="firstfrom" name="helper[workingexperience][first][from]">
+                          <option value="">Year</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="col-sm-3 col-xs-6">
+                      <div class="form-group">
+                        <label for="firstto">To</label>
+                        <select class="form-control workingexperienceyear" id="firstto" name="helper[workingexperience][first][to]">
+                          <option value="">Year</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="col-sm-6 col-xs-12">
+                      <div class="form-group">
+                        <label for="firstcountry">Country</label>
+                        <select class="form-control" id="firstcountry" name="helper[workingexperience][first][country]">
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-sm-12 col-xs-12">
+                    <div class="form-group">
+                      <label for="firstduties">Duties</label>
+                      <textarea class="form-control" rows="4" id="firstduties" name="helper[workingexperience][first][duties]" maxlength="300" maxlength="300"></textarea>
+                    </div>
+                  </div>
+                  <div class="col-sm-12 col-xs-12 nopadding">
+                    <p class="hrnotworking"></p>
+                    <h4 class="workexperienceheader">Second</h4>
+                    <div class="col-sm-3 col-xs-6">
+                      <div class="form-group">
+                        <label for="secondfrom">From</label>
+                        <select class="form-control workingexperienceyear" id="secondfrom" name="helper[workingexperience][second][from]">
+                          <option value="">Year</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="col-sm-3 col-xs-6">
+                      <div class="form-group">
+                        <label for="secondto">To</label>
+                        <select class="form-control workingexperienceyear" id="secondto" name="helper[workingexperience][second][to]">
+                          <option value="">Year</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="col-sm-6 col-xs-12">
+                      <div class="form-group">
+                        <label for="secondcountry">Country</label>
+                        <select class="form-control" id="secondcountry" name="helper[workingexperience][second][country]">
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-sm-12 col-xs-12">
+                    <div class="form-group">
+                      <label for="secondduties">Duties</label>
+                      <textarea class="form-control" rows="4" id="secondduties" name="helper[workingexperience][second][duties]" maxlength="300"></textarea>
+                    </div>
+                  </div>
+                  <div class="col-sm-12 col-xs-12 nopadding">
+                    <p class="hrnotworking"></p>
+                    <h4 class="workexperienceheader">Third</h4>
+                    <div class="col-sm-3 col-xs-6">
+                      <div class="form-group">
+                        <label for="thirdfrom">From</label>
+                        <select class="form-control workingexperienceyear" id="thirdfrom" name="helper[workingexperience][third][from]">
+                          <option value="">Year</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="col-sm-3 col-xs-6">
+                      <div class="form-group">
+                        <label for="thirdto">To</label>
+                        <select class="form-control workingexperienceyear" id="thirdto" name="helper[workingexperience][third][to]">
+                          <option value="">Year</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="col-sm-6 col-xs-12">
+                      <div class="form-group">
+                        <label for="thirdcountry">Country</label>
+                        <select class="form-control" id="thirdcountry" name="helper[workingexperience][third][country]">
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-sm-12 col-xs-12">
+                    <div class="form-group">
+                      <label for="thirdduties">Duties</label>
+                      <textarea class="form-control" rows="4" id="thirdduties" name="helper[workingexperience][third][duties]" maxlength="300"></textarea>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <input type="hidden" id="saveOrSubmit" name="helper[saveOrSubmit]" value="submit">
+              <div class="edithelperformbuttons">
+                <% if (!user.available) { %>
+                  <button type="submit" class="btn btn-grey" id="edithelpersave">Save</button>
+                <% } %>
+                <button type="submit" class="btn btn-success" id="edithelpersubmit">Submit</button>
+              </div>
+            </form>
+          <% } %>
+
+          <% if (user.local.role === 'employer') { %>
+            <form method="post" action="/users/<%=user.id%>/edit" enctype="application/x-www-form-urlencoded" class="editemployer" data-employer=<%= userInfoJS %>>
+              <input type="hidden" name="_method" value="PUT">
+              <div class="well well-md">
+                <h3>Profile</h3>
+                <p class="description">Please provide accurate information as they will be used in your application to Ministry of Manpower.</p>
+                <hr>
+                <div class="form-group">
+                  <label for="fullname">Full name *</label>
+                  <input type="text" class="form-control" id="fullname" name="employer[profile][fullname]" value="<%= userInfo.profile.fullname%>" placeholder="Full name as per NRIC" maxlength="50" autocomplete="name">
+                </div>
+                <% if (user.local.contact.number === 0) { %>
+                  <% contactnumber = null %>
+                <% } else { %>
+                  <% contactnumber = user.local.contact.number %>
+                <% } %>
+                <div class="form-group">
+                  <label for="contactnumber">Contact No. *</label>
+                  <input type="tel" class="form-control" id="contactnumber" name="employer[local][contact][number]" value="<%= contactnumber%>" placeholder="Numbers only" maxlength="8" autocomplete="tel">
+                </div>
+                <div class="form-group">
+                  <label for="housetype">Housing Type *</label>
+                  <select class="form-control" id="housetype" name="employer[profile][housetype]">
+                    <option value="">-- select one --</option>
+                    <option value="Landed">Landed Property</option>
+                    <option value="Condominium/_Private_Apartment">Condominium / Private Apartment</option>
+                    <option value="HDB_5-room_/_Executive_Condominium">HDB 5-room / Executive Condominium</option>
+                    <option value="HDB_4-room_or_smaller">HDB 4-room or smaller</option>
+                    <option value="Others">Others</option>
+                  </select>
+                  <input type="text" class="form-control housetypeother hidden" name="employer[profile][housetype]" placeholder="Please specify">
+                </div>
+                <div class="col-xs-12 col-md-12 nopadding">
+                  <div class="col-xs-7 col-sm-3 rightpadding">
+                    <div class="form-group">
+                      <label for="blockhouseno">Block / House No. *</label>
+                      <input type="text" class="form-control" id="blockhouseno" name="employer[profile][blockhouseno]" value="<%= userInfo.profile.blockhouseno%>" maxlength="20">
+                    </div>
+                  </div>
+                  <div class="col-xs-5 col-sm-3 nopadding">
+                    <div class="form-group form-group-unitno">
+                      <label for="unitno">Unit No. *</label>
+                      <input type="text" class="form-control" id="unitno" name="employer[profile][unitno]" value="<%= userInfo.profile.unitno%>"
+                      maxlength="20">
+                    </div>
+                  </div>
+                </div>
+                <div class="col-xs-12 col-md-12 nopadding">
+                  <div class="col-sm-8 rightpaddingstreetname">
+                    <div class="form-group">
+                      <label for="streetname">Street Name *</label>
+                      <input type="text" class="form-control" id="streetname" name="employer[profile][streetname]" value="<%= userInfo.profile.streetname%>" maxlength="50" autocomplete="street-address">
+                    </div>
+                  </div>
+                  <div class="col-sm-4 nopadding">
+                    <div class="form-group">
+                      <label for="postalcode">Postal Code *</label>
+                      <input type="tel" class="form-control" id="postalcode" name="employer[profile][postalcode]" value="<%= userInfo.profile.postalcode%>"
+                      placeholder="Numbers only" maxlength="6" autocomplete="postal-code">
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="maritalstatus">Marital Status *</label>
+                  <select class="form-control" id="maritalstatus" name="employer[profile][maritalstatus]">
+                    <option value="">-- select one --</option>
+                    <option value="Single">Single</option>
+                    <option value="Married">Married</option>
+                    <option value="Widowed">Widowed</option>
+                    <option value="Separated">Separated</option>
+                    <option value="Divorced">Divorced</option>
+                  </select>
+                </div>
+              </div>
+              <div class="well well-md household">
+                <h3>Household</h3>
+                <p class="description">Please provide accurate information as they will be forwarded to your prospective domestic helper.</p>
+                <hr>
+                <h4>Number of:</h4>
+                <div class="form-group">
+                  <label for="adult">Adults</label>
+                  <select class="form-control" id="adult" name="employer[household][adult]">
+                    <option value="0">0</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="teenager">Teenagers</label>
+                  <select class="form-control" id="teenager" name="employer[household][teenager]">
+                    <option value="0">0</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="children">Children<br>
+                  (3 - 5 years)</label>
+                  <select class="form-control" id="children" name="employer[household][children]">
+                    <option value="0">0</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="infant">Infants<br>
+                  (0 - 2 years)</label>
+                  <select class="form-control" id="infant" name="employer[household][infant]">
+                    <option value="0">0</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="elderly">Elderly</label>
+                  <select class="form-control" id="elderly" name="employer[household][elderly]">
+                    <option value="0">0</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="disabled">Disabled</label>
+                  <select class="form-control" id="disabled" name="employer[household][disabled]">
+                    <option value="0">0</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                  </select>
+                </div>
+                <label>Total</label>
+                <p class="totalnoinhousehold"></p>
+              </div>
+              <div class="well well-md jobscope">
+                <h3>Job Scope</h3>
+                <p class="description">Please state your preferences so that you can be matched to an appropriate domestic helper.</p>
+                <hr>
+                <div class="form-group">
+                  <p>You may choose more than one</p>
+                  <p><span class="green"><i class="glyphicon glyphicon-stop"></i> Yes</span><span class="grey"><i class="glyphicon glyphicon-stop"></i> No</span></p>
+                  <label class="checkbox-inline">
+                    <div class="jobscopetrue">
+                      <input type="checkbox" id="infantcare" name="employer[jobscope][infantcare]" value="true">
+                      <img class="jobscopeicon" src="../../images/logo/infantcareblack.png" alt="infantcare icon"/>
+                    </div>
+                    <input type="hidden" id="infantcarehidden" name="employer[jobscope][infantcare]" value="false">
+                    <p class="jobscopeiconlabel">Infant Care</p>
+                  </label>
+                  <label class="checkbox-inline">
+                    <div class="jobscopetrue">
+                      <input type="checkbox" id="childcare" name="employer[jobscope][childcare]" value="true">
+                      <img class="jobscopeicon" src="../../images/logo/childcareblack.png" alt="childcare icon"/>
+                    </div>
+                    <input type="hidden" id="childcarehidden" name="employer[jobscope][childcare]" value="false">
+                    <p class="jobscopeiconlabel">Child Care</p>
+                  </label>
+                  <label class="checkbox-inline">
+                    <div class="jobscopetrue">
+                      <input type="checkbox" id="elderlycare" name="employer[jobscope][elderlycare]" value="true">
+                      <img class="jobscopeicon" src="../../images/logo/elderlycareblack.png" alt="elderly icon"/>
+                    </div>
+                    <input type="hidden" id="elderlycarehidden" name="employer[jobscope][elderlycare]" value="false">
+                    <p class="jobscopeiconlabel">Elderly Care</p>
+                  </label>
+                  <label class="checkbox-inline">
+                    <div class="jobscopetrue">
+                      <input type="checkbox" id="disabledcare" name="employer[jobscope][disabledcare]" value="true">
+                      <img class="jobscopeicon" src="../../images/logo/disabledcareblack.png" alt="disabledcare icon"/>
+                    </div>
+                    <input type="hidden" id="disabledcarehidden" name="employer[jobscope][disabledcare]" value="false">
+                    <p class="jobscopeiconlabel">Disabled Care</p>
+                  </label>
+                </div>
+                <div class="form-group">
+                  <label class="checkbox-inline">
+                    <div class="jobscopetrue">
+                      <input type="checkbox" id="housework" name="employer[jobscope][housework]" value="true">
+                      <img class="jobscopeicon" src="../../images/logo/houseworkblack.png" alt="housework icon"/>
+                    </div>
+                    <input type="hidden" id="houseworkhidden" name="employer[jobscope][housework]" value="false">
+                    <p class="jobscopeiconlabel">Housework</p>
+                  </label>
+                  <label class="checkbox-inline">
+                    <div class="jobscopetrue">
+                      <input type="checkbox" id="cooking" name="employer[jobscope][cooking]" value="true">
+                      <img class="jobscopeicon" src="../../images/logo/cookingblack.png" alt="cooking icon"/>
+                    </div>
+                    <input type="hidden" id="cookinghidden" name="employer[jobscope][cooking]" value="false">
+                    <p class="jobscopeiconlabel">Cooking</p>
+                  </label>
+                  <label class="checkbox-inline">
+                    <div class="jobscopetrue">
+                      <input type="checkbox" id="handledog" name="employer[jobscope][handledog]" value="true">
+                      <img class="jobscopeicon" src="../../images/logo/handledogblack.png" alt="handledog icon"/>
+                    </div>
+                    <input type="hidden" id="handledoghidden" name="employer[jobscope][handledog]" value="false">
+                    <p class="jobscopeiconlabel">Handle Dog</p>
+                  </label>
+                  <label class="checkbox-inline">
+                    <div class="jobscopetrue">
+                      <input type="checkbox" id="handlecat" name="employer[jobscope][handlecat]" value="true">
+                      <img class="jobscopeicon" src="../../images/logo/handlecatblack.png" alt="handlecat icon"/>
+                    </div>
+                    <input type="hidden" id="handlecathidden" name="employer[jobscope][handlecat]" value="false">
+                    <p class="jobscopeiconlabel">Handle Cat</p>
+                  </label>
+                </div>
+                <div class="form-group">
+                  <label for="otherduties">Other duties <span class="optional">optional</span></label>
+                  <textarea class="form-control" rows="5" id="otherduties" name="employer[jobscope][otherduties]" placeholder="Specific details if applicable, for example, look after a bedridden old woman" maxlength="300"></textarea>
+                </div>
+              </div>
+              <input type="hidden" id="saveOrSubmit" name="employer[saveOrSubmit]" value="submit">
+              <div class="editemployerformbuttons">
+                <% if (!user.recruit) { %>
+                  <button type="submit" class="btn btn-grey" id="editemployersave">Save</button>
+                <% } %>
+                <button type="submit" class="btn btn-success" id="editemployersubmit">Submit</button>
+              </div>
+            </form>
+          <% } %>
+        </div>
+      </div>
+	  </div>
+  </div>
+</div>

@@ -1,0 +1,322 @@
+<% if(message.length > 0) { %>
+  <div class="erroralert">
+    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+    <%= message[0] %>
+  </div>
+<% } %>
+
+<div class="container-fluid">
+  <div class="row profile-row">
+		<div class="col-md-3">
+			<div class="profile-sidebar">
+        <% if (user.local.role === 'helper') { %>
+  				<div class="profile-userpic">
+            <% var imgThumbnail = "/images/noimg.jpg" %>
+            <% var imgUrl = "/images/noimg.jpg" %>
+            <% if (userInfo.profile.photo.version) { %>
+              <% imgThumbnail =
+              "https://res.cloudinary.com/dbjdqrw9o/image/upload/w_300,h_300,c_thumb,g_face/v" + userInfo.profile.photo.version + '/' + userInfo._id + '.' + userInfo.profile.photo.format%>
+              <% imgUrl =
+              "https://res.cloudinary.com/dbjdqrw9o/image/upload/v" + userInfo.profile.photo.version + '/' + userInfo._id + '.' + userInfo.profile.photo.format%>
+            <% } %>
+            <a href="<%=imgUrl%>" data-fancybox data-caption="<%=userInfo.profile.firstname%> Profile Picture">
+              <img src="<%=imgThumbnail%>" alt="profile picture">
+            </a>
+  				</div>
+  				<div class="profile-usertitle">
+  					<div class="profile-usertitle-name">
+              <% if (userInfo.profile.firstname !== "") { %>
+                <%=userInfo.profile.firstname%>
+              <% } else { %>
+                First Name
+              <% } %>
+  					</div>
+  					<div class="profile-usertitle-job">
+  						<%=user.local.role%>
+  					</div>
+  				</div>
+  				<div class="profile-userbuttons">
+            <form action="/users/uploadphoto" method="post" enctype="multipart/form-data" id="uploadphotoform">
+              <label class="btn btn-primary">
+                  Upload Photo
+                  <input type="file" name="photo" style="display: none;" onchange="submitPhotoForm()">
+              </label>
+            </form>
+            <a href="/browse/view/<%=userInfo._id%>" class="btn btn-grey">View Profile</a>
+  				</div>
+        <% } %>
+        <% if (user.local.role === 'employer') { %>
+  				<div class="profile-userpic">
+            <img src='/images/employer.png' alt="profile image">
+  				</div>
+  				<div class="profile-usertitle">
+  					<div class="profile-usertitle-name">
+              <% if (userInfo.profile.fullname !== "") { %>
+                <%=userInfo.profile.fullname%>
+              <% } else { %>
+                Full Name
+              <% } %>
+  					</div>
+  					<div class="profile-usertitle-job">
+  						<%=user.local.role%>
+  					</div>
+  				</div>
+        <% } %>
+				<div class="profile-usermenu">
+					<ul class="nav">
+						<li class="active">
+							<a href="/users/">
+							<i class="fa fa-user"></i>
+							My Account</a>
+						</li>
+            <li>
+							<a href="/users/edit/">
+							<i class="fa fa-pencil-square-o"></i>
+							Edit Details</a>
+						</li>
+						<li>
+							<a href="/users/shortlists">
+							<i class="fa fa-thumb-tack"></i>
+							Shortlists</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-9">
+      <div class="profile-header">My Account</div>
+      <% if ((user.local.role === 'helper' && !user.available) || (user.local.role === 'helper' && !userInfo.profile.photo.version) || (user.local.role === 'helper' && !user.activate.status)) { %>
+        <div class="profile-header-alert">
+          <% if (!user.activate.status) { %>
+            <p><i class="glyphicon glyphicon-ban-circle"></i> Account is not activated. Your profile cannot be displayed for hire. <a class="clickhere" href="/users/activate">Click here</a></p>
+          <% } %>
+          <% if (!user.available) { %>
+            <p><i class="glyphicon glyphicon-ban-circle"></i> Personal Detail is incomplete. Your profile cannot be displayed for hire. <a class="clickhere" href="/users/edit/">Click here</a></p>
+          <% } %>
+          <% if (!userInfo.profile.photo.version) { %>
+            <p><i class="glyphicon glyphicon-camera"></i> Warning! You have no display photo.</p>
+          <% } %>
+        </div>
+      <% } %>
+      <% if (user.local.role === 'employer' && !user.recruit) { %>
+        <div class="profile-header-alert">
+          <p><i class="glyphicon glyphicon-ban-circle"></i> Personal Detail is incomplete. You are unable to hire helpers. <a class="clickhere" href="/users/edit/">Click here</a></p>
+        </div>
+      <% } %>
+
+      <div class="profile-content">
+        <h3>Account Details</h3>
+        <hr>
+        <p>Email: <span><%=user.local.email%></span></p>
+        <p>Password: <span>*** ***</span><a href="<%='/password/validate/' + user.id%>">Change</a></p>
+        <% if (user.local.role === 'helper') { %>
+          <p>Passport No: <span><%=user.local.identification%></span><a class="profile-changeidentification" href="#">Change</a></p>
+        <% } else if (user.local.role === 'employer') { %>
+          <p>NRIC: <span><%=user.local.identification%></span><a class="profile-changeidentification" href="#">Change</a></p>
+        <% } %>
+      </div>
+
+      <div class="profile-content">
+        <h3>Personal Details</h3>
+        <a class="btn btn-darkgrey" href="/users/edit/">Edit Details</a>
+        <hr>
+        <% if (user.local.role === 'helper') { %>
+          <h4><span>Profile</span></h4>
+          <p>Full Name: <span>
+            <%= userInfo.profile.firstname + ' ' + userInfo.profile.middlename + ' ' + userInfo.profile.familyname %></span></p>
+          <p>Date of Birth: <span>
+            <% var monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'] %>
+            <% var dob = userInfo.profile.dob %>
+            <% var ddmmyyyy %>
+            <% if (dob && Date.parse(dob)) { %>
+              <% ddmmyyyy = dob.getDate().toString() + ' ' + monthNames[dob.getMonth()] + ' ' + dob.getFullYear().toString() %>
+              <% var today = new Date() %>
+              <% var birthDate = new Date(dob) %>
+              <% var age = today.getFullYear() - birthDate.getFullYear() %>
+              <% var m = today.getMonth() - birthDate.getMonth() %>
+              <% if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) { %>
+                <% age-- %>
+              <% } %>
+              <% var ddmmyyyyage = ddmmyyyy + ', ' + age + ' yrs old' %>
+            <% } else { %>
+              <% ddmmyyyyage = "" %>
+            <% } %>
+          <%=ddmmyyyyage%></span></p>
+          <p>Place of Birth: <span><%=userInfo.profile.pob%></span></p>
+          <p>Nationality: <span><%=(userInfo.profile.nationality).replace(/_/g, ' ')%></span></p>
+          <p>Contact Number: <span>
+            <% if (user.local.contact.number !== 0) { %>
+              <%=user.local.contact.countrycode + ' ' + user.local.contact.number%>
+            <% } %>
+          </span></p>
+          <p>Residential Address: <span><%=userInfo.profile.residentialaddress%></span></p>
+          <p>Port Repatriated: <span><%=(userInfo.profile.portrepatriated).replace(/_/g, ' ')%></span></p>
+          <p>Religion: <span><%=userInfo.profile.religion%></span></p>
+          <p>Dietary Restriction: <span><%=(userInfo.profile.dietaryrestriction).replace(/_/g, ' ')%></span></p>
+          <p>Food Handling Restriction: <span><%=(userInfo.profile.foodhandlingrestriction).replace(/_/g, ' ')%></span></p>
+          <% if (userInfo.profile.allergies !== "") { %>
+            <p>Allergies: <span><%=userInfo.profile.allergies%></span></p>
+          <% } %>
+          <p>Height: <span>
+            <% if (userInfo.profile.heightcm > 0) { %>
+              <%=userInfo.profile.heightcm%>cm
+            <% } %></span>
+          </p>
+          <p>Weight: <span>
+          <% if (userInfo.profile.weightkg > 0) { %>
+            <%=userInfo.profile.weightkg%>kg
+          <% } %></span>
+          </p>
+          <p>No of Siblings: <span><%=userInfo.profile.siblings%></span></p>
+          <p>Marital Status: <span><%=userInfo.profile.maritalstatus%></span></p>
+          <p>No of Children: <span><%=userInfo.profile.children%></span></p>
+          <% if (userInfo.profile.ageofyoungest > 0) { %>
+            <p>Age of Youngest: <span><%=userInfo.profile.ageofyoungest%></span></p>
+          <% } %>
+
+          <h4><span>Education</span></h4>
+          <p>Education Level: <span><%=userInfo.education.educationlevel%></span></p>
+          <p>Field of Study: <span><%=userInfo.education.fieldofstudy%></span></p>
+          <% if (userInfo.education.otherqualifications !== "") { %>
+            <p>Other Qualifications: </p>
+            <span>
+              <textarea readonly class="form-control" rows="3"><%=userInfo.education.otherqualifications%></textarea>
+            </span>
+          <% } %>
+
+          <h4><span>Skills</span></h4>
+          <% function skillsboolean (params) { %>
+            <% if (params) { %>
+              <span class="skillsyes">Yes <i class="glyphicon glyphicon-ok-circle"></i></span>
+            <% } else if (!params) { %>
+              <span class="skillsno">No <i class="glyphicon glyphicon-remove-circle"></i></span>
+            <% } %>
+          <% } %>
+          <p><label class="skillstextwidth">Speak English&#63;</label>
+          <% skillsboolean(userInfo.skills.english) %></p>
+          <p><label class="skillstextwidth">Worked in Singapore before&#63;</label>
+          <% skillsboolean(userInfo.skills.singapore) %></p>
+          <p><label class="skillstextwidth">Take care of infants&#63;</label>
+          <% skillsboolean(userInfo.skills.infantcare) %></p>
+          <p><label class="skillstextwidth">Take care of children&#63;</label>
+          <% skillsboolean(userInfo.skills.childcare) %></p>
+          <p><label class="skillstextwidth">Take care of elderly&#63;</label>
+          <% skillsboolean(userInfo.skills.elderlycare) %></p>
+          <p><label class="skillstextwidth">Take care of disabled&#63;</label>
+          <% skillsboolean(userInfo.skills.disabledcare) %></p>
+          <p><label class="skillstextwidth">Housework&#63;</label>
+          <% skillsboolean(userInfo.skills.housework) %></p>
+          <p><label class="skillstextwidth">Cooking&#63;</label>
+          <% skillsboolean(userInfo.skills.cooking) %></p>
+          <p><label class="skillstextwidth">Handle dogs&#63;</label>
+          <% skillsboolean(userInfo.skills.handledog) %></p>
+          <p><label class="skillstextwidth">Handle cats&#63;</label>
+          <% skillsboolean(userInfo.skills.handlecat) %></p>
+
+          <h4><span>Working Experience</span></h4>
+          <% function workingexperiencehtml (from, to, country, duties) { %>
+            <% if (from && to && country !== '' && duties) { %>
+              <p class="workingexperiencep"><%=from.toString() + ' - ' + to.toString() + ', ' + country.replace(/_/g, ' ')%></p>
+              <span>
+                <textarea readonly class="form-control" rows="3"><%=duties%></textarea>
+              </span>
+            <% } %>
+          <% } %>
+          <% workingexperiencehtml(userInfo.workingexperience.first.from, userInfo.workingexperience.first.to, userInfo.workingexperience.first.country, userInfo.workingexperience.first.duties) %>
+          <% workingexperiencehtml(userInfo.workingexperience.second.from, userInfo.workingexperience.second.to, userInfo.workingexperience.second.country, userInfo.workingexperience.second.duties) %>
+          <% workingexperiencehtml(userInfo.workingexperience.third.from, userInfo.workingexperience.third.to, userInfo.workingexperience.third.country, userInfo.workingexperience.third.duties) %>
+        <% } %>
+        <% if (user.local.role === 'employer') { %>
+          <h4><span>Profile</span></h4>
+          <p>Full Name: <span><%= userInfo.profile.fullname%></span></p>
+          <p>Contact Number: <span>
+            <% if (user.local.contact.number !== 0) { %>
+              <%=user.local.contact.countrycode + ' ' + user.local.contact.number%>
+            <% } %>
+          </span></p>
+          <p>Housing Type: <span>
+            <% if (userInfo.profile.housetype.split(',')[0] === 'Others') { %>
+              <%= userInfo.profile.housetype.replace(/,/, ', ')%>
+            <% } else { %>
+              <%= userInfo.profile.housetype.split(',')[0].replace(/_/g, ' ')%>
+            <% } %>
+          </span></p>
+          <p>Address: <span>
+            <% if (userInfo.profile.housetype.split(',')[0] === 'Landed') { %>
+              <%= userInfo.profile.blockhouseno + ' ' + userInfo.profile.streetname %>
+            <% } else { %>
+              <%= userInfo.profile.blockhouseno + ', ' + userInfo.profile.streetname + ', ' + userInfo.profile.unitno %>
+            <% } %>
+            <% if (userInfo.profile.postalcode) { %>
+              <%= ', Singapore ' + userInfo.profile.postalcode %>
+            <% } %>
+          </span></p>
+          <p>Marital Status: <span><%= userInfo.profile.maritalstatus%></span></p>
+          <h4><span>Household</span></h4>
+          <p>Adults: <span><%= userInfo.household.adult%></span></p>
+          <p>Teenagers: <span><%= userInfo.household.teenager%></span></p>
+          <p>Children: <span><%= userInfo.household.children%></span></p>
+          <p>Infants: <span><%= userInfo.household.infant%></span></p>
+          <p>Elderly: <span><%= userInfo.household.elderly%></span></p>
+          <p>Disabled: <span><%= userInfo.household.disabled%></span></p>
+
+          <h4><span>Job Scope</span></h4>
+          <% function profilejobscope (uservalue, params, text) { %>
+            <% if (uservalue) { %>
+              <div class="profile-jobscope">
+                <img class="profile-jobscopeicon" src=<%="../../images/logo/" + params + "black.png"%> alt=<%=params + " icon"%>/>
+                <label class="profile-jobscopeiconlabel"><%=text%></label>
+              </div>
+            <% } %>
+          <% } %>
+          <%profilejobscope(userInfo.jobscope.infantcare, 'infantcare', 'Infant Care')%>
+          <%profilejobscope(userInfo.jobscope.childcare, 'childcare', 'Child Care')%>
+          <%profilejobscope(userInfo.jobscope.elderlycare, 'elderlycare', 'Elderly Care')%>
+          <%profilejobscope(userInfo.jobscope.disabledcare, 'disabledcare', 'Disabled Care')%>
+          <%profilejobscope(userInfo.jobscope.housework, 'housework', 'Housework')%>
+          <%profilejobscope(userInfo.jobscope.cooking, 'cooking', 'Cooking')%>
+          <%profilejobscope(userInfo.jobscope.handledog, 'handledog', 'Handle Dog')%>
+          <%profilejobscope(userInfo.jobscope.handlecat, 'handlecat', 'Handle Cat')%>
+          <% if (userInfo.jobscope.otherduties !== "") { %>
+            <p class="addtopmargin">Other Duties: </p>
+            <span>
+              <textarea readonly class="form-control" rows="3"><%=userInfo.jobscope.otherduties%></textarea>
+            </span>
+          <% } %>
+        <% } %>
+      </div>
+	  </div>
+  </div>
+</div>
+<script type="text/javascript">
+  function submitPhotoForm () {
+    $('#uploadphotoform').submit()
+    $('#uploadphotoform label')
+      .html('Uploading <span class="glyphicon glyphicon-repeat fast-right-spinner"></span>')
+      .removeClass('btn-primary').addClass('btn-warning disabled')
+    $('#uploadphotoform .btn').css('margin-bottom', '0')
+    var seconds = 6
+    setTimeout(countDown, 1000)
+    function countDown () {
+      seconds--
+      $('#uploadphotoform .upload-timer').remove()
+      $('#uploadphotoform')
+      .append('<h6 class="upload-timer">Uploading in ' + seconds + ' seconds</h6>')
+      if (seconds > 0) {
+        setTimeout(countDown, 1000)
+      } else {
+        $('#uploadphotoform label')
+          .html('Uploaded <span class="glyphicon glyphicon-ok"></span>')
+          .removeClass('btn-warning').addClass('btn-success disabled')
+        $('#uploadphotoform .upload-timer').remove()
+        $('#uploadphotoform .btn').css('margin-bottom', '15px')
+        swal({
+          title: 'Success',
+          text: 'Your photo has been uploaded and will take effect in less than 1 minute. Thank you for your patience.',
+          type: 'success',
+          confirmButtonColor: 'rgb(38, 166, 91)'
+        })
+      }
+    }
+  }
+</script>

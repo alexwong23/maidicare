@@ -1,0 +1,42 @@
+<% if(message.length > 0) { %>
+  <div class="erroralert">
+    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+    <%= message %>
+  </div>
+<% } %>
+
+<!--LoginForm-->
+<div class="login">
+  <div class="bg-color">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-offset-1 col-md-5 col-sm-6 loginbox loginleft">
+          <h2 class="">Login</h2>
+          <hr>
+        </div>
+        <div class="col-md-5 col-sm-6 loginbox loginright">
+          <h2 class="loginhidden">Login</h2>
+          <hr class="loginhidden">
+          <form method="post" action="/login" class="local-login">
+            <label for="email">Email</label>
+            <div class="form-group inner-addon">
+              <i class="left-addon glyphicon glyphicon-user"></i>
+              <input type="email" class="form-control input-lg" id="email" name="user[local][email]" placeholder="davidlee@gmail.com">
+            </div>
+            <label for="password">Password</label>
+            <div class="form-group inner-addon">
+              <i class="left-addon glyphicon glyphicon-lock"></i>
+              <input type="password" class="form-control input-lg" id="password" name="user[local][password]" placeholder="Password">
+            </div>
+            <a href="/password/forgot">Forgot Password?</a>
+            <button type="submit" class="btn btn-lg btn-success loginformbutton" id="loginformbutton">Login</button>
+          </form>
+
+          <p class="loginformmargin">Don't have an Account?</p>
+          <a href="/signup" class="btn btn-lg btn-grey loginformbutton">Sign Up</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!--/ LoginForm-->

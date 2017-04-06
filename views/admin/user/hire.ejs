@@ -1,0 +1,135 @@
+<% var userInfoArray = [] %>
+<% userInfoArray.push(userInfo) %>
+<% var userInfoJS = JSON.stringify(userInfoArray).replace(/\s/g, "") %>
+
+<div class="container-fluid admin-remove-navbar">
+  <div class="row profile-row">
+		<div class="col-md-3">
+			<div class="profile-sidebar">
+        <% if (userInfo.userid.local.role === 'helper') { %>
+          <div class="profile-userpic">
+            <% if (userInfo.profile.photo.version) { %>
+              <% var imgUrl =
+              "https://res.cloudinary.com/dbjdqrw9o/image/upload/w_300,h_300,c_thumb,g_face/v" + userInfo.profile.photo.version + '/' + userInfo._id + '.' + userInfo.profile.photo.format%>
+              <img src=<%=imgUrl%> alt="profile image">
+            <% } else { %>
+              <img src='/images/noimg.jpg' alt="profile image">
+            <% } %>
+  				</div>
+  				<div class="profile-usertitle">
+  					<div class="profile-usertitle-name">
+              <% if (userInfo.profile.firstname !== "") { %>
+                <%=userInfo.profile.firstname%>
+              <% } else { %>
+                First Name
+              <% } %>
+  					</div>
+  					<div class="profile-usertitle-job">
+  						<%=userInfo.userid.local.role%>
+  					</div>
+  				</div>
+        <% } %>
+        <% if (userInfo.userid.local.role === 'employer') { %>
+  				<div class="profile-userpic">
+            <img src='/images/employer.png' alt="profile image">
+  				</div>
+  				<div class="profile-usertitle">
+  					<div class="profile-usertitle-name">
+              <% if (userInfo.profile.fullname !== "") { %>
+                <%=userInfo.profile.fullname%>
+              <% } else { %>
+                Full Name
+              <% } %>
+  					</div>
+  					<div class="profile-usertitle-job">
+  						<%=userInfo.userid.local.role%>
+  					</div>
+  				</div>
+        <% } %>
+				<div class="profile-usermenu">
+					<ul class="nav">
+            <li>
+							<a href="/admin/users/<%=userInfo.userid._id%>&<%=userInfo.userid.local.role%>">
+							<i class="fa fa-user"></i>
+							User Account</a>
+						</li>
+            <li>
+							<a href="/admin/users/<%=userInfo.userid._id%>&<%=userInfo.userid.local.role%>/edit">
+							<i class="fa fa-pencil-square-o"></i>
+							User Details</a>
+						</li>
+						<li class="active">
+							<a href="/admin/users/<%=userInfo.userid._id%>&<%=userInfo.userid.local.role%>/shortlists">
+							<i class="fa fa-thumb-tack"></i>
+							User Shortlists</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-9">
+      <div class="profile-header"><%= userInfo.userid.local.role.charAt(0).toUpperCase() + userInfo.userid.local.role.slice(1) %> Shortlists</div>
+      <% if (hireInfo.length > 0 ) { %>
+        <div class="hireContainer">
+          <% function dateFromObjectId (objectId) { %>
+          	<% return new Date(parseInt(objectId.substring(0, 8), 16) * 1000) %>
+          <% } %>
+          <% var monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'] %>
+            <% hireInfo.forEach(function (data) { %>
+              <div class="col-md-12 col-sm-12 profile-hire-content">
+                <% var isodate = dateFromObjectId(data._id.toString()) %>
+                <% var minutes = isodate.getMinutes() < 10 ? '0' + isodate.getMinutes() : isodate.getMinutes() %>
+                <% var ddmmyyyyhhmm = isodate.getDate().toString() + ' ' + monthNames[isodate.getMonth()] + ' ' + isodate.getFullYear().toString() + ', ' + isodate.getHours() + ':' + minutes %>
+                <h4><%=ddmmyyyyhhmm%></h4>
+                <h4 class="right" id=<%=data.status%>><%=data.status%></h4>
+                <hr>
+                <div class="col-md-3 col-sm-3">
+                  <% if (userInfo.userid.local.role === 'employer') { %>
+                    <div class="profile-hire-userpic">
+                      <% if (data.user.profile.photo.version) { %>
+                        <% var imgUrl =
+                        "https://res.cloudinary.com/dbjdqrw9o/image/upload/w_300,h_300,c_thumb,g_face/v" + data.user.profile.photo.version + '/' + data.user._id + '.' + data.user.profile.photo.format%>
+                        <a href=<%="/browse/view/" + data.user._id%>><img src=<%=imgUrl%> alt="profile image"></a>
+                      <% } else { %>
+                        <a href=<%="/browse/view/" + data.user._id%>><img src='/images/noimg.jpg' alt="profile image"></a>
+                      <% } %>
+                    </div>
+                  <% } %>
+                  <% if (userInfo.userid.local.role === 'helper') { %>
+                    <div class="profile-hire-userpic">
+                      <a href=<%="/users/employer/" + data.user.userid%>><img src='/images/employer.png' alt="profile image"></a>
+                    </div>
+                  <% } %>
+                </div>
+                <div class="col-md-6 col-sm-6">
+                  <% if (userInfo.userid.local.role === 'helper') { %>
+                    <% var housetype = '' %>
+                    <% if (data.user.profile.housetype.split(',')[0] === 'Others') { %>
+                      <% housetype = data.user.profile.housetype.replace(/,/, ', ')%>
+                    <% } else { %>
+                      <% housetype = data.user.profile.housetype.split(',')[0].replace(/_/g, ' ')%>
+                    <% } %>
+                    <a href="/admin/users/<%=data.user.userid._id%>&<%=data.user.userid.local.role%>"><%=data.user.profile.fullname%></a>
+                    <p><%=housetype + ' | ' + data.user.profile.maritalstatus%></p>
+                  <% } else { %>
+                    <a href="/admin/users/<%=data.user.userid._id%>&<%=data.user.userid.local.role%>"><%=data.user.profile.firstname%></a>
+                    <% if (data.user.transfer) { %>
+                      <p><%=data.user.profile.nationality + ' | ' + data.user.profile.maritalstatus + ' | Transfer'%></p>
+                    <% } else { %>
+                      <p><%=data.user.profile.nationality + ' | ' + data.user.profile.maritalstatus%></p>
+                    <% } %>
+                  <% }%>
+                  <div class="well"><%=data.message%></div>
+                </div>
+                <div class="col-md-3 col-sm-3">
+                  <div class="admin-hire-response">
+                    <a href="/admin/shortlists/<%=data._id%>" class="btn btn-info">Contact Info</a>
+                  </div>
+                </div>
+              </div>
+            <% }) %>
+        </div>
+      <% } %>
+	  </div>
+  </div>
+</div>

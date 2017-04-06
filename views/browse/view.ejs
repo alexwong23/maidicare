@@ -1,0 +1,206 @@
+<% if(message.length > 0) { %>
+  <div class="erroralert">
+    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+    <%= message[0] %>
+  </div>
+<% } %>
+
+<% var hiredArrayJS = JSON.stringify(hiredArray).replace(/\s/g, "") %>
+
+<div class="browseview" data-hirearray=<%=hiredArrayJS%>>
+  <div class="container-fluid">
+    <div class="row browseview-row">
+  		<div class="col-md-4">
+  			<div class="browseview-sidebar">
+  				<div class="browseview-userpic">
+            <% var imgThumbnail = "/images/noimg.jpg" %>
+            <% var imgUrl = "/images/noimg.jpg" %>
+            <% if (helperInfo.profile.photo.version) { %>
+              <% imgThumbnail =
+              "https://res.cloudinary.com/dbjdqrw9o/image/upload/w_300,h_300,c_lfill,g_auto/l_imageexpand_230994,w_80,h_80,c_thumb/fl_layer_apply,g_south_east/dpr_2.0/v" + helperInfo.profile.photo.version + '/' + helperInfo._id + '.' + helperInfo.profile.photo.format%>
+              <% imgUrl =
+              "https://res.cloudinary.com/dbjdqrw9o/image/upload/dpr_2.0/v" + helperInfo.profile.photo.version + '/' + helperInfo._id + '.' + helperInfo.profile.photo.format%>
+            <% } %>
+            <a href="<%=imgUrl%>" data-fancybox data-caption="<%=helperInfo.profile.firstname%> Profile Picture">
+              <img src="<%=imgThumbnail%>" alt="profile picture">
+            </a>
+  				</div>
+  				<div class="browseview-usertitle">
+  					<div class="browseview-usertitle-name">
+              <% if (helperInfo.profile.firstname !== "") { %>
+                <h2><%=helperInfo.profile.firstname%></h2>
+              <% } else { %>
+                First Name
+              <% } %>
+              <% if (helperInfo.transfer) { %>
+                <h4>Transfer</h4>
+              <% } %>
+  					</div>
+            <div class="browseview-userbuttons">
+              <% if (user && user.local.role === "helper") { %>
+                <% if (user.id === (helperInfo.userid).toString()) { %>
+                  <a href="/users/edit/" class="btn btn-primary">Edit</a>
+                <% } %>
+              <% } else { %>
+                <button class="btn btn-primary hirehelper" type="button" value="<%=helperInfo.userid%>&<%=helperInfo._id%>">Select</button>
+              <% } %>
+            </div>
+  				</div>
+  			</div>
+  		</div>
+  		<div class="col-md-8">
+        <div class="browseview-content">
+          <h3>Profile</h3>
+          <hr>
+          <p>Date of Birth: <span>
+            <% var monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'] %>
+            <% var dob = helperInfo.profile.dob %>
+            <% var ddmmyyyy %>
+            <% if (dob && Date.parse(dob)) { %>
+              <% ddmmyyyy = dob.getDate().toString() + ' ' + monthNames[dob.getMonth()] + ' ' + dob.getFullYear().toString() %>
+              <% var today = new Date() %>
+              <% var birthDate = new Date(dob) %>
+              <% var age = today.getFullYear() - birthDate.getFullYear() %>
+              <% var m = today.getMonth() - birthDate.getMonth() %>
+              <% if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) { %>
+                <% age-- %>
+              <% } %>
+              <% var ddmmyyyyage = ddmmyyyy + ', ' + age + ' yrs old' %>
+            <% } else { %>
+              <% ddmmyyyyage = "" %>
+            <% } %>
+          <%=ddmmyyyyage%></span></p>
+          <p>Place of Birth: <span><%=helperInfo.profile.pob%></span></p>
+          <p>Nationality: <span><%=(helperInfo.profile.nationality).replace(/_/g, ' ')%></span></p>
+          <p>Religion: <span><%=helperInfo.profile.religion%></span></p>
+          <p>Dietary Restriction: <span><%=(helperInfo.profile.dietaryrestriction).replace(/_/g, ' ')%></span></p>
+          <p>Food Handling Restriction: <span><%=(helperInfo.profile.foodhandlingrestriction).replace(/_/g, ' ')%></span></p>
+          <% if (helperInfo.profile.allergies !== "") { %>
+            <p>Allergies: <span><%=helperInfo.profile.allergies%></span></p>
+          <% } %>
+          <p>Height: <span>
+            <% if (helperInfo.profile.heightcm > 0) { %>
+              <%=helperInfo.profile.heightcm%>cm
+            <% } %></span>
+          </p>
+          <p>Weight: <span>
+          <% if (helperInfo.profile.weightkg > 0) { %>
+            <%=helperInfo.profile.weightkg%>kg
+          <% } %></span>
+          </p>
+          <p>No of Siblings: <span><%=helperInfo.profile.siblings%></span></p>
+          <p>Marital Status: <span><%=helperInfo.profile.maritalstatus%></span></p>
+          <p>No of Children: <span><%=helperInfo.profile.children%></span></p>
+          <% if (helperInfo.profile.ageofyoungest > 0) { %>
+            <p>Age of Youngest: <span><%=helperInfo.profile.ageofyoungest%></span></p>
+          <% } %>
+        </div>
+        <div class="browseview-content">
+          <h3>Education</h3>
+          <hr>
+          <p>Education Level: <span><%=helperInfo.education.educationlevel%></span></p>
+          <p>Field of Study: <span><%=helperInfo.education.fieldofstudy%></span></p>
+          <% if (helperInfo.education.otherqualifications !== "") { %>
+            <p>Other Qualifications: </p>
+            <span>
+              <textarea readonly class="form-control" rows="3"><%=helperInfo.education.otherqualifications%></textarea>
+            </span>
+          <% } %>
+        </div>
+        <div class="browseview-content">
+          <h3>Skills</h3>
+          <hr>
+          <% function skillsboolean (params) { %>
+            <% if (params) { %>
+              <span class="skillsyes">Yes <i class="glyphicon glyphicon-ok-circle"></i></span>
+            <% } else if (!params) { %>
+              <span class="skillsno">No <i class="glyphicon glyphicon-remove-circle"></i></span>
+            <% } %>
+          <% } %>
+          <p><label class="skillstextwidth">Speak English&#63;</label>
+          <% skillsboolean(helperInfo.skills.english) %></p>
+          <p><label class="skillstextwidth">Worked in Singapore before&#63;</label>
+          <% skillsboolean(helperInfo.skills.singapore) %></p>
+          <p><span class="green"><i class="glyphicon glyphicon-stop"></i> Yes</span><span class="grey"><i class="glyphicon glyphicon-stop"></i> No</span></p>
+          <% function profilejobscope (uservalue, params, text) { %>
+            <% if (uservalue) { %>
+              <div class="browseview-skills">
+                <img class="browseview-skillsicon skillsyes" src=<%="../../images/logo/" + params + "black.png"%> alt=<%=params + " icon"%>/>
+                <label class="browseview-skillsiconlabel"><%=text%></label>
+              </div>
+            <% } else { %>
+              <div class="browseview-skills">
+                <img class="browseview-skillsicon skillsno" src=<%="../../images/logo/" + params + "black.png"%> alt=<%=params + " icon"%>/>
+                <label class="browseview-skillsiconlabel"><%=text%></label>
+              </div>
+            <% } %>
+          <% } %>
+          <%profilejobscope(helperInfo.skills.infantcare, 'infantcare', 'Infant Care')%>
+          <%profilejobscope(helperInfo.skills.childcare, 'childcare', 'Child Care')%>
+          <%profilejobscope(helperInfo.skills.elderlycare, 'elderlycare', 'Elderly Care')%>
+          <%profilejobscope(helperInfo.skills.disabledcare, 'disabledcare', 'Disabled Care')%>
+          <%profilejobscope(helperInfo.skills.housework, 'housework', 'Housework')%>
+          <%profilejobscope(helperInfo.skills.cooking, 'cooking', 'Cooking')%>
+          <%profilejobscope(helperInfo.skills.handledog, 'handledog', 'Handle Dog')%>
+          <%profilejobscope(helperInfo.skills.handlecat, 'handlecat', 'Handle Cat')%>
+        </div>
+        <div class="browseview-content">
+          <h3>Working Experience</h3>
+          <hr>
+          <% function workingexperiencehtml (from, to, country, duties) { %>
+            <% if (from && to && country !== '' && duties) { %>
+              <p class="workingexperiencep"><%=from.toString() + ' - ' + to.toString() + ', ' + country.replace(/_/g, ' ')%></p>
+              <span>
+                <textarea readonly class="form-control" rows="3"><%=duties%></textarea>
+              </span>
+            <% } %>
+          <% } %>
+          <% workingexperiencehtml(helperInfo.workingexperience.first.from, helperInfo.workingexperience.first.to, helperInfo.workingexperience.first.country, helperInfo.workingexperience.first.duties) %>
+          <% workingexperiencehtml(helperInfo.workingexperience.second.from, helperInfo.workingexperience.second.to, helperInfo.workingexperience.second.country, helperInfo.workingexperience.second.duties) %>
+          <% workingexperiencehtml(helperInfo.workingexperience.third.from, helperInfo.workingexperience.third.to, helperInfo.workingexperience.third.country, helperInfo.workingexperience.third.duties) %>
+        </div>
+        <div class="browseview-content container-fluid relatedContainer">
+          <h3>Helpers with similar skills</h3>
+          <hr>
+          <% relatedArray.forEach(function (helper) { %>
+            <div class="col-sm-3 col-xs-6 lesspadding">
+              <div class="panel panel-default">
+                <a class="viewbutton" href=<%="/browse/view/" + helper._id%>></a>
+                <div class="panel-body">
+                  <div class="browse-helperpic">
+                    <% var imgUrl = "/images/noimg.jpg" %>
+                    <% if (helper.profile.photo.version) { %>
+                      <% imgUrl =
+                      "https://res.cloudinary.com/dbjdqrw9o/image/upload/w_300,h_300,c_thumb,g_face/dpr_1.0/v" + helper.profile.photo.version + "/" + helper._id + "." + helper.profile.photo.format%>
+                    <% } %>
+                    <img src=<%=imgUrl%> alt="profile image">
+                  </div>
+                  <div class="smarticons">
+                    <% if (helper.transfer) { %>
+                      <img class="transfericon" src="/images/logo/transfer.png" alt="transfer icon" data-toggle="tooltip" data-placement="right" title="Transfer">
+                    <% } %>
+                    <% if (helper.skills.singapore) { %>
+                      <img class="singaporeicon" src="/images/logo/singapore_icon.png" alt="singapore icon" data-toggle="tooltip" data-placement="right" title="Worked in Singapore before">
+                    <% } %>
+                  </div>
+                </div>
+                <div class="panel-footer">
+                  <% var today = new Date() %>
+                  <% var birthDate = new Date(helper.profile.dob) %>
+                  <% var age = today.getFullYear() - birthDate.getFullYear() %>
+                  <% var m = today.getMonth() - birthDate.getMonth() %>
+                  <% if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) { %>
+                    <% age-- %>
+                  <% } %>
+                  <h4><%= helper.profile.firstname %><span><%= ', ' + age %><span></h4>
+                  <p><%=helper.profile.maritalstatus + ' | ' + helper.profile.nationality.replace(/_/g, ' ')%></p>
+                  <img class="flagicon" src=<%= '/images/logo/' + helper.profile.nationality.toLowerCase() + '_flag.png'%> alt="flag icon">
+                </div>
+              </div>
+            </div>
+          <% }) %>
+        </div>
+  	  </div>
+    </div>
+  </div>
+</div>

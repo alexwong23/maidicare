@@ -1,0 +1,42 @@
+<% if(message.length > 0) { %>
+  <div class="erroralert">
+    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+    <%= message %>
+  </div>
+<% } %>
+
+<div class="container-fluid admin-remove-navbar admin-home-container">
+  <div class="col-md-10 col-md-offset-1">
+    <div class="col-md-6 squarebox">
+      <i class="fa fa-group"></i>
+      <h3>Edit Users</h3>
+      <form action="/admin/users/search" method="post">
+        <div class="form-group inner-addon">
+          <i class="left-addon glyphicon glyphicon-user"></i>
+          <input type="email" class="form-control input-lg" id="email" name="email" placeholder="Search by user email" required>
+          <button class="btn btn-lg btn-warning" type="submit">Search</button>
+        </div>
+      </form>
+    </div>
+    <div class="col-md-6 squarebox">
+      <i class="fa fa-thumb-tack"></i>
+      <h3>Shortlists</h3>
+      <div class="form-group inner-addon">
+        <i class="left-addon glyphicon glyphicon-barcode"></i>
+        <input type="text" class="form-control input-lg" id="hireid" placeholder="Search by shortlist id">
+        <button class="btn btn-lg btn-warning admin-shortlist-search" type="submit">Search</button>
+        <a href="/admin/shortlists/all/all" class="btn btn-lg btn-success" type="button">View All</a>
+      </div>
+    </div>
+    <div class="col-md-6 squarebox">
+      <i class="fa fa-venus"></i>
+      <h3>Inactive Helpers</h3>
+      <a href="/admin/inactive/helpers" class="btn btn-lg btn-success" type="button">View</a>
+    </div>
+    <div class="col-md-6 squarebox">
+      <i class="fa fa-comments-o"></i>
+      <h3>Inactive Shortlists</h3>
+      <a href="/admin/inactive/shortlists" class="btn btn-lg btn-success" type="button">View</a>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,45 @@
+<div class="container-fluid admin-remove-navbar">
+  <div class="row profile-row">
+		<div class="col-md-12">
+      <div class="profile-header">Inactive Shortlists</div>
+      <div class="hireContainer">
+        <% function dateFromObjectId (objectId) { %>
+        	<% return new Date(parseInt(objectId.substring(0, 8), 16) * 1000) %>
+        <% } %>
+        <% var monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'] %>
+          <% hireArray.forEach(function (data) { %>
+            <div class="col-md-12 col-sm-12 profile-hire-content">
+              <% var isodate = dateFromObjectId(data._id.toString()) %>
+              <% var datecreated = isodate.getDate().toString() + ' ' + monthNames[isodate.getMonth()] + ' ' + isodate.getFullYear().toString() %>
+              <% var lastactive = data.lastactive.getDate().toString() + ' ' + monthNames[data.lastactive.getMonth()] + ' ' + data.lastactive.getFullYear().toString() %>
+              <h4>Created on <%=datecreated%>, last active on <%=lastactive%></h4>
+              <h4 class="right" id=<%=data.status%>><%=data.status%></h4>
+              <hr>
+              <div class="col-md-4 col-sm-4">
+                <a href="/admin/users/<%=data.euserid._id%>&<%=data.euserid.local.role%>"><%=data.euserid.local.email%></a>
+                <h4><%=data.euserid.local.role%> | <%=data.euserid.local.contact.countrycode + ' ' +  data.euserid.local.contact.number%></h4>
+              </div>
+              <div class="col-md-4 col-sm-4">
+                <a href="/admin/users/<%=data.huserid._id%>&<%=data.huserid.local.role%>"><%=data.huserid.local.email%></a>
+                <h4><%=data.huserid.local.role%> | <%=data.euserid.local.contact.countrycode + ' ' + data.euserid.local.contact.number%></h4>
+              </div>
+              <div class="col-md-4 col-sm-4">
+                <h5><%=data.message%></h5>
+                <div class="form-group admin-change-hire-status">
+                  <select class="form-control" id="status" name="status" data-hireid="<%=data._id%>">
+                    <option value="">-- Change Status --</option>
+                    <option value="rejected">Rejected</option>
+                    <option value="pending">Pending</option>
+                    <option value="accepted">Accepted</option>
+                    <option value="confirmed">Confirmed</option>
+                    <option value="completed">Completed</option>
+                  </select>
+                </div>
+                <button class="btn btn-danger admin-email-inactive-hire" value="<%=data.euserid._id%>&<%=data.huserid._id%>" type="button">Email a Warning</button>
+              </div>
+            </div>
+          <% }) %>
+      </div>
+	  </div>
+  </div>
+</div>

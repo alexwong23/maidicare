@@ -1,0 +1,19 @@
+<div class="middle">
+  <div class="bg-color">
+    <div class="container">
+      <div class="row">
+        <div class="middle-box">
+          <h2>Success!</h2>
+          <hr>
+          <i class="fa fa-thumbs-up largethumbsup"></i>
+          <h4>Your password has been changed.</h4>
+          <% if (user) { %>
+            <a href="/users" class="btn btn-lg btn-darkgrey middle-box-button">Back to Account</a>
+          <% } else { %>
+            <a href="/login" class="btn btn-lg btn-darkgrey middle-box-button">Login Now</a>
+          <% } %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

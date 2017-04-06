@@ -1,0 +1,188 @@
+<!--About Banner-->
+<div class="about-banner" id="about">
+  <div class="about-bg">
+    <div class="container">
+      <div class="row">
+        <div class="about-header text-right">
+          <p class="big-text">About Us</p>
+          <p class="small-text">Matching Employer and Helper at competitive rates.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!--/ About Banner-->
+
+<!--AboutCompany-->
+<div class="section" id="aboutcompany">
+  <div class="aboutcompany">
+    <div class="container-fluid">
+      <div class="row">
+          <div class="aboutcompany-text col-md-6 col-sm-push-6 col-sm-6">
+              <div class="clearfix"></div>
+              <p class="lead">How we began...</p>
+              <dl>
+                  <%# <dt>Flexible Subscriptions</dt>%>
+                  <dd>In 2016, Gordon and Alex Wong realised that foreign domestic workers were being charged excessively by local maid agencies, after speaking to Pamela, a Filipino domestic worker who had been hired to take care of their sick grandmother.</dd>
+              </dl>
+              <dl>
+                  <%# <dt>Flexible Subscriptions</dt>%>
+                  <dd>Seeing that domestic workers were being unfairly charged by local agencies, Gordon and Alex decided to act quickly.</dd>
+              </dl>
+          </div>
+          <div class="aboutcompany-image col-md-6 col-sm-pull-6 col-sm-6">
+              <img class="img-responsive" src="http://c2.sharnyandjulius.com/wp-content/uploads/2015/11/customised-meal-plan-907x510.jpg" alt="">
+          </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!--/ AboutCompany-->
+
+<!--/ AboutCompanyTwo-->
+<div class="section" id="aboutcompanytwo">
+  <div class="aboutcompany">
+      <div class="container-fluid">
+        <div class="row">
+            <div class="aboutcompany-text col-md-6 col-sm-6">
+                <div class="clearfix"></div>
+                <p class="lead">
+                    Why us?</p>
+                <dl>
+                    <%# <dt>Fits your schedule</dt>%>
+                    <dd>Gordon and Alex started 'maidicare.com' with the aim of providing a cheaper, more convenient and more reliable alternative to the traditional "Maid Agencies" in Singapore.
+                    </dd>
+                </dl>
+            </div>
+            <div class="aboutcompany-image col-md-6 col-sm-6">
+                <img class="img-responsive" src="http://c2.sharnyandjulius.com/wp-content/uploads/2015/11/customised-meal-plan-907x510.jpg" alt="">
+            </div>
+        </div>
+      </div>
+  </div>
+</div>
+<!--/ AboutCompanyTwo-->
+
+<!--Contact-->
+<section id="contact" class="contact-section">
+  <div class="container">
+    <div class="row">
+      <div class="text-center">
+        <h2><strong>Contact Us</strong></h2>
+        <hr class="bottom-line">
+      </div>
+    </div>
+    <div class="row">
+        <!-- Contact Us Form -->
+        <div class="col-md-6">
+          <div class="well well-sm">
+            <% var idrole = '' %>
+            <% if (user) { %>
+              <% idrole = user.id + '&' + user.local.role %>
+            <% } %>
+            <form class="ajax-contactus" action="/contactus" method="post" data-idrole="<%=idrole%>">
+              <fieldset>
+                <div class="field">
+                  <label class="col-md-4">Name *</label>
+                  <div class="col-md-10 col-md-offset-1">
+                    <div class="input-group">
+                      <span class="input-group-addon">
+                        <i class="glyphicon glyphicon-user"></i>
+                      </span>
+                      <input
+                      id='contactname'
+                      name="name" placeholder="eg. Lizzy Tan" class="form-control" type="text"
+                      tabindex=1
+                      required>
+                    </div>
+                  </div>
+                </div>
+                <div class="field">
+                    <label class="col-md-4">Email *</label>
+                    <div class="col-md-10 col-md-offset-1">
+                        <div class="input-group">
+                            <span class="input-group-addon">
+                                <i class="glyphicon glyphicon-envelope"></i>
+                            </span>
+                            <input
+                            id='contactemail'
+                            name="_replyto" placeholder="eg. example@gmail.com" class="form-control" type="email"
+                            tabindex=2
+                            required>
+                        </div>
+                    </div>
+                </div>
+                <div class="field">
+                  <label class="col-md-4">Subject *</label>
+                  <div class="col-md-10 col-md-offset-1">
+                    <div class="input-group">
+                      <span class="input-group-addon">
+                          <i class="glyphicon glyphicon-globe"></i>
+                      </span>
+                      <select class="form-control" id="contactsubject" name="contactsubject" tabindex=3>
+                        <option value="">-- How can we help? --</option>
+                        <option value="Account Issues">Account Issues</option>
+                        <option value="Terms_and_Conditions">Terms & Conditions</option>
+                        <option value="Others">Others</option>
+                      </select>
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="col-md-4">Message *</label>
+                    <div class="col-md-10 col-md-offset-1">
+                        <textarea
+                        class="form-control" id="contactmessage"
+                        name="message" placeholder="Enter your message here."
+                        rows="7"
+                        type="text"
+                        tabindex=4
+                        required></textarea>
+                    </div>
+                </div>
+                <input class="not_in_my_house" type="text" class="form-control" id="dinnertime">
+                <div class="field">
+                  <div class="form-group">
+                    <label class="col-md-8"></label>
+                    <div class="col-md-4">
+                      <button type="submit" class="btn btn-warning" tabindex=5>Send
+                        <span class="glyphicon glyphicon-send"></span>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </fieldset>
+            </form>
+          </div>
+        </div>
+
+        <!-- Contact Us Info -->
+        <div class="col-md-6">
+          <div class="panel panel-default panel-body">
+                <div class="text-center">
+                  <h3>We love to hear from you</h3>
+                  <hr class="bottom-line green">
+                </div>
+                <div class="col-md-6">
+                  <div class="text-center">
+                      <h5><strong>General Enquiries</strong></h5>
+                      <img src="/images/noimg.jpg" class="img-responsive img-circle contact-image" alt="">
+                      <h4>Gordon Wong</h4>
+                      <h5><em>+65 9635 1839</em></h5>
+                      <h5><a href="mailto:gordonwong1993@outlook.com">gordonwong1993@outlook.com</a></h5>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="text-center">
+                      <h5><strong>Technical Support</strong></h5>
+                      <img src="images/alex.jpg" class="img-responsive img-circle contact-image" alt="">
+                      <h4>Alex Wong</h4>
+                      <h5><em>+65 9662 9875</em></h5>
+                      <h5><a href="mailto:alexwongweilun@hotmail.co.uk">alexwongweilun@hotmail.co.uk</a></h5>
+                  </div>
+                </div>
+          </div>
+        </div>
+    </div>
+  </div>
+</section>
+<!--/ Contact-->

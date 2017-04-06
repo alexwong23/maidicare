@@ -1,0 +1,192 @@
+<% if(message.length > 0) { %>
+  <div class="erroralert">
+    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+    <%= message %>
+  </div>
+<% } %>
+
+<div class="container-fluid profile-hire" data-userid="<%= user.id %>">
+  <div class="row profile-row">
+		<div class="col-md-3">
+			<div class="profile-sidebar">
+        <% if (user.local.role === 'helper') { %>
+  				<div class="profile-userpic">
+            <% var imgThumbnail = "/images/noimg.jpg" %>
+            <% var imgUrl = "/images/noimg.jpg" %>
+            <% if (userInfo.profile.photo.version) { %>
+              <% imgThumbnail =
+              "https://res.cloudinary.com/dbjdqrw9o/image/upload/w_300,h_300,c_thumb,g_face/v" + userInfo.profile.photo.version + '/' + userInfo._id + '.' + userInfo.profile.photo.format%>
+              <% imgUrl =
+              "https://res.cloudinary.com/dbjdqrw9o/image/upload/dpr_2.0/v" + userInfo.profile.photo.version + '/' + userInfo._id + '.' + userInfo.profile.photo.format%>
+            <% } %>
+            <a href="<%=imgUrl%>" data-fancybox data-caption="<%=userInfo.profile.firstname%> Profile Picture">
+              <img src="<%=imgThumbnail%>" alt="profile picture">
+            </a>
+  				</div>
+  				<div class="profile-usertitle">
+  					<div class="profile-usertitle-name">
+              <% if (userInfo.profile.firstname !== "") { %>
+                <%=userInfo.profile.firstname%>
+              <% } else { %>
+                First Name
+              <% } %>
+  					</div>
+  					<div class="profile-usertitle-job">
+  						<%=user.local.role%>
+  					</div>
+  				</div>
+          <div class="profile-userbuttons">
+            <a href="/browse/view/<%=userInfo._id%>" class="btn btn-grey">View Profile</a>
+          </div>
+        <% } %>
+        <% if (user.local.role === 'employer') { %>
+  				<div class="profile-userpic">
+            <img src='/images/employer.png' alt="profile image">
+  				</div>
+  				<div class="profile-usertitle">
+  					<div class="profile-usertitle-name">
+              <% if (userInfo.profile.fullname !== "") { %>
+                <%=userInfo.profile.fullname%>
+              <% } else { %>
+                Full Name
+              <% } %>
+  					</div>
+  					<div class="profile-usertitle-job">
+  						<%=user.local.role%>
+  					</div>
+  				</div>
+        <% } %>
+				<div class="profile-usermenu">
+					<ul class="nav">
+						<li>
+							<a href="/users/">
+							<i class="fa fa-user"></i>
+							My Account</a>
+						</li>
+            <li>
+							<a href="/users/edit/">
+							<i class="fa fa-pencil-square-o"></i>
+							Edit Details</a>
+						</li>
+						<li class="active">
+							<a href="/users/shortlists">
+							<i class="fa fa-thumb-tack"></i>
+							Shortlists</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-9">
+      <div class="profile-header">Shortlists</div>
+      <% if ((user.local.role === 'helper' && !user.available) || (user.local.role === 'helper' && !user.activate.status)) { %>
+        <div class="profile-header-alert">
+          <% if (!user.activate.status) { %>
+            <p><i class="glyphicon glyphicon-remove-sign"></i> Account is not activated. Your profile cannot be displayed for hire. <a class="clickhere" href="/users/activate">Click here</a></p>
+          <% } %>
+          <% if (!user.available) { %>
+            <p><i class="glyphicon glyphicon-ban-circle"></i> Personal Detail is incomplete. Your profile cannot be displayed for hire. <a class="clickhere" href="/users/edit/">Click here</a></p>
+          <% } %>
+        </div>
+      <% } else if (user.local.role === 'helper' && !(hireInfo.length > 0)) { %>
+        <div class="profile-header-alert">
+          <p><i class="glyphicon glyphicon-remove-sign"></i> You have no shortlists.</p>
+        </div>
+      <% } %>
+      <% if ((user.local.role === 'employer' && !user.recruit) || (user.local.role === 'employer' && !(hireInfo.length > 0))) { %>
+        <div class="profile-header-alert">
+          <% if (!user.recruit) { %>
+            <p><i class="glyphicon glyphicon-ban-circle"></i> Personal Detail is incomplete. You are unable to hire helpers. <a class="clickhere" href="/users/edit/">Click here</a></p>
+          <% } else if (!(hireInfo.length > 0)) { %>
+            <p><i class="glyphicon glyphicon-remove-sign"></i> You have no shortlists. <a class="clickhere" href="/browse/">Click here</a></p>
+          <% } %>
+        </div>
+      <% } %>
+      <% if (hireInfo.length > 0 ) { %>
+        <div class="profile-hire-filter">
+          <p>Show: </p>
+          <select class="form-control" id="filter" name="filter">
+            <option value="All">-- All --</option>
+            <option value="completed">Completed Only</option>
+            <option value="confirmed">Confirmed Only</option>
+            <option value="accepted">Accepted Only</option>
+            <option value="pending">Pending Only</option>
+            <option value="rejected">Rejected Only</option>
+          </select>
+        </div>
+        <div class="hireContainer">
+          <% function dateFromObjectId (objectId) { %>
+          	<% return new Date(parseInt(objectId.substring(0, 8), 16) * 1000) %>
+          <% } %>
+          <% var monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'] %>
+            <% hireInfo.forEach(function (data) { %>
+              <div class="col-md-12 col-sm-12 profile-hire-content">
+                <% var isodate = dateFromObjectId(data._id.toString()) %>
+                <% var minutes = isodate.getMinutes() < 10 ? '0' + isodate.getMinutes() : isodate.getMinutes() %>
+                <% ddmmyyyyhhmm = isodate.getDate().toString() + ' ' + monthNames[isodate.getMonth()] + ' ' + isodate.getFullYear().toString() + ', ' + isodate.getHours() + ':' + minutes %>
+                <h4><%=ddmmyyyyhhmm%></h4>
+                <h4 class="right" id=<%=data.status%>><%=data.status%></h4>
+                <hr>
+                <div class="col-md-3 col-sm-3">
+                  <% if (user.local.role === 'employer') { %>
+                    <div class="profile-hire-userpic">
+                      <% if (data.user.profile.photo.version) { %>
+                        <% var imgUrl =
+                        "https://res.cloudinary.com/dbjdqrw9o/image/upload/w_300,h_300,c_thumb,g_face/v" + data.user.profile.photo.version + '/' + data.user._id + '.' + data.user.profile.photo.format%>
+                        <a href=<%="/browse/view/" + data.user._id%>><img src=<%=imgUrl%> alt="profile image"></a>
+                      <% } else { %>
+                        <a href=<%="/browse/view/" + data.user._id%>><img src='/images/noimg.jpg' alt="profile image"></a>
+                      <% } %>
+                    </div>
+                  <% } %>
+                  <% if (user.local.role === 'helper') { %>
+                    <div class="profile-hire-userpic">
+                      <a href=<%="/users/employer/" + data.user.userid%>><img src='/images/employer.png' alt="profile image"></a>
+                    </div>
+                  <% } %>
+                </div>
+                <div class="col-md-6 col-sm-6">
+                  <% if (user.local.role === 'helper') { %>
+                    <% var housetype = '' %>
+                    <% if (data.user.profile.housetype.split(',')[0] === 'Others') { %>
+                      <% housetype = data.user.profile.housetype.replace(/,/, ', ')%>
+                    <% } else { %>
+                      <% housetype = data.user.profile.housetype.split(',')[0].replace(/_/g, ' ')%>
+                    <% } %>
+                    <a href=<%="/users/employer/" + data.user.userid%>><%=data.user.profile.fullname%></a>
+                    <p><%=housetype + ' | ' + data.user.profile.maritalstatus%></p>
+                  <% } else { %>
+                    <a href=<%="/browse/view/" + data.user._id%>><%=data.user.profile.firstname%></a>
+                    <% if (data.user.transfer) { %>
+                      <p><%=data.user.profile.nationality + ' | ' + data.user.profile.maritalstatus + ' | Transfer'%></p>
+                    <% } else { %>
+                      <p><%=data.user.profile.nationality + ' | ' + data.user.profile.maritalstatus%></p>
+                    <% } %>
+                  <% }%>
+                  <div class="well"><%=data.message%></div>
+                </div>
+                <div class="col-md-3 col-sm-3">
+                  <div class="profile-hire-response">
+                    <input type="hidden" class="helperinput" name="helperinput" value="">
+                    <% if (user.local.role === 'helper' && data.status === 'pending') { %>
+                      <button class="btn btn-success userresponse" value=<%= data._id + ",Accept"%>>Accept</button>
+                      <button class="btn btn-danger userresponse" value=<%= data._id + ",Reject"%>>Reject</button>
+                    <% } %>
+                    <% if (user.local.role === 'helper' && data.status === 'accepted') { %>
+                      <button class="btn btn-danger userresponse" value=<%= data._id + ",Reject"%>>Reject</button>
+                    <% } %>
+                    <% if (user.local.role === 'employer' && data.status === 'pending') { %>
+                      <button class="btn btn-danger userresponse" value=<%= data._id + ",Reject"%>>Reject</button>
+                    <% } else if (user.local.role === 'employer' && data.status === 'accepted') { %>
+                      <button class="btn btn-success userresponse" value=<%= data._id + ",Confirm"%>>Confirm</button>
+                      <button class="btn btn-danger userresponse" value=<%= data._id + ",Reject"%>>Reject</button>
+                    <% } %>
+                  </div>
+                </div>
+              </div>
+            <% }) %>
+        </div>
+      <% } %>
+	  </div>
+  </div>
+</div>

@@ -1,0 +1,29 @@
+<% if(message.length > 0) { %>
+  <div class="erroralert">
+    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+    <%= message %>
+  </div>
+<% } %>
+
+<div class="middle">
+  <div class="bg-color">
+    <div class="container">
+      <div class="row">
+        <div class="middle-box">
+          <h2>Activate Account</h2>
+          <hr>
+          <form class="profile-activate" action="/users/<%=user._id%>/activate" method="post">
+            <label for="code">Activation Code</label>
+            <div class="form-group inner-addon">
+              <i class="left-addon glyphicon glyphicon-hand-right"></i>
+              <input type="text" class="form-control input-lg" id="code" name="code" placeholder="Enter Code here">
+            </div>
+            <button type="submit" class="btn btn-lg btn-success middle-box-button">Activate</button>
+          </form>
+
+          <button class="btn btn-lg btn-grey middle-box-button profile-activate-reset" type="button" data-id="<%=user._id%>">Resend Activation Code</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

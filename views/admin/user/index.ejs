@@ -1,0 +1,146 @@
+<% if(message.length > 0) { %>
+  <div class="erroralert">
+    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+    <%= message %>
+  </div>
+<% } %>
+
+<% var userInfoArray = [] %>
+<% userInfoArray.push(userInfo) %>
+<% var userInfoJS = JSON.stringify(userInfoArray).replace(/\s/g, "") %>
+
+<div class="container-fluid admin-remove-navbar">
+  <div class="row profile-row">
+		<div class="col-md-3">
+			<div class="profile-sidebar">
+        <% if (userInfo.userid.local.role === 'helper') { %>
+          <div class="profile-userpic">
+            <% if (userInfo.profile.photo.version) { %>
+              <% var imgUrl =
+              "https://res.cloudinary.com/dbjdqrw9o/image/upload/w_300,h_300,c_thumb,g_face/v" + userInfo.profile.photo.version + '/' + userInfo._id + '.' + userInfo.profile.photo.format%>
+              <img src=<%=imgUrl%> alt="profile image">
+            <% } else { %>
+              <img src='/images/noimg.jpg' alt="profile image">
+            <% } %>
+  				</div>
+  				<div class="profile-usertitle">
+  					<div class="profile-usertitle-name">
+              <% if (userInfo.profile.firstname !== "") { %>
+                <%=userInfo.profile.firstname%>
+              <% } else { %>
+                First Name
+              <% } %>
+  					</div>
+  					<div class="profile-usertitle-job">
+  						<%=userInfo.userid.local.role%>
+  					</div>
+  				</div>
+        <% } %>
+        <% if (userInfo.userid.local.role === 'employer') { %>
+  				<div class="profile-userpic">
+            <img src='/images/employer.png' alt="profile image">
+  				</div>
+  				<div class="profile-usertitle">
+  					<div class="profile-usertitle-name">
+              <% if (userInfo.profile.fullname !== "") { %>
+                <%=userInfo.profile.fullname%>
+              <% } else { %>
+                Full Name
+              <% } %>
+  					</div>
+  					<div class="profile-usertitle-job">
+  						<%=userInfo.userid.local.role%>
+  					</div>
+  				</div>
+        <% } %>
+				<div class="profile-usermenu">
+					<ul class="nav">
+            <li class="active">
+							<a href="/admin/users/<%=userInfo.userid._id%>&<%=userInfo.userid.local.role%>">
+							<i class="fa fa-user"></i>
+							User Account</a>
+						</li>
+            <li>
+							<a href="/admin/users/<%=userInfo.userid._id%>&<%=userInfo.userid.local.role%>/edit">
+							<i class="fa fa-pencil-square-o"></i>
+							User Details</a>
+						</li>
+						<li>
+							<a href="/admin/users/<%=userInfo.userid._id%>&<%=userInfo.userid.local.role%>/shortlists">
+							<i class="fa fa-thumb-tack"></i>
+							User Shortlists</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-9">
+      <div class="profile-header"><%= userInfo.userid.local.role.charAt(0).toUpperCase() + userInfo.userid.local.role.slice(1) %> Account</div>
+      <div class="editdetails">
+        <div class="borderless">
+          <div class="well well-md">
+            <h3>CAUTION</h3>
+            <p class="description">Changes could affect the website and user experience!</p>
+            <hr>
+            <form method="post" action="/admin/users/<%=userInfo.userid._id%>&<%=userInfo.userid.local.role%>" enctype="application/x-www-form-urlencoded" class="adminUserAccount" data-admin=<%= userInfoJS %>>
+              <input type="hidden" name="_method" value="PUT">
+              <div class="form-group">
+                <label for="email">Email *</label>
+                <input type="email" class="form-control" id="email" name="user[local][email]" value="<%= userInfo.userid.local.email%>" placeholder="Email" maxlength="50">
+              </div>
+              <div class="form-group">
+                <label for="identification">Identification *</label>
+                <input type="text" class="form-control" id="identification" name="user[local][identification]" value="<%= userInfo.userid.local.identification%>" placeholder="Passport or Singapore NRIC" maxlength="15">
+              </div>
+              <% if (userInfo.userid.local.role === 'helper') { %>
+                <div class="form-group">
+                  <label for="available">Helper Completed profile<span>&#63;</span></label>
+                  <label class="radio-inline">
+                    <input type="radio" name="user[available]" id="availableyes" value="true">Yes
+                  </label>
+                  <label class="radio-inline">
+                    <input type="radio" name="user[available]" id="availableno" value="false">No
+                  </label>
+                </div>
+                <div class="form-group">
+                  <label for="activatestatus">Helper Activated profile<span>&#63;</span></label>
+                  <label class="radio-inline">
+                    <input type="radio" name="user[activatestatus]" id="activatestatusyes" value="true">Yes
+                  </label>
+                  <label class="radio-inline">
+                    <input type="radio" name="user[activatestatus]" id="activatestatusno" value="false">No
+                  </label>
+                </div>
+              <% } %>
+              <% if (userInfo.userid.local.role === 'employer') { %>
+                <div class="form-group">
+                  <label for="recruit">Employer Completed profile<span>&#63;</span></label>
+                  <label class="radio-inline">
+                    <input type="radio" name="user[recruit]" id="recruityes" value="true">Yes
+                  </label>
+                  <label class="radio-inline">
+                    <input type="radio" name="user[recruit]" id="recruitno" value="false">No
+                  </label>
+                </div>
+              <% } %>
+              <div class="form-group">
+                <% if (userInfo.userid.local.role === 'helper') { %>
+                  <label for="hire">Display helper profile for hire<span>&#63;</span></label>
+                <% } else { %>
+                  <label for="hire">Can employer continue hiring helpers<span>&#63;</span></label>
+                <% } %>
+                <label class="radio-inline">
+                  <input type="radio" name="user[hire]" id="hireyes" value="true">Yes
+                </label>
+                <label class="radio-inline">
+                  <input type="radio" name="user[hire]" id="hireno" value="false">No
+                </label>
+              </div>
+              <button type="submit" class="btn btn-success">Submit</button>
+            </form>
+          </div>
+        </div>
+      </div>
+	  </div>
+  </div>
+</div>

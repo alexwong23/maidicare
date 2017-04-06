@@ -1,0 +1,35 @@
+<% if(message.length > 0) { %>
+  <div class="erroralert">
+    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+    <%= message %>
+  </div>
+<% } %>
+
+<div class="middle">
+  <div class="bg-color">
+    <div class="container">
+      <div class="row">
+        <div class="middle-box">
+          <h2>Reset Password</h2>
+          <hr>
+          <form class="ajax-resetpassword" action="/password/reset" method="post">
+            <label for="password">Password</label>
+            <div class="form-group inner-addon">
+              <i class="left-addon glyphicon glyphicon-lock"></i>
+              <input type="password" class="form-control input-lg" id="password" name="password" placeholder="Password">
+            </div>
+            <label for="confirm">Confirm</label>
+            <div class="form-group inner-addon">
+              <i class="left-addon glyphicon glyphicon-lock"></i>
+              <input type="password" class="form-control input-lg" id="confirm" name="confirm" placeholder="Confirm Password">
+            </div>
+            <button type="submit" class="btn btn-lg btn-success middle-box-button">Reset</button>
+          </form>
+          <% if (user) { %>
+            <a href="/users" class="btn btn-lg btn-grey middle-box-button">Cancel</a>
+          <% } %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,33 @@
+<div class="container-fluid admin-remove-navbar">
+  <div class="row profile-row">
+    <div class="profile-header">Inactive Helpers <button class="btn btn-danger admin-email-all-inactive-helper" type="submit">Email All</button></div>
+    <div class="hireContainer">
+      <% function dateFromObjectId (objectId) { %>
+        <% return new Date(parseInt(objectId.substring(0, 8), 16) * 1000) %>
+      <% } %>
+      <% var monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'] %>
+      <% helperArray.forEach(function (data) { %>
+        <div class="col-md-12 col-sm-12 profile-hire-content">
+          <div class="col-md-4 col-sm-4">
+            <a href="/admin/users/<%=data.userid._id%>&<%=data.userid.local.role%>"><%=data.profile.firstname%></a>
+            <% if (data.transfer) { %>
+              <p><%=data.profile.nationality + ' | ' + data.profile.maritalstatus + ' | Transfer'%></p>
+            <% } else { %>
+              <p><%=data.profile.nationality + ' | ' + data.profile.maritalstatus%></p>
+            <% } %>
+          </div>
+          <div class="col-md-5 col-sm-5">
+            <% var isodate = dateFromObjectId(data._id.toString()) %>
+            <% var createaccount = isodate.getDate().toString() + ' ' + monthNames[isodate.getMonth()] + ' ' + isodate.getFullYear().toString() %>
+            <% var lastactive = data.lastactive.getDate().toString() + ' ' + monthNames[data.lastactive.getMonth()] + ' ' + data.lastactive.getFullYear().toString() %>
+            <h4>Created Account on <%=createaccount%></h4>
+            <h3>Last Active on <%=lastactive%></h3>
+          </div>
+          <div class="col-md-3 col-sm-3">
+            <button class="btn btn-danger admin-email-inactive-helper" value="<%=data.userid._id%>" type="button">Email a Warning</button>
+          </div>
+        </div>
+      <% }) %>
+    </div>
+  </div>
+</div>

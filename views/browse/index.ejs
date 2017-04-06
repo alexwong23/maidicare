@@ -1,0 +1,199 @@
+<link rel="stylesheet" href="/css/awesomebootstrapcheckbox.min.css">
+
+<div class="browsepage-title">
+	<h1>Browse</h1>
+  <p>Browse for your ideal helper</p>
+</div>
+<form id="browseform" class="browsepage" action="/browse/search" method="get" enctype="application/x-www-form-urlencoded">
+  <div class="container-fluid">
+    <div class="row browse-row">
+  		<div class="col-md-3">
+        <button class="togglefilter" type="button"><i class="fa fa-filter"></i></button>
+  			<div class="browse-sidebar">
+          <div class="browse-sidebar-header">
+            <h3>Filter</h3>
+            <button class="btn btn-secondary clearfilter" type="button">Clear All</button>
+            <hr>
+          </div>
+  				<div class="browse-menu">
+  					<ul class="nav">
+							<input type="hidden" name="page" value="1">
+  						<li>
+                <div class="checkbox">
+                  <h4>Skills</h4>
+									<div class="checkbox-success">
+										<input type="checkbox" id="infantcare" name="infantcare" value="true" class="styled">
+										<label for="infantcare">Infant Care</label>
+                  </div>
+									<div class="checkbox-success">
+										<input type="checkbox" id="childcare" name="childcare" value="true" class="styled">
+										<label for="childcare">Child Care</label>
+                  </div>
+									<div class="checkbox-success">
+										<input type="checkbox" id="elderlycare" name="elderlycare" value="true" class="styled">
+										<label for="elderlycare">Elderly Care</label>
+                  </div>
+									<div class="checkbox-success">
+										<input type="checkbox" id="disabledcare" name="disabledcare" value="true" class="styled">
+										<label for="disabledcare">Disabled Care</label>
+                  </div>
+                </div>
+  						</li>
+  						<li>
+                <div class="radio">
+                  <h4>Transfer</h4>
+									<div class="radio-success">
+										<input type="radio" id="transferall" name="transfer" value="All" checked>
+										<label for="transferall">Show all helpers</label>
+                  </div>
+									<div class="radio-success">
+										<input type="radio" id="transfertrue" name="transfer" value="true">
+										<label for="transfertrue">Transfer Only</label>
+                  </div>
+									<div class="radio-success">
+										<input type="radio" id="transferfalse" name="transfer" value="false">
+										<label for="transferfalse">Non-Transfer Only</label>
+                  </div>
+                </div>
+  						</li>
+  						<li>
+                <div class="radio">
+                  <h4>Worked in Singapore before</h4>
+									<div class="radio-success">
+										<input type="radio" id="singaporeall" name="singapore" value="All" checked>
+										<label for="singaporeall">Show all helpers</label>
+                  </div>
+									<div class="radio-success">
+										<input type="radio" id="singaporetrue" name="singapore" value="true">
+										<label for="singaporetrue">Yes</label>
+                  </div>
+									<div class="radio-success">
+										<input type="radio" id="singaporefalse" name="singapore" value="false">
+										<label for="singaporefalse">No</label>
+                  </div>
+                </div>
+  						</li>
+              <li>
+                <div class="form-group">
+                  <h4>Nationality</h4>
+                  <select class="form-control" name="nationality">
+                    <option value="All">Show All</option>
+                    <option value="Philippines">Philippines</option>
+                    <option value="India">India</option>
+                    <option value="Indonesia">Indonesia</option>
+                    <option value="Myanmar">Myanmar</option>
+                    <option value="Sri_Lanka">Sri Lanka</option>
+                  </select>
+                </div>
+  						</li>
+  						<li>
+                <div class="form-group">
+                  <h4>Religion</h4>
+                  <select class="form-control" name="religion">
+                    <option value="All">Show All</option>
+                    <option value="Buddhist">Buddhist only</option>
+                    <option value="Catholic">Catholic only</option>
+                    <option value="Christian">Christian only</option>
+                    <option value="Hinduism">Hinduism only</option>
+                    <option value="Islam">Islam only</option>
+                    <option value="Taoist">Taoist only</option>
+                    <option value="Others">Others only</option>
+                  </select>
+                </div>
+  						</li>
+              <li>
+                <div class="form-group">
+                  <h4>Marital Status</h4>
+                  <select class="form-control" name="maritalstatus">
+                    <option value="All">Show All</option>
+                    <option value="Single">Single only</option>
+                    <option value="Married">Married only</option>
+                    <option value="Widowed">Widowed only</option>
+                    <option value="Separated">Separated only</option>
+                    <option value="Divorced">Divorced only</option>
+                  </select>
+                </div>
+              </li>
+  					</ul>
+  				</div>
+  			</div>
+  		</div>
+  		<div class="col-md-9">
+        <div class="browse-header">
+          <div class="form-group has-feedback">
+            <input type="search" class="form-control input-lg" name="query" value="" placeholder="What are you looking for?" maxlength="50">
+            <span class="glyphicon glyphicon-search form-control-feedback"></span>
+          </div>
+        </div>
+        <div class="browse-content">
+          <div class="querytext">
+            <p>Search results for:
+              <span class="qtext"></span>
+              <a href="#" class="clearquerytext" type="button"><span class="glyphicon glyphicon-remove-circle"></span></a>
+              <span class="found"><%=totalResults%> Found</span>
+            </p>
+          </div>
+          <div class="container-fluid helperContainer">
+            <% if (helperInfo.length > 0) { %>
+              <% helperInfo.forEach(function(helper) { %>
+                <div class="col-sm-4 col-xs-12">
+                  <div class="panel panel-default">
+                    <a class="viewbutton" href=<%="/browse/view/" + helper._id%>></a>
+                    <div class="panel-body">
+                      <div class="browse-helperpic">
+												<% var imgUrl = "/images/noimg.jpg" %>
+                        <% if (helper.profile.photo.version) { %>
+                          <% imgUrl =
+                          "https://res.cloudinary.com/dbjdqrw9o/image/upload/w_300,h_300,c_thumb,g_face/dpr_1.0/v" + helper.profile.photo.version + "/" + helper._id + "." + helper.profile.photo.format%>
+                        <% } %>
+												<img src=<%=imgUrl%> alt="profile image">
+                      </div>
+                      <div class="smarticons">
+                        <% if (helper.transfer) { %>
+                          <img class="transfericon" src="/images/logo/transfer.png" alt="transfer icon" data-toggle="tooltip" data-placement="right" title="Transfer">
+                        <% } %>
+                        <% if (helper.skills.singapore) { %>
+                          <img class="singaporeicon" src="/images/logo/singapore_icon.png" alt="singapore icon" data-toggle="tooltip" data-placement="right" title="Worked in Singapore before">
+                        <% } %>
+                      </div>
+                    </div>
+                    <div class="panel-footer">
+                      <% var today = new Date() %>
+                      <% var birthDate = new Date(helper.profile.dob) %>
+                      <% var age = today.getFullYear() - birthDate.getFullYear() %>
+                      <% var m = today.getMonth() - birthDate.getMonth() %>
+                      <% if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) { %>
+                        <% age-- %>
+                      <% } %>
+                      <h4><%= helper.profile.firstname %><span><%= ', ' + age %><span></h4>
+                      <p><%=helper.profile.maritalstatus + ' | ' + helper.profile.nationality.replace(/_/g, ' ')%></p>
+                      <img class="flagicon" src=<%= '/images/logo/' + helper.profile.nationality.toLowerCase() + '_flag.png'%> alt="flag icon">
+                    </div>
+                  </div>
+                </div>
+              <% }) %>
+            <% } else { %>
+              <h3>No matches for <span class="qtext"></span></h3>
+							<h4>You can search by:</h4>
+              <ul>
+								<li><h5>Field of study</h5><p> eg. Nursing</p></li>
+                <li><h5>Name</h5><p> eg. Stacy</p></li>
+								<li><h5>Skills</h5><p> eg. Singapore</p></li>
+								<li><h5>Nationality</h5><p> eg. Philippines Filipino</p></li>
+								<li><h5>Religion</h5><p> eg. Catholic</p></li>
+                <li><h5>Avoid using commas</h5><p> eg. Nursing, Healthcare</p></li>
+              </ul>
+            <% } %>
+          </div>
+        </div>
+        <div class="browse-pagenumber">
+          <% if (totalResults > 1) { %>
+            <% for (var i = 0; i < (Math.ceil(totalResults / 12)); i++) { %>
+              <a class=<%="pagenumber" + (i + 1)%>><%=i + 1%></a>
+            <% } %>
+          <% } %>
+        </div>
+  	  </div>
+    </div>
+  </div>
+</form>

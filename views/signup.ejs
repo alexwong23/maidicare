@@ -1,0 +1,89 @@
+<!--below length 25 because of passport error character length-->
+<% if(message.length > 0) { %>
+  <div class="erroralert">
+    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+    <% if (Object.keys(message[0]).length < 25) { %>
+      <ul>
+      <% for (var error in message[0]) { %>
+        <li><%= message[0][error].message %></li>
+      <% } %>
+      </ul>
+    <% } else { %>
+      <%= message %>
+    <% } %>
+  </div>
+<% } %>
+
+<!--SignupForm-->
+<div class="signup">
+  <div class="bg-color">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-offset-1 col-md-5 col-sm-6 signupbox signupleft">
+          <h2 class="">Sign Up</h2>
+          <hr>
+          <h4><i class="fa fa-street-view"></i> Step 1: Helper/ Employer?</h4>
+          <p>Select HELPER, if looking for employment in Singapore</p>
+          <p>Select EMPLOYER, if looking for a domestic helper</p>
+          <br>
+          <h4><i class="fa fa-pencil-square-o"></i> Step 2: Email</h4>
+          <p>Please provide a valid email address as it will be used for further communication.</p>
+          <br>
+          <h4><i class="fa fa-barcode"></i> Step 3: Identification</h4>
+          <p>If HELPER, please provide your Passport Number.</p>
+          <p>If EMPLOYER, please provide your Singapore NRIC.</p>
+        </div>
+        <div class="col-md-5 col-sm-6 signupbox signupright">
+          <h2 class="signuphidden">Sign Up</h2>
+          <hr class="signuphidden">
+          <form method="post" action="/signup" class="local-signup">
+            <div class="form-group role">
+              <div class="roleSelect">
+                <p class="labelcolor">Which are you?</p>
+                <input id="roleHelper" type="radio" name="user[local][role]" value="helper" />
+                <label class="col-md-6 col-sm-6 col-xs-6 roleLogo" for="roleHelper">
+                  <img id="helperLogo" src="images/helper.png" alt="Helper Image"/>
+                  <p>Helper <i class="fa fa-question-circle" data-toggle="tooltip" data-placement="top" title="Select HELPER, if you are looking for employment in Singapore."></i></p>
+                </label>
+                <input id="roleEmployer" type="radio" name="user[local][role]" value="employer" />
+                <label class="col-md-6 col-sm-6 col-xs-6 roleLogo" for="roleEmployer">
+                  <img id="employerLogo" src="images/employer.png" alt="Employer Image"/>
+                  <p class="roleText">Employer <i class="fa fa-question-circle" data-toggle="tooltip" data-placement="top" title="Select EMPLOYER, if you are looking for a domestic helper."></i></p>
+                </label>
+              </div>
+            </div>
+            <div class="clearfix"></div>
+            <label for="email" class="labelcolor">Email <i class="fa fa-question-circle" data-toggle="tooltip" data-placement="right" title="Please provide valid email so we can contact you"></i></label>
+            <div class="form-group inner-addon email">
+              <i class="left-addon glyphicon glyphicon-user"></i>
+              <input type="email" class="form-control input-lg" id="email" name="user[local][email]" placeholder="eg. davidlee@gmail.com" maxlength="50" tabindex=1>
+            </div>
+            <p class="form-group-text temail">Email</p>
+            <label class="margin-top labelcolor" for="password">Password</label>
+            <div class="form-group inner-addon password">
+              <i class="left-addon glyphicon glyphicon-lock"></i>
+              <input type="password" class="form-control input-lg" id="password" name="user[local][password]" placeholder="Password" maxlength="50" tabindex=2>
+              <i class="right-addon glyphicon"></i>
+            </div>
+            <input class="not_in_my_house" type="password" class="form-control" name="user[local][pass]">
+            <p class="form-group-text tpassword">Password</p>
+            <label class="margin-top labelcolor" for="confirm">Confirm</label>
+            <div class="form-group inner-addon confirm">
+              <i class="left-addon glyphicon glyphicon-lock"></i>
+              <input type="password" class="form-control input-lg" id="confirm" name="user[local][confirm]" placeholder="Confirm Password" maxlength="50" tabindex=3>
+            </div>
+            <p class="form-group-text tconfirm">Password</p>
+            <label class="margin-top labelcolor" for="identification">Identification <i class="fa fa-question-circle" data-toggle="tooltip" data-placement="right" title="If Helper, provide valid Passport Number. If Employer, provide Singapore NRIC."></i></label>
+            <div class="form-group inner-addon identification">
+              <i class="left-addon glyphicon glyphicon-barcode"></i>
+              <input type="text" class="form-control input-lg" id="identification" name="user[local][identification]" placeholder="Select a role above" maxlength="20" tabindex=4>
+            </div>
+            <p class="form-group-text tidentification labelcolor">Identification</p>
+            <button type="submit" class="btn btn-lg btn-success signupformbutton" tabindex=5>Create Account</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!--/ SignupForm-->

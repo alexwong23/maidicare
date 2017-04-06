@@ -1,0 +1,82 @@
+<div class="employerview">
+  <div class="container-fluid">
+    <div class="row employerview-row">
+  		<div class="col-md-4">
+  			<div class="employerview-sidebar">
+  				<div class="employerview-userpic">
+            <img src='/images/employer.png' alt="employer logo">
+  				</div>
+  				<div class="employerview-usertitle">
+  					<div class="employerview-usertitle-name">
+              <% if (employerInfo.profile.fullname !== "") { %>
+                <h2><%=employerInfo.profile.fullname%></h2>
+              <% } else { %>
+                Full Name
+              <% } %>
+              <h5>Employer</h5>
+  					</div>
+            <div class="employerview-userbuttons">
+              <a href="/users/shortlists" class="btn btn-primary">Back</a>
+            </div>
+  				</div>
+  			</div>
+  		</div>
+  		<div class="col-md-8">
+        <div class="employerview-content">
+          <h3>Profile</h3>
+          <hr>
+          <p>Housing Type: <span>
+            <% if (employerInfo.profile.housetype.split(',')[0] === 'Others') { %>
+              <%= employerInfo.profile.housetype.replace(/,/, ', ')%>
+            <% } else { %>
+              <%= employerInfo.profile.housetype.split(',')[0].replace(/_/g, ' ')%>
+            <% } %>
+          </span></p>
+          <p>Marital Status: <span><%=employerInfo.profile.maritalstatus%></span></p>
+        </div>
+        <div class="employerview-content">
+          <h3>Household</h3>
+          <hr>
+          <p>Adults: <span><%= employerInfo.household.adult%></span></p>
+          <p>Teenagers: <span><%= employerInfo.household.teenager%></span></p>
+          <p>Children: <span><%= employerInfo.household.children%></span></p>
+          <p>Infants: <span><%= employerInfo.household.infant%></span></p>
+          <p>Elderly: <span><%= employerInfo.household.elderly%></span></p>
+          <p>Disabled: <span><%= employerInfo.household.disabled%></span></p>
+        </div>
+        <div class="employerview-content">
+          <h3>Skills</h3>
+          <hr>
+          <p><span class="green">&FilledSmallSquare; Yes</span><span class="grey">&FilledSmallSquare; No</span></p>
+          <% function profilejobscope (uservalue, params, text) { %>
+            <% if (uservalue) { %>
+              <div class="employerview-skills">
+                <img class="employerview-skillsicon skillsyes" src=<%="../../images/logo/" + params + "black.png"%> alt=<%=params + " icon"%>/>
+                <label class="employerview-skillsiconlabel"><%=text%></label>
+              </div>
+            <% } else { %>
+              <div class="employerview-skills">
+                <img class="employerview-skillsicon skillsno" src=<%="../../images/logo/" + params + "black.png"%> alt=<%=params + " icon"%>/>
+                <label class="employerview-skillsiconlabel"><%=text%></label>
+              </div>
+            <% } %>
+          <% } %>
+          <%profilejobscope(employerInfo.jobscope.infantcare, 'infantcare', 'Infant Care')%>
+          <%profilejobscope(employerInfo.jobscope.childcare, 'childcare', 'Child Care')%>
+          <%profilejobscope(employerInfo.jobscope.elderlycare, 'elderlycare', 'Elderly Care')%>
+          <%profilejobscope(employerInfo.jobscope.disabledcare, 'disabledcare', 'Disabled Care')%>
+          <%profilejobscope(employerInfo.jobscope.housework, 'housework', 'Housework')%>
+          <%profilejobscope(employerInfo.jobscope.cooking, 'cooking', 'Cooking')%>
+          <%profilejobscope(employerInfo.jobscope.handledog, 'handledog', 'Handle Dog')%>
+          <%profilejobscope(employerInfo.jobscope.handlecat, 'handlecat', 'Handle Cat')%>
+          <% if (employerInfo.jobscope.otherduties !== "") { %>
+            <p class="addtopmargin">Other Duties: </p>
+            <span>
+              <textarea readonly class="form-control" rows="3"><%=employerInfo.jobscope.otherduties%></textarea>
+            </span>
+          <% } %>
+        </div>
+  	  </div>
+    </div>
+  </div>
+</div>
