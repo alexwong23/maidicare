@@ -18,7 +18,7 @@ mailSchema.methods.sendEmail = function (mailobj, callback) {
   var mailregex = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/
   if (mailregex.test(mailobj.to[0].email) && mailregex.test(mailobj.from)) {
     if (mailobj.subject !== '' && mailobj.message !== '') {
-      var sg = require('sendgrid')(process.env.SENDGRID_API_KEY_FIX)
+      var sg = require('sendgrid')(process.env.SENDGRID_API_KEY)
       var request = sg.emptyRequest({
         method: 'POST',
         path: '/v3/mail/send',
@@ -58,7 +58,7 @@ mailSchema.methods.sendEmailBcc = function (mailobj, callback) {
   var mailregex = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/
   if (mailregex.test(mailobj.to[0].email) && mailregex.test(mailobj.from)) {
     if (mailobj.subject !== '' && mailobj.message !== '') {
-      var sg = require('sendgrid')(process.env.SENDGRID_API_KEY_FIX)
+      var sg = require('sendgrid')(process.env.SENDGRID_API_KEY)
       var request = sg.emptyRequest({
         method: 'POST',
         path: '/v3/mail/send',
