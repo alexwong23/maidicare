@@ -9,7 +9,7 @@ var adminController = require('../controller/adminController')
 // login check function for admin only
 function loginCheck (req, res, next) {
   if (req.isAuthenticated(req, res, next)) {
-    if (req.user.local.email === 'support@twowls.com') {
+    if (req.user.local.email === 'support@maidicare.com') {
       req.flash('adminMessage', 'You are already logged in!')
       return res.redirect('/admin')
     } else {
@@ -23,7 +23,7 @@ function loginCheck (req, res, next) {
 // admin check, if not admin, redirected back
 function adminCheck (req, res, next) {
   if (req.isAuthenticated(req, res, next)) {
-    if (req.user.local.role === 'admin' & req.user.local.email === 'support@twowls.com') {
+    if (req.user.local.role === 'admin' & req.user.local.email === 'support@maidicare.com') {
       return next()
     } else {
       req.flash('userMessage', 'You do not have access to this page.')
