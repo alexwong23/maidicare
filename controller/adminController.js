@@ -54,7 +54,7 @@ module.exports = {
             var newUser = new User({
               local: {
                 email: 'support@maidicare.com',
-                password: '36Emasurai*',
+                password: (process.env.ADMIN_PASSWORD),
                 role: 'admin',
                 identification: 'admin',
                 passwordreset: {

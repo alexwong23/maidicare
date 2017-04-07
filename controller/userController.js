@@ -811,7 +811,7 @@ module.exports = {
                     from: 'support@maidicare.com',
                     to: [{email: hiredata.euserid.local.email}],
                     bcc: [{email: 'support@maidicare.com'},
-                    {email: 'alexwongweilun@gmail.com'}],
+                    {email: 'alexwongweilun@hotmail.co.uk'}],
                     subject: 'MaidiCare Shortlist Update',
                     message: 'Congratulations! Your hire request is successful. Our administrative team will be in touch with you shortly. HireID: ' + hiredata._id,
                     substitutions: {
@@ -828,7 +828,7 @@ module.exports = {
                       from: 'support@maidicare.com',
                       to: [{email: hiredata.huserid.local.email}],
                       bcc: [{email: 'support@maidicare.com'},
-                      {email: 'alexwongweilun@gmail.com'}],
+                      {email: 'alexwongweilun@hotmail.co.uk'}],
                       subject: 'MaidiCare Shortlist Update',
                       message: 'Congratulations! Your hire request is successful. Our administrative team will be in touch with you shortly. HireID: ' + hiredata._id,
                       substitutions: {
