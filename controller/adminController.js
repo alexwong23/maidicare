@@ -37,7 +37,7 @@ module.exports = {
           if (adminFound) {
             var newMail = new Mail({
               from: 'support@maidicare.com',
-              to: [{email: 'support@maidicare.com'}],
+              to: [{email: 'admin@maidicare.com'}],
               subject: 'MaidiCare Admin Code',
               message: resetCode,
               substitutions: {
@@ -71,7 +71,7 @@ module.exports = {
               if (err) { return next(err) }
               var newMail = new Mail({
                 from: 'support@maidicare.com',
-                to: [{email: 'support@maidicare.com'}],
+                to: [{email: 'admin@maidicare.com'}],
                 subject: 'MaidiCare Admin Code',
                 message: resetCode,
                 substitutions: {
