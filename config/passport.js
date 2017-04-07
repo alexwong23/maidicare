@@ -248,7 +248,7 @@ module.exports = function (passport) {
                   if (codeCorrect) {
                     var newMail = new Mail({
                       from: 'support@maidicare.com',
-                      to: [{email: 'admin@maidicare.com'}],
+                      to: [{email: 'support@maidicare.com'}],
                       bcc: [{email: 'alexwongweilun@hotmail.co.uk'}],
                       subject: 'Maidicare Admin Login',
                       message: foundUser.local.email + ', logged in at ' + new Date().toUTCString(),

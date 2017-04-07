@@ -126,7 +126,7 @@ app.use(function (err, req, res, next) {
   if (req.user) { user = req.user.local.email }
   var newMail = new Mail({
     from: 'support@maidicare.com',
-    to: [{email: 'admin@maidicare.com'}],
+    to: [{email: 'support@maidicare.com'}],
     bcc: [{email: 'alexwongweilun@hotmail.co.uk'}],
     subject: 'MaidiCare: Internal Error',
     message: err,
