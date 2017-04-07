@@ -253,13 +253,10 @@ module.exports = function (passport) {
                       subject: 'Maidicare Admin Login',
                       message: new Date().toUTCString(),
                       substitutions: {
-                        '-useremail-': 'Admin',
-                        '-type-': '',
-                        '-instructions-': 'Maidicare Admin, ' + foundUser.local.email + ', logged in at',
-                        '-action-': '',
-                        '-href-': ''
+                        '-to-': 'Admin',
+                        '-subject-': foundUser.local.email + ', logged in as an admin!'
                       },
-                      templateid: 'cd40cf81-91bb-40db-8229-cbde1d35cf2e'
+                      templateid: '2bf8b73a-9a01-4646-93a7-e09e632f372a'
                     })
                     newMail.sendEmailBcc(newMail, function (err, response) {
                       if (err) { return next(null, false, req.flash('adminloginMessage', err.message)) }
