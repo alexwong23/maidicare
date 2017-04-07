@@ -760,7 +760,7 @@ module.exports = {
                   '-name-': hiredata.euserid.local.email,
                   '-instructions-': 'Click the button or copy the link below to respond,',
                   '-buttontext-': 'View Shortlists',
-                  '-href-': 'http://maidicare.com/' + hiredata.euserid._id + '/shortlists'
+                  '-href-': 'http://maidicare.com/users/shortlists'
                 },
                 templateid: '6a0bf52e-9db6-42db-abb6-392169497e50'
               })

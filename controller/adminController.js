@@ -681,10 +681,11 @@ module.exports = {
               '-useremail-': helper.userid.local.email,
               '-type-': 'Account Expiry',
               '-instructions-': 'Your account is going to expire as you have not been using it. This means potential employers will NOT be able to hire you.',
-              '-action-': 'To prevent your account from expiring, please login to your account at:',
+              '-action-': 'To prevent your account from expiring, please login to your account,',
+              '-buttontext-': 'Click here to Login',
               '-href-': 'http://maidicare.com/login'
             },
-            templateid: 'cd40cf81-91bb-40db-8229-cbde1d35cf2e'
+            templateid: '1a3599f9-44e5-47c6-9d86-229798fb17f8'
           })
           newMail.sendEmail(newMail, function (err, response) {
             if (err) { return next(err) }
@@ -714,10 +715,11 @@ module.exports = {
           '-useremail-': userInfo.local.email,
           '-type-': 'Account Expiry',
           '-instructions-': 'Your account is going to expire as you have not been using it. This means potential employers will NOT be able to hire you.',
-          '-action-': 'To prevent your account from expiring, please login to your account at:',
+          '-action-': 'To prevent your account from expiring, please login to your account,',
+          '-buttontext-': 'Click here to Login',
           '-href-': 'http://maidicare.com/login'
         },
-        templateid: 'cd40cf81-91bb-40db-8229-cbde1d35cf2e'
+        templateid: '1a3599f9-44e5-47c6-9d86-229798fb17f8'
       })
       newMail.sendEmail(newMail, function (err, response) {
         if (err) {
@@ -771,10 +773,11 @@ module.exports = {
             '-useremail-': user.local.email,
             '-type-': 'Shortlist Reminder',
             '-instructions-': 'You have an inactive shortlist that requires your attention.',
-            '-action-': 'If the other party is unresponsive, please contact us directly at:',
-            '-href-': 'support@maidicare.com'
+            '-action-': 'If the other party is unresponsive, please contact us directly at \'support@maidicare.com\'',
+            '-buttontext-': 'View Shortlists',
+            '-href-': 'http://maidicare.com/users/shortlists'
           },
-          templateid: 'cd40cf81-91bb-40db-8229-cbde1d35cf2e'
+          templateid: '1a3599f9-44e5-47c6-9d86-229798fb17f8'
         })
         newMail.sendEmail(newMail, function (err, response) {
           if (err) { return next(err) }
