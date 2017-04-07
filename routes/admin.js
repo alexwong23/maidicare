@@ -72,6 +72,9 @@ router.route('/email')
 // Post Search for email, redirect to users/:id
 router.post('/users/search', adminController.postAdminUsersSearch)
 
+// Post Delete User
+router.post('/users/delete', adminController.postAdminUsersDelete)
+
 // Render User account page for admin change email, nric and permissions
 router.route('/users/:idrole')
       .get(adminCheck, idroleCheck, adminController.getAdminUsersAccount)

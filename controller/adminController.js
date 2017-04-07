@@ -118,6 +118,37 @@ module.exports = {
       res.redirect('/admin/email')
     })
   },
+  postAdminUsersDelete: function (req, res, next) {
+    var userid = req.body.idrole.split('&')[0]
+    var userrole = req.body.idrole.split('&')[1]
+    User.findOneAndRemove({'_id': userid, 'local.role': userrole}, function (err, removeUser) {
+      if (err) { return next(err) }
+      if (removeUser) {
+        if (userrole === 'employer') {
+          Employer.findOneAndRemove({'userid': userid}, function (err) {
+            if (err) { return next(err) }
+            Hire.remove({'euserid': userid}, function (err) {
+              if (err) { return next(err) }
+              req.flash('adminMessage', 'Deleted ' + userrole + ' with email \'' + removeUser.local.email + '\'')
+              res.redirect('/admin/')
+            })
+          })
+        } else {
+          Helper.findOneAndRemove({'userid': userid}, function (err) {
+            if (err) { return next(err) }
+            Hire.remove({'huserid': userid}, function (err) {
+              if (err) { return next(err) }
+              req.flash('adminMessage', 'Deleted ' + userrole + ' with email \'' + removeUser.local.email + '\'')
+              res.redirect('/admin/')
+            })
+          })
+        }
+      } else {
+        req.flash('adminUserAccountMessage', 'Delete failed. Could not find ' + userrole + ' with id, ' + userid)
+        res.redirect('/admin/users/' + req.body.idrole)
+      }
+    })
+  },
   postAdminUsersSearch: function (req, res, next) {
     User.findOne({'local.email': req.body.email}, function (err, userInfo) {
       if (err) { return next(err) }
