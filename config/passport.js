@@ -162,7 +162,7 @@ module.exports = function (passport) {
                     '-action-': 'or copy the link below to activate,',
                     '-href-': 'http://twowls.com/users/' + newUser._id + '/activate/' + codestring
                   },
-                  templateid: '2c5688ca-c1b1-4a45-96f9-3e5ec49e4798'
+                  templateid: 'cd40cf81-91bb-40db-8229-cbde1d35cf2e'
                 })
                 newMail.sendEmail(newMail, function (err, response) {
                   if (err) { return next(null, false, req.flash('signupMessage', err.message)) }
@@ -259,7 +259,7 @@ module.exports = function (passport) {
                         '-action-': '',
                         '-href-': ''
                       },
-                      templateid: '2c5688ca-c1b1-4a45-96f9-3e5ec49e4798'
+                      templateid: 'cd40cf81-91bb-40db-8229-cbde1d35cf2e'
                     })
                     newMail.sendEmailBcc(newMail, function (err, response) {
                       if (err) { return next(null, false, req.flash('adminloginMessage', err.message)) }

@@ -609,7 +609,7 @@ module.exports = {
                   '-action-': 'or copy the link below to activate,',
                   '-href-': 'http://twowls.com/users/' + userInfo._id + '/activate/' + codestring
                 },
-                templateid: '2c5688ca-c1b1-4a45-96f9-3e5ec49e4798'
+                templateid: 'cd40cf81-91bb-40db-8229-cbde1d35cf2e'
               })
               newMail.sendEmail(newMail, function (err, response) {
                 if (err) { return next(err) }
@@ -761,7 +761,7 @@ module.exports = {
                   '-instructions-': 'Submit your response at,',
                   '-href-': 'http://twowls.com/' + hiredata.euserid._id + '/shortlists'
                 },
-                templateid: 'fb4043d5-5da4-46b7-933f-4bd26fb4d02b'
+                templateid: '6a0bf52e-9db6-42db-abb6-392169497e50'
               })
               newMail.sendEmail(newMail, function (err, response) {
                 if (err) { return next(err) }
@@ -818,7 +818,7 @@ module.exports = {
                       '-instructions-': 'For more information, take a look at our help page at,',
                       '-href-': 'http://twowls.com/help/'
                     },
-                    templateid: 'fb4043d5-5da4-46b7-933f-4bd26fb4d02b'
+                    templateid: '6a0bf52e-9db6-42db-abb6-392169497e50'
                   })
                   newMail.sendEmailBcc(newMail, function (err, response) {
                     if (err) { return next(err) }
@@ -834,7 +834,7 @@ module.exports = {
                         '-instructions-': 'For more information, take a look at our help page at,',
                         '-href-': 'http://twowls.com/help/'
                       },
-                      templateid: 'fb4043d5-5da4-46b7-933f-4bd26fb4d02b'
+                      templateid: '6a0bf52e-9db6-42db-abb6-392169497e50'
                     })
                     newMail.sendEmailBcc(newMail, function (err, response) {
                       if (err) { return next(err) }

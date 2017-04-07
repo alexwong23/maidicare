@@ -62,12 +62,12 @@ if (app.get('env') !== 'local') {
 app.use(express.static(path.join(__dirname, 'public')))
 
 // set routes to variables
-var index_routes = require('./routes/index')
-var user_routes = require('./routes/user')
-var browse_routes = require('./routes/browse')
-var password_routes = require('./routes/password')
-var api_routes = require('./routes/api')
-var admin_routes = require('./routes/admin')
+var indexRoutes = require('./routes/index')
+var userRoutes = require('./routes/user')
+var browseRoutes = require('./routes/browse')
+var passwordRoutes = require('./routes/password')
+var apiRoutes = require('./routes/api')
+var adminRoutes = require('./routes/admin')
 
 // body parser to get req.body from web page
 app.use(bodyParser.json())
@@ -101,12 +101,12 @@ app.use(function (req, res, next) {
 })
 
 // connect routes to url
-app.use('/', index_routes)
-app.use('/users', user_routes)
-app.use('/browse', browse_routes)
-app.use('/password', password_routes)
-app.use('/api', api_routes)
-app.use('/admin', admin_routes)
+app.use('/', indexRoutes)
+app.use('/users', userRoutes)
+app.use('/browse', browseRoutes)
+app.use('/password', passwordRoutes)
+app.use('/api', apiRoutes)
+app.use('/admin', adminRoutes)
 
 // Handle 404
 app.use(function (req, res) {
@@ -135,7 +135,7 @@ app.use(function (err, req, res, next) {
       '-user-': user + ' triggered the error!',
       '-url-': url.parse(req.url).pathname
     },
-    templateid: 'a3a4748a-4d02-4f95-882d-fed51b32566e'
+    templateid: '345b5afb-2d19-46e8-8798-381fefe27eca'
   })
   newMail.sendEmailBcc(newMail, function (err, response) {
     if (err) { }

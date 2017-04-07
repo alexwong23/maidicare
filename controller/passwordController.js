@@ -46,10 +46,10 @@ module.exports = {
                     '-useremail-': newInfo.local.email,
                     '-type-': 'Reset Password',
                     '-instructions-': 'This password reset will expire in',
-                    '-action-': 'Copy the link below to reset your password,',
-                    '-href-': 'http://twowls.com/password/validate/' + newInfo._id + '&' + resetcode
+                    '-action-': 'Click the button or copy the link below to reset your password,',
+                    '-href-': 'http://maidicare.com/password/validate/' + newInfo._id + '&' + resetcode
                   },
-                  templateid: '2c5688ca-c1b1-4a45-96f9-3e5ec49e4798'
+                  templateid: 'cd40cf81-91bb-40db-8229-cbde1d35cf2e'
                 })
                 newMail.sendEmail(newMail, function (err, response) {
                   if (err) { return next(err) }

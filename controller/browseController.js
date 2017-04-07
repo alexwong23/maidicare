@@ -473,7 +473,7 @@ module.exports = {
                           '-instructions-': 'Respond to the employer at,',
                           '-href-': 'http://twowls.com/' + helperInfo._id + '/shortlists'
                         },
-                        templateid: 'fb4043d5-5da4-46b7-933f-4bd26fb4d02b'
+                        templateid: '6a0bf52e-9db6-42db-abb6-392169497e50'
                       })
                       newMail.sendEmail(newMail, function (err, response) {
                         if (err) { return next(err) }

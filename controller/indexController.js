@@ -59,15 +59,15 @@ module.exports = {
     if (req.body.dinnertime === '') {
       var newMail = new Mail({
         from: req.body.email,
-        to: [{email: 'support@twowls.com'}],
-        subject: 'Twowls Contact Us: ' + req.body.subject.replace(/_/g, ' '),
+        to: [{email: 'support@maidicare.com'}],
+        subject: 'MaidiCare Contact Us: ' + req.body.subject.replace(/_/g, ' '),
         message: req.body.message,
         substitutions: {
           '-name-': req.body.name,
           '-email-': req.body.email,
           '-subject-': req.body.subject.replace(/_/g, ' ')
         },
-        templateid: '09233877-9cef-40e0-83f8-65b3dba48e91'
+        templateid: '34a2faa3-1b06-44e1-a52c-1fc3cd695980'
       })
       newMail.sendEmail(newMail, function (err, response) {
         if (err) { return next(err) }

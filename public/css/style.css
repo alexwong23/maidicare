@@ -24,11 +24,20 @@ Navigation bar
   text-transform: uppercase;
   height: inherit;
   font-size: 45px;
-  margin: 20px 0px;
-  padding: 0px 25px;
+  margin: 0;
+  padding: 10px 20px;
+  position: relative;
+  top: 5px;
 }
 .navbar-default .navbar-brand span{
 	font-weight: 100;
+}
+.navbar-default .maidicarelogo {
+  display: inline-block;
+  position: relative;
+  top: -5px;
+  height: inherit;
+  width: 40px;
 }
 .navbar-default .navbar-nav > li > a,
 .navbar-default .navbar-nav .dropdown-menu > li > a {

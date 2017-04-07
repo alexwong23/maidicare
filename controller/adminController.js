@@ -29,16 +29,16 @@ module.exports = {
       if (err) { return next(err) }
       bcrypt.hash(resetCode, salt, function (err, hash) {
         if (err) { return next(err) }
-        User.findOneAndUpdate({'local.email': 'support@twowls.com'}, {
+        User.findOneAndUpdate({'local.email': 'support@maidicare.com'}, {
           'local.passwordreset.timecreated': new Date(),
           'local.passwordreset.resetcode': hash
         }, function (err, adminFound) {
           if (err) { return next(err) }
           if (adminFound) {
             var newMail = new Mail({
-              from: 'support@twowls.com',
-              to: [{email: 'support@twowls.com'}],
-              subject: 'Twowls Admin Code',
+              from: 'support@maidicare.com',
+              to: [{email: 'support@maidicare.com'}],
+              subject: 'MaidiCare Admin Code',
               message: 'One hour!',
               substitutions: {
                 '-useremail-': 'Admin',
@@ -47,7 +47,7 @@ module.exports = {
                 '-action-': resetCode,
                 '-href-': ''
               },
-              templateid: '2c5688ca-c1b1-4a45-96f9-3e5ec49e4798'
+              templateid: 'cd40cf81-91bb-40db-8229-cbde1d35cf2e'
             })
             newMail.sendEmail(newMail, function (err, response) {
               if (err) { return next(err) }
@@ -56,7 +56,7 @@ module.exports = {
           } else {
             var newUser = new User({
               local: {
-                email: 'support@twowls.com',
+                email: 'support@maidicare.com',
                 password: '36Emasurai*',
                 role: 'admin',
                 identification: 'admin',
@@ -73,9 +73,9 @@ module.exports = {
             newUser.save(function (err, newUser) {
               if (err) { return next(err) }
               var newMail = new Mail({
-                from: 'support@twowls.com',
-                to: [{email: 'support@twowls.com'}],
-                subject: 'Twowls Admin Code',
+                from: 'support@maidicare.com',
+                to: [{email: 'support@maidicare.com'}],
+                subject: 'MaidiCare Admin Code',
                 message: 'One hour!',
                 substitutions: {
                   '-useremail-': 'Admin',
@@ -84,7 +84,7 @@ module.exports = {
                   '-action-': resetCode,
                   '-href-': ''
                 },
-                templateid: '2c5688ca-c1b1-4a45-96f9-3e5ec49e4798'
+                templateid: 'cd40cf81-91bb-40db-8229-cbde1d35cf2e'
               })
               newMail.sendEmail(newMail, function (err, response) {
                 if (err) { return next(err) }
@@ -104,23 +104,23 @@ module.exports = {
   },
   postAdminEmailPage: function (req, res, next) {
     var newMail = new Mail({
-      from: 'support@twowls.com',
+      from: 'support@maidicare.com',
       to: [{email: req.body.to}],
-      bcc: [{email: 'support@twowls.com'}],
+      bcc: [{email: 'support@maidicare.com'}],
       subject: req.body.subject,
       message: req.body.message,
       substitutions: {
         '-subject-': req.body.subject,
         '-to-': req.body.to
       },
-      templateid: '9d9ec5e6-1cf8-4c42-912e-1b5058cbc5ed'
+      templateid: '2bf8b73a-9a01-4646-93a7-e09e632f372a'
     })
     newMail.sendEmailBcc(newMail, function (err, response) {
       if (err) {
         req.flash('adminEmailMessage', err.message)
         res.redirect('/admin/email')
       }
-      req.flash('adminEmailMessage', 'SUCCESS! Mail was sent to ' + req.body.to + '. View it at support@twowls.com')
+      req.flash('adminEmailMessage', 'SUCCESS! Mail was sent to ' + req.body.to + '. View it at support@maidicare.com')
       res.redirect('/admin/email')
     })
   },
@@ -679,18 +679,18 @@ module.exports = {
       if (helperArray.length > 0) {
         helperArray.forEach(function (helper) {
           var newMail = new Mail({
-            from: 'support@twowls.com',
+            from: 'support@maidicare.com',
             to: [{email: helper.userid.local.email}],
-            subject: 'Twowls Account Expiry',
+            subject: 'MaidiCare Account Expiry',
             message: 'WHAT NOW?',
             substitutions: {
               '-useremail-': helper.userid.local.email,
               '-type-': 'Account Expiry',
               '-instructions-': 'Your account is going to expire as you have not been using it. This means potential employers will NOT be able to hire you.',
               '-action-': 'To prevent your account from expiring, please login to your account at:',
-              '-href-': 'http://twowls.com/login'
+              '-href-': 'http://maidicare.com/login'
             },
-            templateid: '2c5688ca-c1b1-4a45-96f9-3e5ec49e4798'
+            templateid: 'cd40cf81-91bb-40db-8229-cbde1d35cf2e'
           })
           newMail.sendEmail(newMail, function (err, response) {
             if (err) { return next(err) }
@@ -712,24 +712,24 @@ module.exports = {
     User.findOne({'_id': req.params.id}, function (err, userInfo) {
       if (err) { return next(err) }
       var newMail = new Mail({
-        from: 'support@twowls.com',
+        from: 'support@maidicare.com',
         to: [{email: userInfo.local.email}],
-        subject: 'Twowls Account Expiry',
+        subject: 'MaidiCare Account Expiry',
         message: 'WHAT NOW?',
         substitutions: {
           '-useremail-': userInfo.local.email,
           '-type-': 'Account Expiry',
           '-instructions-': 'Your account is going to expire as you have not been using it. This means potential employers will NOT be able to hire you.',
           '-action-': 'To prevent your account from expiring, please login to your account at:',
-          '-href-': 'http://twowls.com/login'
+          '-href-': 'http://maidicare.com/login'
         },
-        templateid: '2c5688ca-c1b1-4a45-96f9-3e5ec49e4798'
+        templateid: 'cd40cf81-91bb-40db-8229-cbde1d35cf2e'
       })
       newMail.sendEmail(newMail, function (err, response) {
         if (err) {
           res.send({
             status: 'error',
-            message: 'Please refresh the page and try again. You can also contact us at \'support@twowls.com\'.'
+            message: 'Please refresh the page and try again. You can also contact us at \'support@maidicare.com\'.'
           })
         }
         res.send({
@@ -769,18 +769,18 @@ module.exports = {
       if (err) { return next(err) }
       userArray.forEach(function (user) {
         var newMail = new Mail({
-          from: 'support@twowls.com',
+          from: 'support@maidicare.com',
           to: [{email: user.local.email}],
-          subject: 'Twowls Shortlist Reminder',
+          subject: 'MaidiCare Shortlist Reminder',
           message: 'What can I do?',
           substitutions: {
             '-useremail-': user.local.email,
             '-type-': 'Shortlist Reminder',
             '-instructions-': 'You have an inactive shortlist that requires your attention.',
             '-action-': 'If the other party is unresponsive, please contact us directly at:',
-            '-href-': 'support@twowls.com'
+            '-href-': 'support@maidicare.com'
           },
-          templateid: '2c5688ca-c1b1-4a45-96f9-3e5ec49e4798'
+          templateid: 'cd40cf81-91bb-40db-8229-cbde1d35cf2e'
         })
         newMail.sendEmail(newMail, function (err, response) {
           if (err) { return next(err) }
