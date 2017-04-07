@@ -39,15 +39,12 @@ module.exports = {
               from: 'support@maidicare.com',
               to: [{email: 'support@maidicare.com'}],
               subject: 'MaidiCare Admin Code',
-              message: 'One hour!',
+              message: resetCode,
               substitutions: {
-                '-useremail-': 'Admin',
-                '-type-': new Date().toUTCString(),
-                '-instructions-': 'This code will expire in ',
-                '-action-': resetCode,
-                '-href-': ''
+                '-to-': 'Admin',
+                '-subject-': 'This code expires in one hour!'
               },
-              templateid: 'cd40cf81-91bb-40db-8229-cbde1d35cf2e'
+              templateid: '2bf8b73a-9a01-4646-93a7-e09e632f372a'
             })
             newMail.sendEmail(newMail, function (err, response) {
               if (err) { return next(err) }
@@ -76,15 +73,12 @@ module.exports = {
                 from: 'support@maidicare.com',
                 to: [{email: 'support@maidicare.com'}],
                 subject: 'MaidiCare Admin Code',
-                message: 'One hour!',
+                message: resetCode,
                 substitutions: {
-                  '-useremail-': 'Admin',
-                  '-type-': new Date().toUTCString(),
-                  '-instructions-': 'This code will expire in ',
-                  '-action-': resetCode,
-                  '-href-': ''
+                  '-to-': 'Admin',
+                  '-subject-': 'This code expires in one hour!'
                 },
-                templateid: 'cd40cf81-91bb-40db-8229-cbde1d35cf2e'
+                templateid: '2bf8b73a-9a01-4646-93a7-e09e632f372a'
               })
               newMail.sendEmail(newMail, function (err, response) {
                 if (err) { return next(err) }

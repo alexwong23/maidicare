@@ -470,7 +470,8 @@ module.exports = {
                         message: 'An employer has SELECTED your profile and is waiting for your response.',
                         substitutions: {
                           '-name-': helperInfo.local.email,
-                          '-instructions-': 'Respond to the employer at,',
+                          '-instructions-': 'Click the button or copy the link below to respond,',
+                          '-buttontext-': 'View Shortlists',
                           '-href-': 'http://maidicare.com/' + helperInfo._id + '/shortlists'
                         },
                         templateid: '6a0bf52e-9db6-42db-abb6-392169497e50'

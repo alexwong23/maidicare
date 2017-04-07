@@ -132,7 +132,7 @@ app.use(function (err, req, res, next) {
     message: err,
     substitutions: {
       '-date-': new Date().toUTCString(),
-      '-user-': user + ' triggered the error!',
+      '-user-': user,
       '-url-': url.parse(req.url).pathname
     },
     templateid: '345b5afb-2d19-46e8-8798-381fefe27eca'
