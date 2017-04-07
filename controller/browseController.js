@@ -464,14 +464,14 @@ module.exports = {
                     newHire.save(function (err) {
                       if (err) { return next(err) }
                       var newMail = new Mail({
-                        from: 'support@twowls.com',
+                        from: 'support@maidicare.com',
                         to: [{email: helperInfo.local.email}],
-                        subject: 'Twowls Shortlist Update',
+                        subject: 'MaidiCare Shortlist Update',
                         message: 'An employer has SELECTED your profile and is waiting for your response.',
                         substitutions: {
                           '-name-': helperInfo.local.email,
                           '-instructions-': 'Respond to the employer at,',
-                          '-href-': 'http://twowls.com/' + helperInfo._id + '/shortlists'
+                          '-href-': 'http://maidicare.com/' + helperInfo._id + '/shortlists'
                         },
                         templateid: '6a0bf52e-9db6-42db-abb6-392169497e50'
                       })
@@ -492,7 +492,7 @@ module.exports = {
             AJAXflashRedirect('user', 'Please fill in all your Personal Details before hiring.', '/users/' + req.user.id)
           }
         } else {
-          res.send({status: 'error', message: 'You have already confirmed a helper. To hire more than one helper, please contact \' support@twowls.com\'.'})
+          res.send({status: 'error', message: 'You have already confirmed a helper. To hire more than one helper, please contact \' support@maidicare.com\'.'})
         }
       } else {
         AJAXflashRedirect('user', 'Your role does not allow you to hire helpers. Please contact our support team for further assistance.', '/users/' + req.user.id)

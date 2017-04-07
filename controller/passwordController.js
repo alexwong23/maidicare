@@ -38,9 +38,9 @@ module.exports = {
               }, function (err, newInfo) {
                 if (err) { return next(err) }
                 var newMail = new Mail({
-                  from: 'support@twowls.com',
+                  from: 'support@maidicare.com',
                   to: [{email: newInfo.local.email}],
-                  subject: 'Twowls Reset Password',
+                  subject: 'MaidiCare Reset Password',
                   message: '24 hours!',
                   substitutions: {
                     '-useremail-': newInfo.local.email,

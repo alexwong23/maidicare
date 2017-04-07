@@ -206,7 +206,7 @@ $(document).ready(function () {
   *
   * Autofill contact us email if user login
   *
-  * AJAX Post Contact Us to support@twowls.com
+  * AJAX Post Contact Us to support@maidicare.com
   * Includes Hidden input, prevent spam bots
   *
   **/
@@ -257,7 +257,7 @@ $(document).ready(function () {
             $('#contactmessage').val('')
           },
           error: function (err) {
-            if (err) swalError('Please refresh the page and try again. You can also contact us at \'support@twowls.com\'.')
+            if (err) swalError('Please refresh the page and try again. You can also contact us at \'support@maidicare.com\'.')
           }
         })
       }
@@ -1121,7 +1121,7 @@ $(document).ready(function () {
       e.preventDefault()
       swal(
         'Warning',
-        'To change identification, send a copy of your Identification to \'support@twowls.com\'.',
+        'To change identification, send a copy of your Identification to \'support@maidicare.com\'.',
         'warning'
       )
     })
@@ -1426,7 +1426,7 @@ $(document).ready(function () {
           }
         },
         error: function (err) {
-          if (err) swalError('Please refresh the page and try again. You can also contact us at \'support@twowls.com\'.')
+          if (err) swalError('Please refresh the page and try again. You can also contact us at \'support@maidicare.com\'.')
         }
       })
     })
@@ -1580,7 +1580,7 @@ $(document).ready(function () {
               }
             },
             error: function (err) {
-              if (err) swalError('Please refresh the page and try again. You can also contact us at \'support@twowls.com\'.')
+              if (err) swalError('Please refresh the page and try again. You can also contact us at \'support@maidicare.com\'.')
             }
           })
         }, function (dismiss) {
@@ -1631,7 +1631,7 @@ $(document).ready(function () {
             }
           },
           error: function (err) {
-            if (err) swalError('Please refresh the page and try again. You can also contact us at \'support@twowls.com\'.')
+            if (err) swalError('Please refresh the page and try again. You can also contact us at \'support@maidicare.com\'.')
           }
         })
       } else {
@@ -1681,7 +1681,7 @@ $(document).ready(function () {
               }
             },
             error: function (err) {
-              if (err) swalError('Please refresh the page and try again. You can also contact us at \'support@twowls.com\'.')
+              if (err) swalError('Please refresh the page and try again. You can also contact us at \'support@maidicare.com\'.')
             }
           })
         } else {
@@ -1712,7 +1712,7 @@ $(document).ready(function () {
           if (data.status === 'success') swalSuccess(data.message)
         },
         error: function (err) {
-          if (err) swalError('Please refresh the page and try again. You can also contact us at \'support@twowls.com\'.')
+          if (err) swalError('Please refresh the page and try again. You can also contact us at \'support@maidicare.com\'.')
         }
       })
     })
@@ -1729,7 +1729,7 @@ $(document).ready(function () {
         url: '/admin/newcode',
         type: 'POST',
         error: function (err) {
-          if (err) swalError('Please refresh the page and try again. You can also contact us at \'support@twowls.com\'.')
+          if (err) swalError('Please refresh the page and try again. You can also contact us at \'support@maidicare.com\'.')
         }
       })
     })
@@ -1833,7 +1833,7 @@ $(document).ready(function () {
             window.location.reload()
           },
           error: function (err) {
-            if (err) swalError('Please refresh the page and try again. You can also contact us at \'support@twowls.com\'.')
+            if (err) swalError('Please refresh the page and try again. You can also contact us at \'support@maidicare.com\'.')
           }
         })
       })
@@ -1854,7 +1854,7 @@ $(document).ready(function () {
             }
           },
           error: function (err) {
-            if (err) swalError('Please refresh the page and try again. You can also contact us at \'support@twowls.com\'.')
+            if (err) swalError('Please refresh the page and try again. You can also contact us at \'support@maidicare.com\'.')
           }
         })
       })
@@ -1872,7 +1872,7 @@ $(document).ready(function () {
             }
           },
           error: function (err) {
-            if (err) swalError('Please refresh the page and try again. You can also contact us at \'support@twowls.com\'.')
+            if (err) swalError('Please refresh the page and try again. You can also contact us at \'support@maidicare.com\'.')
           }
         })
       })
@@ -1895,7 +1895,7 @@ $(document).ready(function () {
             }
           },
           error: function (err) {
-            if (err) swalError('Please refresh the page and try again. You can also contact us at \'support@twowls.com\'.')
+            if (err) swalError('Please refresh the page and try again. You can also contact us at \'support@maidicare.com\'.')
           }
         })
       })

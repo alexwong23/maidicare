@@ -598,16 +598,16 @@ module.exports = {
             User.findOneAndUpdate({'_id': req.user.id}, {'activate.code': hash}, function (err, userInfo) {
               if (err) { return next(err) }
               var newMail = new Mail({
-                from: 'support@twowls.com',
+                from: 'support@maidicare.com',
                 to: [{email: userInfo.local.email}],
-                subject: 'Twowls Activate Account',
+                subject: 'MaidiCare Activate Account',
                 message: codestring,
                 substitutions: {
                   '-useremail-': userInfo.local.email,
                   '-type-': 'Activate Account',
                   '-instructions-': 'Your activation code is:',
                   '-action-': 'or copy the link below to activate,',
-                  '-href-': 'http://twowls.com/users/' + userInfo._id + '/activate/' + codestring
+                  '-href-': 'http://maidicare.com/users/' + userInfo._id + '/activate/' + codestring
                 },
                 templateid: 'cd40cf81-91bb-40db-8229-cbde1d35cf2e'
               })
@@ -752,14 +752,14 @@ module.exports = {
             .exec(function (err, hiredata) {
               if (err) { return next(err) }
               var newMail = new Mail({
-                from: 'support@twowls.com',
+                from: 'support@maidicare.com',
                 to: [{email: hiredata.euserid.local.email}],
-                subject: 'Twowls Shortlist Update',
+                subject: 'MaidiCare Shortlist Update',
                 message: 'A helper has ACCEPTED your hire request and is waiting for your confirmation.',
                 substitutions: {
                   '-name-': hiredata.euserid.local.email,
                   '-instructions-': 'Submit your response at,',
-                  '-href-': 'http://twowls.com/' + hiredata.euserid._id + '/shortlists'
+                  '-href-': 'http://maidicare.com/' + hiredata.euserid._id + '/shortlists'
                 },
                 templateid: '6a0bf52e-9db6-42db-abb6-392169497e50'
               })
@@ -807,32 +807,32 @@ module.exports = {
                 User.update({'_id': {$in: [hiredata.huserid, hiredata.euserid]}}, {'hire': false}, {'multi': true}, function (err) {
                   if (err) { return next(err) }
                   var newMail = new Mail({
-                    from: 'support@twowls.com',
+                    from: 'support@maidicare.com',
                     to: [{email: hiredata.euserid.local.email}],
-                    bcc: [{email: 'support@twowls.com'},
+                    bcc: [{email: 'support@maidicare.com'},
                     {email: 'alexwongweilun@gmail.com'}],
-                    subject: 'Twowls Shortlist Update',
+                    subject: 'MaidiCare Shortlist Update',
                     message: 'Congratulations! Your hire request is successful. Our administrative team will be in touch with you shortly. HireID: ' + hiredata._id,
                     substitutions: {
                       '-name-': hiredata.euserid.local.email,
                       '-instructions-': 'For more information, take a look at our help page at,',
-                      '-href-': 'http://twowls.com/help/'
+                      '-href-': 'http://maidicare.com/help/'
                     },
                     templateid: '6a0bf52e-9db6-42db-abb6-392169497e50'
                   })
                   newMail.sendEmailBcc(newMail, function (err, response) {
                     if (err) { return next(err) }
                     var newMail = new Mail({
-                      from: 'support@twowls.com',
+                      from: 'support@maidicare.com',
                       to: [{email: hiredata.huserid.local.email}],
-                      bcc: [{email: 'support@twowls.com'},
+                      bcc: [{email: 'support@maidicare.com'},
                       {email: 'alexwongweilun@gmail.com'}],
-                      subject: 'Twowls Shortlist Update',
+                      subject: 'MaidiCare Shortlist Update',
                       message: 'Congratulations! Your hire request is successful. Our administrative team will be in touch with you shortly. HireID: ' + hiredata._id,
                       substitutions: {
                         '-name-': hiredata.huserid.local.email,
                         '-instructions-': 'For more information, take a look at our help page at,',
-                        '-href-': 'http://twowls.com/help/'
+                        '-href-': 'http://maidicare.com/help/'
                       },
                       templateid: '6a0bf52e-9db6-42db-abb6-392169497e50'
                     })
@@ -848,7 +848,7 @@ module.exports = {
         } else {
           res.send({
             status: 'error',
-            message: 'You cannot hire any more helpers. To hire more than one helper, please contact \' support@twowls.com\'.'
+            message: 'You cannot hire any more helpers. To hire more than one helper, please contact \' support@maidicare.com\'.'
           })
         }
       } else if (req.body.status === 'Reject') {

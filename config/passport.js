@@ -151,16 +151,16 @@ module.exports = function (passport) {
               newHelper.save(function (err, newHelper) {
                 if (err) { return next(null, false, req.flash('signupMessage', err.errors)) }
                 var newMail = new Mail({
-                  from: 'support@twowls.com',
+                  from: 'support@maidicare.com',
                   to: [{email: newUser.local.email}],
-                  subject: 'Twowls Activate Account',
+                  subject: 'Maidicare Activate Account',
                   message: codestring,
                   substitutions: {
                     '-useremail-': newUser.local.email,
                     '-type-': 'Activate Account',
                     '-instructions-': 'Your activation code is:',
                     '-action-': 'or copy the link below to activate,',
-                    '-href-': 'http://twowls.com/users/' + newUser._id + '/activate/' + codestring
+                    '-href-': 'http://maidicare.com/users/' + newUser._id + '/activate/' + codestring
                   },
                   templateid: 'cd40cf81-91bb-40db-8229-cbde1d35cf2e'
                 })
@@ -219,14 +219,14 @@ module.exports = function (passport) {
   * @name Local-Admin strategy
   *
   * Success if:
-  *     email is support@twowls.com
+  *     email is support@maidicare.com
   *     email exists
   *     passwordreset field not expired (1 hour)
   *     password correct
   *     code correct
   *
   * Success redirect to admin menu page
-  *     send email to Twowls, notify admin login
+  *     send email to Maidicare, notify admin login
   *
   * Failure redirect to admin login page
   */
@@ -235,7 +235,7 @@ module.exports = function (passport) {
     passwordField: 'user[local][password]',
     passReqToCallback: true
   }, function (req, email, password, next) {
-    if (email === 'support@twowls.com') {
+    if (email === 'support@maidicare.com') {
       User.findOne({'local.email': email}, function (err, foundUser) {
         if (err) return next(err)
         if (foundUser) {
@@ -247,15 +247,15 @@ module.exports = function (passport) {
                   if (err) return next(err)
                   if (codeCorrect) {
                     var newMail = new Mail({
-                      from: 'support@twowls.com',
-                      to: [{email: 'support@twowls.com'}],
+                      from: 'support@maidicare.com',
+                      to: [{email: 'support@maidicare.com'}],
                       bcc: [{email: 'alexwongweilun@hotmail.co.uk'}],
-                      subject: 'Twowls Admin Login',
+                      subject: 'Maidicare Admin Login',
                       message: new Date().toUTCString(),
                       substitutions: {
                         '-useremail-': 'Admin',
                         '-type-': '',
-                        '-instructions-': 'Twowls Admin, ' + foundUser.local.email + ', logged in at',
+                        '-instructions-': 'Maidicare Admin, ' + foundUser.local.email + ', logged in at',
                         '-action-': '',
                         '-href-': ''
                       },

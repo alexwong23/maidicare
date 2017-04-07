@@ -125,10 +125,10 @@ app.use(function (err, req, res, next) {
   var user = 'A normal user '
   if (req.user) { user = req.user.local.email }
   var newMail = new Mail({
-    from: 'support@twowls.com',
-    to: [{email: 'support@twowls.com'}],
+    from: 'support@maidicare.com',
+    to: [{email: 'support@maidicare.com'}],
     bcc: [{email: 'alexwongweilun@hotmail.co.uk'}],
-    subject: 'Twowls: Internal Error',
+    subject: 'MaidiCare: Internal Error',
     message: err,
     substitutions: {
       '-date-': new Date().toUTCString(),
