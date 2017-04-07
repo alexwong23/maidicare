@@ -639,7 +639,7 @@ $(document).ready(function () {
     // load form data
     var employerdata = $('.editemployer').data('employer')[0]
     var editemployer = '.editemployer .form-group '
-    function pageloadddlNtextarea () {
+    function employerloadddlNtextarea () {
       $(editemployer + '#housetype').val(employerdata.profile.housetype.split(',')[0])
       $(editemployer + '#maritalstatus').val(employerdata.profile.maritalstatus)
       $(editemployer + '#adult').val(employerdata.household.adult)
@@ -650,7 +650,7 @@ $(document).ready(function () {
       $(editemployer + '#disabled').val(employerdata.household.disabled)
       $(editemployer + '#otherduties').val(employerdata.jobscope.otherduties)
     }
-    function pageloadcheckbox () {
+    function employerloadcheckbox () {
       if (employerdata.jobscope.infantcare === true) {
         $(editemployer + '#infantcare').prop('checked', true)
         $(editemployer + '#infantcarehidden')[0].disabled = true
@@ -684,8 +684,8 @@ $(document).ready(function () {
         $(editemployer + '#handlecathidden')[0].disabled = true
       }
     }
-    pageloadddlNtextarea()
-    pageloadcheckbox()
+    employerloadddlNtextarea()
+    employerloadcheckbox()
 
     // if user housetype is Landed, hide unit no
     // if user housetype is other, show other textbox with value
@@ -908,7 +908,7 @@ $(document).ready(function () {
     appendcountries('#firstcountry')
     appendcountries('#secondcountry')
     appendcountries('#thirdcountry')
-    function pageloadddlNtextarea () {
+    function helperloadddlNtextarea () {
       $(edithelper + '#nationality').val(helperdata.profile.nationality)
       $(edithelper + '#portrepatriated').val(helperdata.profile.portrepatriated)
       $(edithelper + '#religion').val(helperdata.profile.religion)
@@ -932,14 +932,14 @@ $(document).ready(function () {
       $(edithelper + '#thirdcountry').val(helperdata.workingexperience.third.country)
       $(edithelper + '#thirdduties').val(helperdata.workingexperience.third.duties)
     }
-    function pageloadradiobtn (uservalue, param) {
+    function helperloadradiobtn (uservalue, param) {
       if (uservalue === true) {
         $(edithelper + '#' + param + 'yes').prop('checked', true)
       } else {
         $(edithelper + '#' + param + 'no').prop('checked', true)
       }
     }
-    function pageloaddob () {
+    function helperloaddob () {
       appendyear('#dob-year', 100)
       if (helperdata.profile.dob === null) {
         $(edithelper + '#dob-date').val('')
@@ -952,18 +952,18 @@ $(document).ready(function () {
         $(edithelper + '#dob-year').val(ds.getFullYear())
       }
     }
-    pageloadddlNtextarea()
-    pageloadradiobtn(helperdata.skills.english, 'english')
-    pageloadradiobtn(helperdata.skills.singapore, 'singapore')
-    pageloadradiobtn(helperdata.skills.infantcare, 'infantcare')
-    pageloadradiobtn(helperdata.skills.childcare, 'childcare')
-    pageloadradiobtn(helperdata.skills.elderlycare, 'elderlycare')
-    pageloadradiobtn(helperdata.skills.disabledcare, 'disabledcare')
-    pageloadradiobtn(helperdata.skills.housework, 'housework')
-    pageloadradiobtn(helperdata.skills.cooking, 'cooking')
-    pageloadradiobtn(helperdata.skills.handledog, 'handledog')
-    pageloadradiobtn(helperdata.skills.handlecat, 'handlecat')
-    pageloaddob()
+    helperloadddlNtextarea()
+    helperloadradiobtn(helperdata.skills.english, 'english')
+    helperloadradiobtn(helperdata.skills.singapore, 'singapore')
+    helperloadradiobtn(helperdata.skills.infantcare, 'infantcare')
+    helperloadradiobtn(helperdata.skills.childcare, 'childcare')
+    helperloadradiobtn(helperdata.skills.elderlycare, 'elderlycare')
+    helperloadradiobtn(helperdata.skills.disabledcare, 'disabledcare')
+    helperloadradiobtn(helperdata.skills.housework, 'housework')
+    helperloadradiobtn(helperdata.skills.cooking, 'cooking')
+    helperloadradiobtn(helperdata.skills.handledog, 'handledog')
+    helperloadradiobtn(helperdata.skills.handlecat, 'handlecat')
+    helperloaddob()
 
     // Country Code Autofill
     $(edithelper + '#nationality').change(function () {
