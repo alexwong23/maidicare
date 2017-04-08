@@ -118,7 +118,18 @@ module.exports = {
       res.redirect('/admin/email')
     })
   },
-  postAdminUsersDelete: function (req, res, next) {
+  postAdminUsersSearch: function (req, res, next) {
+    User.findOne({'local.email': req.body.email}, function (err, userInfo) {
+      if (err) { return next(err) }
+      if (userInfo) {
+        res.redirect('/admin/users/' + userInfo._id + '&' + userInfo.local.role)
+      } else {
+        req.flash('adminMessage', 'Could not find any users with email, \'' + req.body.email + '\'.')
+        res.redirect('/admin')
+      }
+    })
+  },
+  postAJAXAdminUsersDelete: function (req, res, next) {
     User.findOneAndRemove({'_id': req.body.id, 'local.role': req.body.role}, function (err, removeUser) {
       if (err) { return next(err) }
       if (removeUser) {
@@ -144,17 +155,6 @@ module.exports = {
           status: 'error',
           message: 'Delete failed. Could not find ' + req.body.role + ' with id, ' + req.body.id
         })
-      }
-    })
-  },
-  postAdminUsersSearch: function (req, res, next) {
-    User.findOne({'local.email': req.body.email}, function (err, userInfo) {
-      if (err) { return next(err) }
-      if (userInfo) {
-        res.redirect('/admin/users/' + userInfo._id + '&' + userInfo.local.role)
-      } else {
-        req.flash('adminMessage', 'Could not find any users with email, \'' + req.body.email + '\'.')
-        res.redirect('/admin')
       }
     })
   },

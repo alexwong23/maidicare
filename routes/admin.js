@@ -73,7 +73,7 @@ router.route('/email')
 router.post('/users/search', adminController.postAdminUsersSearch)
 
 // Post Delete User
-router.post('/users/delete', adminController.postAdminUsersDelete)
+router.post('/users/delete', adminController.postAJAXAdminUsersDelete)
 
 // Render User account page for admin change email, nric and permissions
 router.route('/users/:idrole')
