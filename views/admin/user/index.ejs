@@ -54,10 +54,7 @@
   				</div>
         <% } %>
         <div class="profile-userbuttons">
-          <form method="post" action="/admin/users/delete" enctype="application/x-www-form-urlencoded">
-            <input type="hidden" name="idrole" value="<%= userInfo.userid._id%>&<%= userInfo.userid.local.role%>">
-            <button type="submit" class="btn btn-danger">Delete Account</button>
-          </form>
+          <button type="button" class="btn btn-danger admin-delete-user" value="<%= userInfo.userid._id%>&<%= userInfo.userid.local.role%>&<%= userInfo.userid.local.email%>">Delete Account</button>
         </div>
 				<div class="profile-usermenu">
 					<ul class="nav">

@@ -119,33 +119,31 @@ module.exports = {
     })
   },
   postAdminUsersDelete: function (req, res, next) {
-    var userid = req.body.idrole.split('&')[0]
-    var userrole = req.body.idrole.split('&')[1]
-    User.findOneAndRemove({'_id': userid, 'local.role': userrole}, function (err, removeUser) {
+    User.findOneAndRemove({'_id': req.body.id, 'local.role': req.body.role}, function (err, removeUser) {
       if (err) { return next(err) }
       if (removeUser) {
-        if (userrole === 'employer') {
-          Employer.findOneAndRemove({'userid': userid}, function (err) {
+        if (req.body.role === 'employer') {
+          Employer.findOneAndRemove({'userid': req.body.id}, function (err) {
             if (err) { return next(err) }
-            Hire.remove({'euserid': userid}, function (err) {
+            Hire.remove({'euserid': req.body.id}, function (err) {
               if (err) { return next(err) }
-              req.flash('adminMessage', 'Deleted ' + userrole + ' with email \'' + removeUser.local.email + '\'')
-              res.redirect('/admin/')
+              res.send({status: 'success'})
             })
           })
         } else {
-          Helper.findOneAndRemove({'userid': userid}, function (err) {
+          Helper.findOneAndRemove({'userid': req.body.id}, function (err) {
             if (err) { return next(err) }
-            Hire.remove({'huserid': userid}, function (err) {
+            Hire.remove({'huserid': req.body.id}, function (err) {
               if (err) { return next(err) }
-              req.flash('adminMessage', 'Deleted ' + userrole + ' with email \'' + removeUser.local.email + '\'')
-              res.redirect('/admin/')
+              res.send({status: 'success'})
             })
           })
         }
       } else {
-        req.flash('adminUserAccountMessage', 'Delete failed. Could not find ' + userrole + ' with id, ' + userid)
-        res.redirect('/admin/users/' + req.body.idrole)
+        res.send({
+          status: 'error',
+          message: 'Delete failed. Could not find ' + req.body.role + ' with id, ' + req.body.id
+        })
       }
     })
   },

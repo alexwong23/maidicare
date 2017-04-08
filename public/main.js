@@ -1747,6 +1747,9 @@ $(document).ready(function () {
   *
   * admin populate User Account Page
   *
+  * admin Delete User Account
+  *       AJAX Post, id & role
+  *
   * admin using View Hire Page
   *       filter Hire by Status
   *           fill filter value using url path
@@ -1805,6 +1808,58 @@ $(document).ready(function () {
       pageloadBoolean(userInfo.recruit, 'recruit')
       pageloadBoolean(userInfo.hire, 'hire')
       pageloadBoolean(userInfo.activate.status, 'activatestatus')
+    }
+
+    // admin Delete User Account
+    if ($('.admin-delete-user').length > 0) {
+      $('.admin-delete-user').on('click', function () {
+        var idroleemail = $('.admin-delete-user').val()
+        var userid = idroleemail.split('&')[0]
+        var userrole = idroleemail.split('&')[1]
+        var useremail = idroleemail.split('&')[2]
+        swal({
+          title: 'Type email to Delete',
+          text: useremail,
+          input: 'email',
+          showCancelButton: true,
+          confirmButtonColor: 'rgb(221, 75, 57)',
+          confirmButtonText: 'Delete',
+          showLoaderOnConfirm: true,
+          preConfirm: function (email) {
+            return new Promise(function (resolve, reject) {
+              setTimeout(function () {
+                if (email === useremail) {
+                  resolve()
+                } else {
+                  reject('Input does not match Email.')
+                }
+              }, 1000)
+            })
+          }
+        }).then(function (email) {
+          $.ajax({
+            url: '/admin/users/delete',
+            type: 'POST',
+            cache: false,
+            data: JSON.stringify({id: userid, role: userrole}),
+            dataType: 'json',
+            contentType: 'application/json',
+            success: function (data) {
+              if (data.status === 'success') {
+                swalSuccess('Account Deleted! Redirecting to Admin Menu...')
+                setTimeout(function () {
+                  window.location = '/admin'
+                }, 2500)
+              } else {
+                swalError(data.message)
+              }
+            },
+            error: function (err) {
+              if (err) swalError('Please refresh the page and try again.')
+            }
+          })
+        })
+      })
     }
 
     // admin using View Hire Page's filter
