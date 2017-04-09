@@ -25,17 +25,18 @@ Navigation bar
   height: inherit;
   font-size: 45px;
   margin: 0;
-  padding: 10px 20px;
+  padding: 10px 10px;
   position: relative;
   top: 5px;
 }
 .navbar-default .navbar-brand span{
 	font-weight: 100;
 }
-.navbar-default .maidicarelogo {
+.navbar-default .maidicareLogoOnly {
   display: inline-block;
   position: relative;
   top: -5px;
+  right: -10px;
   height: inherit;
   width: 40px;
 }
@@ -96,6 +97,9 @@ Navigation bar
   padding-left: 30px;
 }
 @media only screen and (max-width: 767px) {
+  .navbar-default .navbar-brand {
+    padding: 10px 0;
+  }
   .navbar-default .navbar-nav > li > a {
     font-size: 16px;
   }
@@ -176,16 +180,15 @@ footer
 Banner
 ************************************/
 .banner {
-  background: url('/images/banner2.jpg') no-repeat center;
+  background: url('http://res.cloudinary.com/dbjdqrw9o/image/upload/v1491722348/230994_banner1Wallpaper.jpg') no-repeat center;
   background-size: cover;
   min-height: 600px;
-  position: relative;
 }
 /* The file size of this background image is smaller
 to improve page load speed on mobile internet connections */
 @media only screen and (max-width: 767px) {
   .banner {
-    background-image: url('/images/banner1.jpg');
+    background-image: url('http://res.cloudinary.com/dbjdqrw9o/image/upload/v1491722346/230994_banner2Wallpaper.jpg');
   }
 }
 .banner .bg-color {
@@ -331,29 +334,15 @@ Testimonial
 About Banner
 ************************************/
 .about-banner {
-  background: url('/images/about2.jpg') no-repeat center;
+  background: url('http://res.cloudinary.com/dbjdqrw9o/image/upload/v1491721673/230994_aboutWallpaper.jpg') no-repeat center;
   background-size: cover;
   min-height: 350px;
   max-height: 350px;
-  position: relative;
 }
 .about-banner .about-bg {
 	background-color: RGBA(12, 11, 11, 0.5);
   min-height: 350px;
 	max-height: 350px;
-}
-/* The file size of this background image is smaller
-to improve page load speed on mobile internet connections */
-@media only screen and (max-width: 767px) {
-  .about-banner {
-    background-image: url('/images/about2.jpg');
-    min-height: 200px;
-    max-height: 200px;
-  }
-  .about-banner .about-bg {
-    min-height: 200px;
-  	max-height: 200px;
-  }
 }
 .about-header {
 	font-family: 'Oxygen', sans-serif;
@@ -369,6 +358,14 @@ to improve page load speed on mobile internet connections */
   font-size: 22px;
 }
 @media only screen and (max-width: 767px) {
+  .about-banner {
+    min-height: 200px;
+    max-height: 200px;
+  }
+  .about-banner .about-bg {
+    min-height: 200px;
+  	max-height: 200px;
+  }
   .about-header {
   	margin-top: 75px;
   }
@@ -425,17 +422,9 @@ Contact
 Login
 ************************************/
 .login {
-  background: url('/images/login2.jpg') no-repeat center;
+  background: url('http://res.cloudinary.com/dbjdqrw9o/image/upload/v1491721172/230994_loginWallpaper.jpg') no-repeat center;
   background-size: cover;
   min-height: 650px;
-  position: relative;
-}
-/* The file size of this background image is smaller
-to improve page load speed on mobile internet connections */
-@media only screen and (max-width: 767px) {
-  .login {
-    background-image: url('/images/login2.jpg');
-  }
 }
 .login .bg-color {
 	background-color: RGBA(12, 11, 11, 0.7);
@@ -451,6 +440,11 @@ to improve page load speed on mobile internet connections */
   color: #fff;
   border-top-left-radius: 10px;
   border-bottom-left-radius: 10px;
+}
+.loginleft .maidicareLogo {
+  width: 100%;
+  position: relative;
+  top: -40px;
 }
 .loginright {
   background-color: #fff;
@@ -502,17 +496,9 @@ to improve page load speed on mobile internet connections */
 Sign Up
 ************************************/
 .signup {
-  background: url('/images/signup2.jpg') no-repeat center;
+  background: url('http://res.cloudinary.com/dbjdqrw9o/image/upload/v1491721175/230994_signupWallpaper.jpg') no-repeat center;
   background-size: cover;
   min-height: 800px;
-  position: relative;
-}
-/* The file size of this background image is smaller
-to improve page load speed on mobile internet connections */
-@media only screen and (max-width: 767px) {
-  .signup {
-    background-image: url('/images/signup2.jpg');
-  }
 }
 .signup .bg-color {
 	background-color: RGBA(12, 11, 11, 0.7);
@@ -1625,6 +1611,9 @@ Browse Page
 .browse-row .browse-menu ul li:last-child {
   border-bottom: none;
 }
+.browse-row .browse-menu .legend_filtericons {
+  height: 20px;
+}
 /* Browse Search Bar */
 .browse-header {
   padding: 0;
@@ -1991,13 +1980,6 @@ Middle boxes
   background-size: cover;
   min-height: 650px;
   position: relative;
-}
-/* The file size of this background image is smaller
-to improve page load speed on mobile internet connections */
-@media only screen and (max-width: 767px) {
-  /*.middle {
-    background-image: url('/images/login2.jpg');
-  }*/
 }
 .middle .bg-color {
 	background-color: RGBA(12, 11, 11, 0.5);

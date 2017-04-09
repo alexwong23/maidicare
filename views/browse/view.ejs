@@ -17,7 +17,7 @@
             <% var imgUrl = "/images/noimg.jpg" %>
             <% if (helperInfo.profile.photo.version) { %>
               <% imgThumbnail =
-              "https://res.cloudinary.com/dbjdqrw9o/image/upload/w_300,h_300,c_lfill,g_auto/l_imageexpand_230994,w_80,h_80,c_thumb/fl_layer_apply,g_south_east/dpr_2.0/v" + helperInfo.profile.photo.version + '/' + helperInfo._id + '.' + helperInfo.profile.photo.format%>
+              "https://res.cloudinary.com/dbjdqrw9o/image/upload/w_300,h_300,c_lfill,g_auto/l_230994_imageexpand,w_80,h_80,c_thumb/fl_layer_apply,g_south_east/dpr_2.0/v" + helperInfo.profile.photo.version + '/' + helperInfo._id + '.' + helperInfo.profile.photo.format%>
               <% imgUrl =
               "https://res.cloudinary.com/dbjdqrw9o/image/upload/dpr_2.0/v" + helperInfo.profile.photo.version + '/' + helperInfo._id + '.' + helperInfo.profile.photo.format%>
             <% } %>
