@@ -1,3 +1,5 @@
+var newrelic = require('newrelic')
+
 // require modules & set to variables
 var express = require('express')
 var bodyParser = require('body-parser')
