@@ -441,11 +441,6 @@ Login
   border-top-left-radius: 10px;
   border-bottom-left-radius: 10px;
 }
-.loginleft .maidicareLogo {
-  width: 100%;
-  position: relative;
-  top: -40px;
-}
 .loginright {
   background-color: #fff;
   padding-top: 80px;
