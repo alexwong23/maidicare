@@ -1907,6 +1907,34 @@ $(document).ready(function () {
       })
     }
 
+    // admin export hire data
+    if ($('.export-hire-data').length > 0) {
+      $('.export-hire-data').on('click', function () {
+        $.ajax({
+          url: '/admin/shortlists/' + $(this).val() + '/export',
+          type: 'POST',
+          cache: false,
+          success: function (response) {
+            if (response.status === 'success') {
+              function exportJSON (responseData, filename) {
+                var jsonString = 'data:application/json;charset=utf-8,' + JSON.stringify(responseData)
+                var data = encodeURI(jsonString)
+                var link = document.createElement('a')
+                link.setAttribute('href', data)
+                link.setAttribute('download', filename)
+                link.click()
+              }
+              exportJSON(response.helperData, 'helper_' + response.helperData.userid.local.email.replace('.', ','))
+              exportJSON(response.employerData, 'employer_' + response.employerData.userid.local.email.replace('.', ','))
+            }
+          },
+          error: function (err) {
+            if (err) swalError('Please refresh the page and try again. You can also contact us at \'support@maidicare.com\'.')
+          }
+        })
+      })
+    }
+
     // admin using Inactive Helper Page
     if ($('.admin-email-all-inactive-helper').length > 0) {
       $('.admin-email-all-inactive-helper').on('click', function () {

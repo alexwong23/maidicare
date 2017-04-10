@@ -672,6 +672,26 @@ module.exports = {
       res.send({ status: 'success' })
     })
   },
+  postAJAXHireExport: function (req, res, next) {
+    Hire.findOne({'_id': req.params.id}, function (err, hireData) {
+      if (err) { return next(err) }
+      Helper.findOne({'userid': hireData.huserid})
+      .populate('userid')
+      .exec(function (err, helperData) {
+        if (err) { return next(err) }
+        Employer.findOne({'userid': hireData.euserid})
+        .populate('userid')
+        .exec(function (err, employerData) {
+          if (err) { return next(err) }
+          res.send({
+            status: 'success',
+            helperData: helperData,
+            employerData: employerData
+          })
+        })
+      })
+    })
+  },
   getAdminInactiveHelpers: function (req, res, next) {
     var threeweeks = new Date(new Date().setDate(new Date().getDate() - 21))
     var onemonth = new Date(new Date().setMonth(new Date().getMonth() - 1))

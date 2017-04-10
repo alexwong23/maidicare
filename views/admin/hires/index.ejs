@@ -23,7 +23,10 @@
               <% var isodate = dateFromObjectId(data._id.toString()) %>
               <% var minutes = isodate.getMinutes() < 10 ? '0' + isodate.getMinutes() : isodate.getMinutes() %>
               <% ddmmyyyyhhmm = isodate.getDate().toString() + ' ' + monthNames[isodate.getMonth()] + ' ' + isodate.getFullYear().toString() + ', ' + isodate.getHours() + ':' + minutes %>
-              <h4><%=ddmmyyyyhhmm%></h4>
+              <h4>
+                <%=ddmmyyyyhhmm%>
+                <button type="button" class="export-hire-data" value=<%=data._id%>><i class="glyphicon glyphicon-download"></i>Download</button>
+              </h4>
               <h4 class="right" id=<%=data.status%>><%=data.status%></h4>
               <hr>
               <div class="col-md-4 col-sm-4">

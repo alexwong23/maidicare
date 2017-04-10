@@ -99,6 +99,9 @@ router.route('/shortlists/:id')
       .get(adminCheck, adminController.getAdminHire)
       .post(adminCheck, adminController.postAJAXAdminHire)
 
+// AJAX Post returns Hire Data to front end for export
+router.post('/shortlists/:id/export', adminCheck, adminController.postAJAXHireExport)
+
 // Render inactive helpers for admin to view & email warning
 router.route('/inactive/helpers')
       .get(adminCheck, adminController.getAdminInactiveHelpers)
