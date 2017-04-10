@@ -377,7 +377,7 @@ module.exports = {
               User.findOneAndUpdate({'_id': req.user.id}, {'local.contact.countrycode': req.body.helper.local.contact.countrycode, 'local.contact.number': req.body.helper.local.contact.number}, function (err) {
                 if (err) { return next(err) }
                 if (req.body.helper.saveOrSubmit === 'save') {
-                  req.flash('editMessage', 'Save Successful! To complete your profile, please click the green \'Submit\' button.')
+                  req.flash('editMessage', 'Save Successful! To complete your profile, please click the green button.')
                   res.redirect('/users/edit/')
                 } else {
                   if (helperNotEmpty()) {
@@ -501,7 +501,7 @@ module.exports = {
             User.findOneAndUpdate({'_id': req.user.id}, {'local.contact.countrycode': '+65', 'local.contact.number': req.body.employer.local.contact.number}, function (err) {
               if (err) { return next(err) }
               if (req.body.employer.saveOrSubmit === 'save') {
-                req.flash('editMessage', 'Save Successful! To complete your profile, please click the green \'Submit\' button.')
+                req.flash('editMessage', 'Save Successful! To complete your profile, please click the green button.')
                 res.redirect('/users/edit/')
               } else {
                 if (employerNotEmpty()) {

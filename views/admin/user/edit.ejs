@@ -94,7 +94,7 @@
                   </div>
                   <div class="col-sm-4 rightpadding">
                     <div class="form-group">
-                      <label for="middlename">Middle name *</label>
+                      <label for="middlename">Middle name <span class="substring">optional</span></label>
                       <input type="text" class="form-control" id="middlename" name="helper[profile][middlename]" value="<%= userInfo.profile.middlename%>" maxlength="20">
                     </div>
                   </div>
@@ -262,7 +262,7 @@
                   </div>
                 </div>
                 <div class="form-group thirty">
-                  <label for="siblings">No of Siblings</label>
+                  <label for="siblings">No of Siblings <span class="substring">(if any)</span></label>
                   <select class="form-control" id="siblings" name="helper[profile][siblings]">
                     <option value="0">0</option>
                     <option value="1">1</option>
@@ -288,7 +288,7 @@
                   </select>
                 </div>
                 <div class="form-group thirty">
-                  <label for="children">No of Children</label>
+                  <label for="children">No of Children <span class="substring">(if any)</span></label>
                   <select class="form-control" id="children" name="helper[profile][children]">
                     <option value="0">0</option>
                     <option value="1">1</option>
@@ -327,7 +327,7 @@
                   <input type="text" class="form-control" id="fieldofstudy" name="helper[education][fieldofstudy]" value="<%= userInfo.education.fieldofstudy%>" maxlength="50">
                 </div>
                 <div class="form-group sixty">
-                  <label for="otherqualifications">Other Qualifications:</label>
+                  <label for="otherqualifications">Other Qualifications <span class="substring">optional</span></label>
                   <textarea class="form-control" rows="3" id="otherqualifications" name="helper[education][otherqualifications]"maxlength="300"></textarea>
                 </div>
               </div>
@@ -474,12 +474,12 @@
                 </div>
               </div>
               <div class="well well-md">
-                <h3>Working Experience <span class="substring">optional</span></h3>
+                <h3>Working Experience</h3>
                 <p class="description">Please provide accurate information as they will be used in your application to Ministry of Manpower.</p>
                 <hr>
                 <div class="container-fluid nopadding">
                   <div class="col-sm-12 col-xs-12 nopadding">
-                    <h4 class="workexperienceheader">First</h4>
+                    <h4 class="workexperienceheader">First <span class="substring">optional</span></h4>
                     <div class="col-sm-3 col-xs-6">
                       <div class="form-group">
                         <label for="firstfrom">From</label>
@@ -512,7 +512,7 @@
                   </div>
                   <div class="col-sm-12 col-xs-12 nopadding">
                     <p class="hrnotworking"></p>
-                    <h4 class="workexperienceheader">Second</h4>
+                    <h4 class="workexperienceheader">Second <span class="substring">optional</span></h4>
                     <div class="col-sm-3 col-xs-6">
                       <div class="form-group">
                         <label for="secondfrom">From</label>
@@ -545,7 +545,7 @@
                   </div>
                   <div class="col-sm-12 col-xs-12 nopadding">
                     <p class="hrnotworking"></p>
-                    <h4 class="workexperienceheader">Third</h4>
+                    <h4 class="workexperienceheader">Third <span class="substring">optional</span></h4>
                     <div class="col-sm-3 col-xs-6">
                       <div class="form-group">
                         <label for="thirdfrom">From</label>
@@ -580,7 +580,7 @@
               </div>
               <input type="hidden" id="saveOrSubmit" name="helper[saveOrSubmit]" value="submit">
               <div class="edithelperformbuttons">
-                <button type="submit" class="btn btn-success" id="edithelpersubmit">Submit</button>
+                <button type="submit" class="btn btn-success" id="edithelpersubmit">Complete My Profile</button>
               </div>
             </form>
           <% } %>
@@ -840,7 +840,7 @@
               </div>
               <input type="hidden" id="saveOrSubmit" name="employer[saveOrSubmit]" value="submit">
               <div class="editemployerformbuttons">
-                <button type="submit" class="btn btn-success" id="editemployersubmit">Submit</button>
+                <button type="submit" class="btn btn-success" id="editemployersubmit">Complete My Profile</button>
               </div>
             </form>
           <% } %>

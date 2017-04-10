@@ -701,9 +701,6 @@ Error Alert Top of Page
   margin: 0;
 }
 @media only screen and (max-width: 767px) {
-  .erroralert {
-    font-size: 20px;
-  }
   .erroralert .closebtn {
     font-size: 30px;
     line-height: 28px;
@@ -967,17 +964,6 @@ Edit Page
   padding: 20px;
   margin-bottom: 20px;
 }
-.editdetails .header {
-  background-color: RGBA(100, 150, 100, 0.8);
-  color: white;
-  padding: 20px;
-  margin: 0;
-  font-size: 25px;
-}
-.editdetails .header a {
-  float: right;
-  margin: 5px 0;
-}
 .editdetails .borderless .well h3 {
   margin: 10px 0;
 }
@@ -988,13 +974,6 @@ Edit Page
 }
 .editdetails .borderless .well .form-group label {
   font-size: 14px;
-}
-@media only screen and (max-width: 767px) {
-  .editdetails .header a {
-    float: none;
-    display: block;
-    max-width: 150px;
-  }
 }
 
 /***********************************
@@ -1112,7 +1091,7 @@ Edit Page Employer
 }
 .editemployer .editemployerformbuttons button {
   margin-right: 20px;
-  font-size: 20px;
+  font-size: 16px;
 }
 @media only screen and (max-width: 767px) {
   .editemployer .rightpaddingstreetname {
@@ -1128,7 +1107,8 @@ Edit Page Employer
     max-width: 100px;
   }
   .editemployer .editemployerformbuttons button {
-    font-size: 16px;
+    width: 100%;
+    margin-bottom: 10px;
   }
 }
 
@@ -1249,7 +1229,7 @@ Edit Page Helper
 }
 .edithelper .edithelperformbuttons button {
   margin-right: 20px;
-  font-size: 20px;
+  font-size: 16px;
 }
 @media only screen and (max-width: 767px) {
   .edithelper .rightpadding {
@@ -1297,7 +1277,8 @@ Edit Page Helper
     margin: 20px;
   }
   .edithelper .edithelperformbuttons button {
-    font-size: 16px;
+    width: 100%;
+    margin-bottom: 10px;
   }
 }
 /* iPhone 5 width issues */

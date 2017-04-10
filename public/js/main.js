@@ -506,9 +506,9 @@ $(document).ready(function () {
       window.sessionStorage.setItem('signupidentification', sIdentification)
     })
 
-    // signup form auto check after not typing for 3seconds
+    // signup form auto check after not typing for 1 seconds
     var sTypingTimer
-    var sTypingInterval = 3000
+    var sTypingInterval = 1000
     var $sInput = $('.local-signup .form-group')
 
     // on keyup, start the countdown
@@ -761,15 +761,22 @@ $(document).ready(function () {
     if ($('.editemployer .editemployerformbuttons #editemployersave').length) {
       $('.editemployer #editemployersave').css({
         'position': 'fixed',
-        'bottom': '50px'
-      })
+        'bottom': '50px',
+        'right': '35px',
+        'width': '15%',
+        'min-width': '60px'
+      }).text('Save')
       $(window).scroll(function () {
         var max = $('.editemployer .editemployerformbuttons').offset().top
         var min = $('.editemployer #editemployersave').offset().top
         if (min > max) {
           $('.editemployer #editemployersave').css({
-            'position': 'static'
-          })
+            'position': '',
+            'bottom': '',
+            'right': '',
+            'width': '',
+            'min-width': ''
+          }).text('Save My Progress')
         }
       })
     }
@@ -1004,15 +1011,21 @@ $(document).ready(function () {
       $('.edithelper #edithelpersave').css({
         'position': 'fixed',
         'bottom': '30px',
-        'right': '30px'
-      })
+        'right': '35px',
+        'width': '15%',
+        'min-width': '60px'
+      }).text('Save')
       $(window).scroll(function () {
         var max = $('.edithelper .edithelperformbuttons').offset().top
         var min = $('.edithelper #edithelpersave').offset().top
         if (min > max) {
           $('.edithelper #edithelpersave').css({
-            'position': 'static'
-          })
+            'position': '',
+            'bottom': '',
+            'right': '',
+            'width': '',
+            'min-width': ''
+          }).text('Save My Progress')
         }
       })
     }
