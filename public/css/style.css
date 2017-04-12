@@ -193,7 +193,7 @@ Banner
 .banner {
   background: url('http://res.cloudinary.com/dbjdqrw9o/image/upload/v1491722348/230994_banner1Wallpaper.jpg') no-repeat center;
   background-size: cover;
-  min-height: 600px;
+  min-height: 650px;
 }
 /* The file size of this background image is smaller
 to improve page load speed on mobile internet connections */
@@ -204,7 +204,7 @@ to improve page load speed on mobile internet connections */
 }
 .banner .bg-color {
 	background-color: RGBA(12, 11, 11, 0.7);
-	min-height: 600px;
+	min-height: 650px;
 }
 .banner .text-dec {
 	font-size: 24px;
