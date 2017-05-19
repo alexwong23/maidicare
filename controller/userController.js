@@ -754,6 +754,7 @@ module.exports = {
               var newMail = new Mail({
                 from: 'support@maidicare.com',
                 to: [{email: hiredata.euserid.local.email}],
+                bcc: [{email: 'support@maidicare.com'}],
                 subject: 'MaidiCare Shortlist Update',
                 message: 'A helper has ACCEPTED your hire request and is waiting for your confirmation.',
                 substitutions: {
@@ -764,7 +765,7 @@ module.exports = {
                 },
                 templateid: '6a0bf52e-9db6-42db-abb6-392169497e50'
               })
-              newMail.sendEmail(newMail, function (err, response) {
+              newMail.sendEmailBcc(newMail, function (err, response) {
                 if (err) { return next(err) }
                 res.send({status: 'success'})
               })

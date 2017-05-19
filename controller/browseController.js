@@ -467,8 +467,7 @@ module.exports = {
                         from: 'support@maidicare.com',
                         to: [{email: helperInfo.local.email}],
                         bcc: [{email: 'support@maidicare.com'},
-                        {email: 'alexwongweilun@hotmail.co.uk'},
-                        {email: 'agencyemail@hotmail.com'}],
+                        {email: 'alexwongweilun@hotmail.co.uk'}],
                         subject: 'MaidiCare Shortlist Update',
                         message: 'An employer has SELECTED your profile and is waiting for your response.',
                         substitutions: {
