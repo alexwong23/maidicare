@@ -504,16 +504,16 @@ Sign Up
 .signup {
   background: url('http://res.cloudinary.com/dbjdqrw9o/image/upload/v1491721175/230994_signupWallpaper.jpg') no-repeat center;
   background-size: cover;
-  min-height: 800px;
+  min-height: 600px;
 }
 .signup .bg-color {
 	background-color: RGBA(12, 11, 11, 0.7);
-	min-height: 900px;
+	min-height: 700px;
 }
 .signupbox {
   margin-top: 50px;
   padding: 50px 30px;
-  height: 725px;
+  height: 550px;
 }
 .signupleft {
   background-color: RGBA(100, 175, 100, 0.8);

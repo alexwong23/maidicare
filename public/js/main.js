@@ -269,8 +269,6 @@ $(document).ready(function () {
   *
   * IE Browser alert
   *
-  * load identification placeholder based on session storage
-  *
   * CSS formatting
   *   glyphicons
   *   hidden p tags
@@ -284,7 +282,6 @@ $(document).ready(function () {
   *
   * Session Storage
   *     email
-  *     role
   *     identification
   *
   * Auto validation
@@ -294,8 +291,6 @@ $(document).ready(function () {
   if ($('.local-signup').length) {
     if (isBrowserIE()) {
       window.alert('For a better website experience, please use other browsers such as Chrome, Firefox or Safari.')
-      $('.roleSelect input').css('display', 'block')
-      $('.roleLogo:last-child, #roleEmployer').css({'position': 'relative', 'top': '-17px'})
     }
 
     // callbacks to add css and glyphicons
@@ -340,13 +335,6 @@ $(document).ready(function () {
     }
 
     // callbacks for signup validation
-    function srolevalidation (value) {
-      $('.roleSelect > p').css({'font-size': '15px', 'font-weight': '400', 'color': '#717f86'})
-      if (value !== 'helper' && value !== 'employer') {
-        $('.roleSelect > p').css({'font-size': '18px', 'font-weight': 'bolder', 'color': '#a94442'})
-        return false
-      }
-    }
     function semailvalidation (element, elementtext, value) {
       if (value.length < 1) {
         removerightaddon(element)
@@ -459,33 +447,23 @@ $(document).ready(function () {
         return false
       } else {
         formerror(element)
-        formtexterror(elementtext, 'Please choose a role')
+        formtexterror(elementtext, 'Invalid Identification')
         return false
       }
     }
 
-    var signuprole = window.sessionStorage.getItem('signuprole')
-    var signupchangeplaceholder = $("input[name='user[local][identification]']")
-    if (signuprole === 'helper') {
-      signupchangeplaceholder.attr('placeholder', 'Passport Number')
-    } else if (signuprole === 'employer') {
-      signupchangeplaceholder.attr('placeholder', 'NRIC eg.S1234567D')
-    }
-
-    // session storage for sign up email, role and id
+    // session storage for sign up email and id
     $('.local-signup .form-group.email input#email').val(window.sessionStorage.getItem('signupemail'))
     $('.local-signup .form-group.identification input#identification').val(window.sessionStorage.getItem('signupidentification'))
-    $('.local-signup .form-group input[value=' + signuprole + ']').attr('checked', 'checked')
 
+    var sRole = $("input[name='user[local][role]']").val()
     // event handlers for sign up form
     $('.local-signup').submit(function (e) {
       var sEmail = $("input[name='user[local][email]']").val()
       var sPassword = $("input[name='user[local][password]']").val()
       var sConfirm = $("input[name='user[local][confirm]']").val()
-      var sRole = $("input[name='user[local][role]']:checked").val()
       var sIdentification = $("input[name='user[local][identification]']").val()
 
-      srolevalidation(sRole)
       semailvalidation('.local-signup .email', '.local-signup .form-group-text.temail', sEmail)
       spasswordvalidation('.local-signup .password', '.local-signup .form-group-text.tpassword', sPassword)
       spasswordvalidation('.local-signup .confirm', '.local-signup .form-group-text.tconfirm', sConfirm)
@@ -493,7 +471,6 @@ $(document).ready(function () {
       sidentityvalidation(sRole, sIdentification)
 
       if (
-        srolevalidation(sRole) === false ||
         semailvalidation('.local-signup .email', '.local-signup .form-group-text.temail', sEmail) === false ||
         spasswordvalidation('.local-signup .password', '.local-signup .form-group-text.tpassword', sPassword) === false ||
         spasswordvalidation('.local-signup .confirm', '.local-signup .form-group-text.tconfirm', sConfirm) === false ||
@@ -502,7 +479,6 @@ $(document).ready(function () {
         e.preventDefault()
       }
       window.sessionStorage.setItem('signupemail', sEmail)
-      window.sessionStorage.setItem('signuprole', sRole)
       window.sessionStorage.setItem('signupidentification', sIdentification)
     })
 
@@ -527,7 +503,6 @@ $(document).ready(function () {
       var sEmail = $("input[name='user[local][email]']").val()
       var sPassword = $("input[name='user[local][password]']").val()
       var sConfirm = $("input[name='user[local][confirm]']").val()
-      var sRole = $("input[name='user[local][role]']:checked").val()
       var sIdentification = $("input[name='user[local][identification]']").val()
 
       semailvalidation('.local-signup .email', '.local-signup .form-group-text.temail', sEmail)
@@ -552,22 +527,8 @@ $(document).ready(function () {
       spasswordmatch('.local-signup .confirm', '.local-signup .form-group-text.tconfirm', sPassword, sConfirm)
     })
     $('.local-signup .form-group.identification').focusout(function () {
-      var sRole = $("input[name='user[local][role]']:checked").val()
       var sIdentification = $("input[name='user[local][identification]']").val()
       sidentityvalidation(sRole, sIdentification)
-    })
-    $('.local-signup .form-group.role').on('click', function () {
-      removerightaddon('.local-signup .identification')
-      removeformtext('.local-signup .form-group-text.tidentification')
-      var signupchangerole = $("input[name='user[local][role]']:checked").val()
-      var signupchangeplaceholder = $("input[name='user[local][identification]']")
-      if (signupchangerole === 'helper') {
-        signupchangeplaceholder.attr('placeholder', 'Passport Number')
-        signupchangeplaceholder.val('')
-      } else if (signupchangerole === 'employer') {
-        signupchangeplaceholder.attr('placeholder', 'NRIC, S1234567D')
-        signupchangeplaceholder.val('')
-      }
     })
   }
 

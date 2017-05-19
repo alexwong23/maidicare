@@ -19,6 +19,9 @@ module.exports = {
   getLogin: function (req, res) {
     res.render('login', { message: req.flash('loginMessage') })
   },
+  getHelperSignup: function (req, res) {
+    res.render('helpersignup', { message: req.flash('signupMessage') })
+  },
   getLogout: function (req, res) {
     req.logout()
     res.redirect('/')
@@ -60,6 +63,7 @@ module.exports = {
       var newMail = new Mail({
         from: req.body.email,
         to: [{email: 'support@maidicare.com'}],
+        bcc: [{email: 'alexwongweilun@hotmail.co.uk'}],
         subject: 'MaidiCare Contact Us: ' + req.body.subject.replace(/_/g, ' '),
         message: req.body.message,
         substitutions: {
@@ -69,7 +73,7 @@ module.exports = {
         },
         templateid: '34a2faa3-1b06-44e1-a52c-1fc3cd695980'
       })
-      newMail.sendEmail(newMail, function (err, response) {
+      newMail.sendEmailBcc(newMail, function (err, response) {
         if (err) { return next(err) }
         res.send({status: 'success'})
       })

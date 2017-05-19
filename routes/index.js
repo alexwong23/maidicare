@@ -50,4 +50,13 @@ router.route('/signup')
     failureFlash: true
   }))
 
+// signup route with get and post, post with passport
+router.route('/helpersignup')
+  .get(loginCheck, indexController.getHelperSignup)
+  .post(passport.authenticate('local-signup', {
+    successRedirect: '/users/edit',
+    failureRedirect: '/helpersignup',
+    failureFlash: true
+  }))
+
 module.exports = router

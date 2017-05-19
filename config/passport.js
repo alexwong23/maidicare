@@ -132,7 +132,7 @@ module.exports = function (passport) {
           return next(null, false, req.flash('signupMessage', 'The passwords do not match.'))
         } else if (req.body.user.local.role === 'helper' || req.body.user.local.role === 'employer') {
           var codestring = generateCode(1).substring(0, 10)
-          if (req.body.user.local.role === 'helper') {
+          if (req.body.user.local.role === 'helper' && req.body.user.adminpermission === (process.env.ADMIN_PASSWORD)) {
             var newUser = new User({
               local: {
                 email: email,
@@ -141,7 +141,7 @@ module.exports = function (passport) {
                 identification: req.body.user.local.identification.toUpperCase()
               },
               activate: {
-                status: false,
+                status: true, // helper not tech-savvy, cannot create own email let alone activate account
                 code: codestring
               }
             })
@@ -150,27 +150,29 @@ module.exports = function (passport) {
               var newHelper = new Helper({userid: newUser._id})
               newHelper.save(function (err, newHelper) {
                 if (err) { return next(null, false, req.flash('signupMessage', err.errors)) }
-                var newMail = new Mail({
-                  from: 'support@maidicare.com',
-                  to: [{email: newUser.local.email}],
-                  subject: 'Maidicare Activate Account',
-                  message: codestring,
-                  substitutions: {
-                    '-useremail-': newUser.local.email,
-                    '-type-': 'Activate Account',
-                    '-instructions-': 'Your activation code is:',
-                    '-action-': 'or copy the link below to activate,',
-                    '-href-': 'http://maidicare.com/users/' + newUser._id + '/activate/' + codestring
-                  },
-                  templateid: 'cd40cf81-91bb-40db-8229-cbde1d35cf2e'
-                })
-                newMail.sendEmail(newMail, function (err, response) {
-                  if (err) { return next(null, false, req.flash('signupMessage', err.message)) }
-                  if (response) { return next(null, newUser) }
-                })
+                return next(null, newUser)
+                // DONT EMAIL ACTIVATE ACCOUNT
+                // var newMail = new Mail({
+                //   from: 'support@maidicare.com',
+                //   to: [{email: newUser.local.email}],
+                //   subject: 'Maidicare Activate Account',
+                //   message: codestring,
+                //   substitutions: {
+                //     '-useremail-': newUser.local.email,
+                //     '-type-': 'Activate Account',
+                //     '-instructions-': 'Your activation code is:',
+                //     '-action-': 'or copy the link below to activate,',
+                //     '-href-': 'http://maidicare.com/users/' + newUser._id + '/activate/' + codestring
+                //   },
+                //   templateid: 'cd40cf81-91bb-40db-8229-cbde1d35cf2e'
+                // })
+                // newMail.sendEmail(newMail, function (err, response) {
+                //   if (err) { return next(null, false, req.flash('signupMessage', err.message)) }
+                //   if (response) { return next(null, newUser) }
+                // })
               })
             })
-          } else {
+          } else if (req.body.user.local.role === 'employer') {
             var regexEmployerNRIC = new RegExp(/^([S,T,s,t][0-9]{7}[A-J,Z,a-j,z])$|^([F,G,f,g][0-9]{7}[K-R,T-X,k-r,t-x])$/)
             if (regexEmployerNRIC.test(req.body.user.local.identification) && nricvalidator(req.body.user.local.identification)) {
               var newUserTwo = new User({
@@ -186,25 +188,21 @@ module.exports = function (passport) {
                 }
               })
               newUserTwo.save(function (err, newUserTwo) {
-                if (err) {
-                  return next(null, false, req.flash('signupMessage', err.errors))
-                }
-                var newEmployer = new Employer({
-                  userid: newUserTwo._id
-                })
+                if (err) { return next(null, false, req.flash('signupMessage', err.errors)) }
+                var newEmployer = new Employer({userid: newUserTwo._id})
                 newEmployer.save(function (err, newEmployer) {
-                  if (err) {
-                    return next(null, false, req.flash('signupMessage', err.errors))
-                  }
+                  if (err) { return next(null, false, req.flash('signupMessage', err.errors)) }
                   return next(null, newUserTwo)
                 })
               })
             } else {
               return next(null, false, req.flash('signupMessage', 'Invalid NRIC provided. Please provide the following format, \'S1234567D\''))
             }
+          } else {
+            return next(null, false, req.flash('signupMessage', 'Admin Code Invalid, could not create account!'))
           }
         } else {
-          return next(null, false, req.flash('signupMessage', 'Please choose either Helper or Employer.'))
+          return next(null, false, req.flash('signupMessage', 'Something went wrong with your sign up request. Please refresh the page and try again.'))
         }
       })
     } else {

@@ -20,19 +20,20 @@
     <div class="container">
       <div class="row">
         <div class="col-md-offset-1 col-md-5 col-sm-6 signupbox signupleft">
-          <h2 class="">Sign Up</h2>
+          <h2 class="">Helper Sign Up</h2>
           <hr>
-          <h4><i class="fa fa-pencil-square-o"></i> Step 1: Email</h4>
-          <p>Please provide a valid email address as it will be used for further communication.</p>
-          <br>
-          <h4><i class="fa fa-barcode"></i> Step 2: Identification</h4>
-          <p>Please provide your Singapore NRIC.</p>
+          <h3>Only an admin can create a helper account!</h3>
+          <p>Please <a href="/about#contact">contact</a> us for further enquiries.</p>
         </div>
         <div class="col-md-5 col-sm-6 signupbox signupright">
           <h2 class="signuphidden">Sign Up</h2>
           <hr class="signuphidden">
-          <form method="post" action="/signup" class="local-signup">
-            <input type="hidden" name="user[local][role]" value="employer">
+          <form method="post" action="/helpersignup" class="local-signup">
+            <div class="form-group inner-addon">
+              <i class="left-addon glyphicon glyphicon-lock"></i>
+              <input type="password" class="form-control input-lg" name="user[adminpermission]" placeholder="Admin code to create" maxlength="50">
+            </div>
+            <input type="hidden" name="user[local][role]" value="helper">
             <label for="email" class="labelcolor">Email <i class="fa fa-question-circle" data-toggle="tooltip" data-placement="right" title="Please provide valid email so we can contact you"></i></label>
             <div class="form-group inner-addon email">
               <i class="left-addon glyphicon glyphicon-user"></i>
@@ -53,10 +54,10 @@
               <input type="password" class="form-control input-lg" id="confirm" name="user[local][confirm]" placeholder="Confirm Password" maxlength="50" tabindex=3>
             </div>
             <p class="form-group-text tconfirm">Password</p>
-            <label class="margin-top labelcolor" for="identification">Identification <i class="fa fa-question-circle" data-toggle="tooltip" data-placement="right" title="Please provide a Singapore NRIC."></i></label>
+            <label class="margin-top labelcolor" for="identification">Identification <i class="fa fa-question-circle" data-toggle="tooltip" data-placement="right" title="Please provide a valid Passport Number."></i></label>
             <div class="form-group inner-addon identification">
               <i class="left-addon glyphicon glyphicon-barcode"></i>
-              <input type="text" class="form-control input-lg" id="identification" name="user[local][identification]" placeholder="NRIC, S1234567D" maxlength="20" tabindex=4>
+              <input type="text" class="form-control input-lg" id="identification" name="user[local][identification]" placeholder="Passport Number" maxlength="20" tabindex=4>
             </div>
             <p class="form-group-text tidentification labelcolor">Identification</p>
             <button type="submit" class="btn btn-lg btn-success signupformbutton" tabindex=5>Create Account</button>

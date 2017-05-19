@@ -466,6 +466,9 @@ module.exports = {
                       var newMail = new Mail({
                         from: 'support@maidicare.com',
                         to: [{email: helperInfo.local.email}],
+                        bcc: [{email: 'support@maidicare.com'},
+                        {email: 'alexwongweilun@hotmail.co.uk'},
+                        {email: 'agencyemail@hotmail.com'}],
                         subject: 'MaidiCare Shortlist Update',
                         message: 'An employer has SELECTED your profile and is waiting for your response.',
                         substitutions: {
@@ -476,7 +479,7 @@ module.exports = {
                         },
                         templateid: '6a0bf52e-9db6-42db-abb6-392169497e50'
                       })
-                      newMail.sendEmail(newMail, function (err, response) {
+                      newMail.sendEmailBcc(newMail, function (err, response) {
                         if (err) { return next(err) }
                         res.send({status: 'success', message: 'Your request has been sent to the helper. Please wait for her reply.'})
                       })
