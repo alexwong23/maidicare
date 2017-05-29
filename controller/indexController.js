@@ -13,6 +13,9 @@ module.exports = {
   getHelp: function (req, res) {
     res.render('help')
   },
+  getGuidelines: function (req, res) {
+    res.render('guidelines')
+  },
   getSignup: function (req, res) {
     res.render('signup', { message: req.flash('signupMessage') })
   },

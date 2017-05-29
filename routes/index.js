@@ -21,6 +21,7 @@ router.get('/', indexController.getHome)
 router.get('/logout', indexController.getLogout)
 router.get('/about', indexController.getAbout)
 router.get('/help', indexController.getHelp)
+router.get('/guidelines', indexController.getGuidelines)
 
 // AJAX Post for Loading Contact Us fields
 //     Sent when user logged in and render AboutUs Page

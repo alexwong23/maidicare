@@ -817,9 +817,9 @@ module.exports = {
                     message: 'Congratulations! Your hire request is successful. Our administrative team will be in touch with you shortly. HireID: ' + hiredata._id,
                     substitutions: {
                       '-name-': hiredata.euserid.local.email,
-                      '-instructions-': 'For more information, take a look at our help page,',
-                      '-buttontext-': 'View More',
-                      '-href-': 'http://maidicare.com/help/'
+                      '-instructions-': 'Please review the Employer\'s Guidelines,',
+                      '-buttontext-': 'View Guidelines',
+                      '-href-': 'http://maidicare.com/guidelines/'
                     },
                     templateid: '6a0bf52e-9db6-42db-abb6-392169497e50'
                   })
@@ -834,9 +834,9 @@ module.exports = {
                       message: 'Congratulations! Your hire request is successful. Our administrative team will be in touch with you shortly. HireID: ' + hiredata._id,
                       substitutions: {
                         '-name-': hiredata.huserid.local.email,
-                        '-instructions-': 'For more information, take a look at our help page,',
-                        '-buttontext-': 'View More',
-                        '-href-': 'http://maidicare.com/help/'
+                        '-instructions-': 'Please review the Employer\'s Guidelines,',
+                        '-buttontext-': 'View Guidelines',
+                        '-href-': 'http://maidicare.com/guidelines/'
                       },
                       templateid: '6a0bf52e-9db6-42db-abb6-392169497e50'
                     })
