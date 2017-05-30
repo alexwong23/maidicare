@@ -503,5 +503,80 @@ module.exports = {
     } else {
       AJAXflashRedirect('login', 'Please login to your account to start hiring.', '/login')
     }
+  },
+  postAJAXBrowseSkype: function (req, res, next) {
+    function AJAXflashRedirect (flashmessage, text, url) {
+      req.flash(flashmessage + 'Message', text)
+      return res.send({status: 'redirect', message: url})
+    }
+    if (req.user) {
+      if (req.user.local.role === 'employer') {
+        if (req.user.recruit) {
+          User.findOne({'_id': req.body.helperuserid}, function (err, helperInfo) {
+            if (err) { return next(err) }
+            if (helperInfo.hire) {
+              if (req.user.hire) {
+                var newMail = new Mail({
+                  from: req.user.local.email,
+                  to: [{email: 'support@maidicare.com'}],
+                  bcc: [{email: 'alexwongweilun@hotmail.co.uk'}],
+                  subject: 'MaidiCare Skype Request',
+                  message: 'Employer, \'' + req.user.local.email + '\', has requested to Skype call helper, \'' + helperInfo.local.email + '\'.',
+                  substitutions: {
+                    '-name-': 'MaidiCare Admin',
+                    '-instructions-': 'Set up Skype call by manually emailing both employer and helper for their skype particulars',
+                    '-buttontext-': 'MaidiCare Email',
+                    '-href-': 'https://privateemail.com/'
+                  },
+                  templateid: '6a0bf52e-9db6-42db-abb6-392169497e50'
+                })
+                newMail.sendEmailBcc(newMail, function (err, response) {
+                  if (err) { return next(err) }
+                  res.send({status: 'success', message: 'Your Skype request has been sent. We will get back to you in two business days.'})
+                })
+              } else {
+                res.send({status: 'error', message: 'You have already confirmed a helper. To hire more than one helper, please contact \' support@maidicare.com\'.'})
+              }
+            } else {
+              Hire.findOne({
+                'euserid': req.user.id,
+                'huserid': req.body.helperuserid,
+                'status': {$in: ['confirmed']}
+              }, function (err, hiredbefore) {
+                if (err) { return next(err) }
+                if (hiredbefore) {
+                  var newMail = new Mail({
+                    from: req.user.local.email,
+                    to: [{email: 'support@maidicare.com'}],
+                    bcc: [{email: 'alexwongweilun@hotmail.co.uk'}],
+                    subject: 'MaidiCare Skype Request',
+                    message: 'Employer, \'' + req.user.local.email + '\', has requested to Skype call helper, \'' + helperInfo.local.email + '\'.',
+                    substitutions: {
+                      '-name-': 'MaidiCare Admin',
+                      '-instructions-': 'Set up Skype call by manually emailing both employer and helper for their skype particulars',
+                      '-buttontext-': 'MaidiCare Email',
+                      '-href-': 'https://privateemail.com/'
+                    },
+                    templateid: '6a0bf52e-9db6-42db-abb6-392169497e50'
+                  })
+                  newMail.sendEmailBcc(newMail, function (err, response) {
+                    if (err) { return next(err) }
+                    res.send({status: 'success', message: 'Your Skype request has been sent. We will get back to you in two business days.'})
+                  })
+                } else {
+                  AJAXflashRedirect('user', 'Sorry, but this helper has been hired.', '/users/' + req.user.id)
+                }
+              })
+            }
+          })
+        } else {
+          AJAXflashRedirect('user', 'Please fill in all your Personal Details before sending a skype request.', '/users/' + req.user.id)
+        }
+      } else {
+        AJAXflashRedirect('user', 'Your role does not allow you to send a skype request. Please contact our support team for further assistance.', '/users/' + req.user.id)
+      }
+    } else {
+      AJAXflashRedirect('login', 'Please login to your account to send a skype request.', '/login')
+    }
   }
 }

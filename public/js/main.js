@@ -1404,6 +1404,46 @@ $(document).ready(function () {
         }
       })
     })
+
+    $('.browseview .skypehelper').on('click', function () {
+      swal({
+        title: 'Skype',
+        text: 'Request a Skype Call?',
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: 'rgb(38, 166, 91)',
+        cancelButtonColor: 'rgb(221, 75, 57)',
+        confirmButtonText: 'Yes',
+        cancelButtonText: 'No',
+        confirmButtonClass: 'btn-success',
+        cancelButtonClass: 'btn-danger',
+        buttonsStyling: true
+      }).then(function () {
+        $.ajax({
+          url: '/browse/skype',
+          type: 'POST',
+          data: JSON.stringify({
+            helperuserid: shelperuserid,
+            helperid: shelperid
+          }),
+          dataType: 'json',
+          contentType: 'application/json',
+          cache: false,
+          success: function (data) {
+            if (data.status === 'success') {
+              swalSuccess(data.message)
+            } else if (data.status === 'error') {
+              swalError(data.message)
+            } else if (data.status === 'redirect') {
+              window.location = data.message
+            }
+          },
+          error: function (err) {
+            if (err) swalError('Please refresh the page and try again. You can also contact us at \'support@maidicare.com\'.')
+          }
+        })
+      })
+    })
   }
 
   /**

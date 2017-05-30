@@ -63,6 +63,24 @@ router.get('/view/:id', browseController.getBrowseView)
 router.post('/hire', browseController.postAJAXBrowseHire)
 
 /**
+* @name AJAX Post Skype
+*
+* Employer requests to skype Helper
+*
+* Before can skype, some validation is done,
+* Validation
+*     User logged in
+*     is Employer & completed profile
+*     is Helper is hired
+*         if not hired, check if employer can hire
+*         if hired, check if Employer is the one who hired
+*
+* If success
+*     Send email to helper & maidicare to inform of skype request
+*/
+router.post('/skype', browseController.postAJAXBrowseSkype)
+
+/**
 * @name Browse Page
 *
 * extract query from url
