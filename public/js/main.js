@@ -885,6 +885,7 @@ $(document).ready(function () {
       $(edithelper + '#siblings').val(helperdata.profile.siblings)
       $(edithelper + '#maritalstatus').val(helperdata.profile.maritalstatus)
       $(edithelper + '#children').val(helperdata.profile.children)
+      $(edithelper + '#phagency').val(helperdata.profile.phagency)
       $(edithelper + '#educationlevel').val(helperdata.education.educationlevel)
       $(edithelper + '#otherqualifications').val(helperdata.education.otherqualifications)
       $(edithelper + '#firstfrom').val(helperdata.workingexperience.first.from)
@@ -1039,6 +1040,7 @@ $(document).ready(function () {
         stringNotEmpty('select', 'helper[profile][dietaryrestriction]') |
         stringNotEmpty('select', 'helper[profile][foodhandlingrestriction]') |
         stringNotEmpty('select', 'helper[profile][maritalstatus]') |
+        stringNotEmpty('select', 'helper[profile][phagency]') |
         stringNotEmpty('select', 'helper[education][educationlevel]') |
         stringNotEmpty('input', 'helper[education][fieldofstudy]') |
         numberNotZero('input', 'helper[local][contact][number]') |

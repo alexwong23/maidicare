@@ -391,6 +391,7 @@ module.exports = {
         !stringMaxLength(req.body.helper.profile.foodhandlingrestriction, 20) ||
         !stringMaxLength(req.body.helper.profile.allergies, 50) ||
         !stringMaxLength(req.body.helper.profile.maritalstatus, 10) ||
+        !stringMaxLength(req.body.helper.profile.phagency, 30) ||
         !stringMaxLength(req.body.helper.education.educationlevel, 20) ||
         !stringMaxLength(req.body.helper.education.fieldofstudy, 50) ||
         !stringMaxLength(req.body.helper.education.otherqualifications, 300) ||
@@ -461,6 +462,7 @@ module.exports = {
           'profile.maritalstatus': req.body.helper.profile.maritalstatus,
           'profile.children': req.body.helper.profile.children,
           'profile.ageofyoungest': req.body.helper.profile.ageofyoungest,
+          'profile.phagency': req.body.helper.profile.phagency,
           'education.educationlevel': req.body.helper.education.educationlevel,
           'education.fieldofstudy': req.body.helper.education.fieldofstudy,
           'education.otherqualifications': req.body.helper.education.otherqualifications,

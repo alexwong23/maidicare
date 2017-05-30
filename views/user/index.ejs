@@ -173,6 +173,7 @@
           <% if (userInfo.profile.ageofyoungest > 0) { %>
             <p>Age of Youngest: <span><%=userInfo.profile.ageofyoungest%></span></p>
           <% } %>
+          <p>Philippines Agency: <span><%=(userInfo.profile.phagency).replace(/_/g, ' ')%></span></p>
 
           <h4><span>Education</span></h4>
           <p>Education Level: <span><%=userInfo.education.educationlevel%></span></p>
