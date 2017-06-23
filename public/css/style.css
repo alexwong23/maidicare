@@ -549,10 +549,10 @@ Sign Up
 }
 @media only screen and (max-width: 767px) {
   .signup, .signup .bg-color {
-  	min-height: 850px;
+  	min-height: 700px;
   }
   .signupbox {
-    height: 775px;
+    height: 600px;
   }
   .signupleft {
     display: none;
