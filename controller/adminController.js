@@ -158,6 +158,28 @@ module.exports = {
       }
     })
   },
+  postAJAXAdminHelperTransfer: function (req, res, next) {
+    Helper.findOne({'userid': req.body.id}, function (err, userDetails) {
+      if (err) { return next(err) }
+      if (userDetails) {
+        var transferStatus = userDetails.transfer
+        if (transferStatus) {
+          transferStatus = false
+        } else {
+          transferStatus = true
+        }
+        Helper.findOneAndUpdate({'userid': req.body.id}, {'transfer': transferStatus}, function (err) {
+          if (err) { return next(err) }
+          res.send({status: 'success'})
+        })
+      } else {
+        res.send({
+          status: 'error',
+          message: 'Failed to change tranfer status. Could not find helper with id ' + req.body.id
+        })
+      }
+    })
+  },
   getAdminUsersAccount: function (req, res, next) {
     var userid = req.params.idrole.split('&')[0]
     var userrole = req.params.idrole.split('&')[1]

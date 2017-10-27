@@ -33,8 +33,14 @@
   					</div>
   					<div class="profile-usertitle-job">
   						<%=userInfo.userid.local.role%>
+              <% if (userInfo.transfer) { %>
+                | Transfer
+              <% } %>
   					</div>
   				</div>
+          <div class="profile-userbuttons">
+            <button type="button" class="btn btn-warning admin-helper-transfer" value="<%= userInfo.userid._id%>">Change Transfer Status</button>
+          </div>
         <% } %>
         <% if (userInfo.userid.local.role === 'employer') { %>
   				<div class="profile-userpic">
@@ -53,7 +59,7 @@
   					</div>
   				</div>
         <% } %>
-				<div class="profile-usermenu">
+        <div class="profile-usermenu">
 					<ul class="nav">
             <li>
 							<a href="/admin/users/<%=userInfo.userid._id%>&<%=userInfo.userid.local.role%>">

@@ -75,6 +75,9 @@ router.post('/users/search', adminController.postAdminUsersSearch)
 // Post Delete User
 router.post('/users/delete', adminController.postAJAXAdminUsersDelete)
 
+// Post Change Helper Transfer Status
+router.post('/users/helpertransfer', adminController.postAJAXAdminHelperTransfer)
+
 // Render User account page for admin change email, nric and permissions
 router.route('/users/:idrole')
       .get(adminCheck, idroleCheck, adminController.getAdminUsersAccount)

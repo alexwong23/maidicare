@@ -1878,6 +1878,30 @@ $(document).ready(function () {
       })
     }
 
+    // admin Change Helper Transfer Status
+    if ($('.admin-helper-transfer').length > 0) {
+      $('.admin-helper-transfer').on('click', function () {
+        $.ajax({
+          url: '/admin/users/helpertransfer',
+          type: 'POST',
+          cache: false,
+          data: JSON.stringify({id: $('.admin-helper-transfer').val()}),
+          dataType: 'json',
+          contentType: 'application/json',
+          success: function (data) {
+            if (data.status === 'success') {
+              window.location.reload()
+            } else {
+              swalError(data.message)
+            }
+          },
+          error: function (err) {
+            if (err) swalError('Please refresh the page and try again.')
+          }
+        })
+      })
+    }
+
     // admin using View Hire Page's filter
     if ($('.admin-hire-filter').length > 0) {
       var status = window.location.pathname.split('/admin/shortlists/all/')[1]

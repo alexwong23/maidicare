@@ -1,3 +1,4 @@
+// commented lastactive filter since helper dont login themselves
 
 var User = require('../models/user')
 var Helper = require('../models/helper')
@@ -88,7 +89,7 @@ module.exports = {
         if (!query.query || query.query === '') {
           Helper.count({
             'userid': {$in: idarray},
-            'lastactive': {$gt: new Date(new Date().setMonth(new Date().getMonth() - 1))},
+            // 'lastactive': {$gt: new Date(new Date().setMonth(new Date().getMonth() - 1))},
             'skills.infantcare': {$in: queryobj.infantcare},
             'skills.childcare': {$in: queryobj.childcare},
             'skills.elderlycare': {$in: queryobj.elderlycare},
@@ -102,7 +103,7 @@ module.exports = {
             if (err) { return next(err) }
             Helper.find({
               'userid': {$in: idarray},
-              'lastactive': {$gt: new Date(new Date().setMonth(new Date().getMonth() - 1))},
+              // 'lastactive': {$gt: new Date(new Date().setMonth(new Date().getMonth() - 1))},
               'skills.infantcare': {$in: queryobj.infantcare},
               'skills.childcare': {$in: queryobj.childcare},
               'skills.elderlycare': {$in: queryobj.elderlycare},
@@ -133,7 +134,7 @@ module.exports = {
               $language: 'en'
             },
             'userid': {$in: idarray},
-            'lastactive': {$gt: new Date(new Date().setMonth(new Date().getMonth() - 1))},
+            // 'lastactive': {$gt: new Date(new Date().setMonth(new Date().getMonth() - 1))},
             'skills.infantcare': {$in: queryobj.infantcare},
             'skills.childcare': {$in: queryobj.childcare},
             'skills.elderlycare': {$in: queryobj.elderlycare},
@@ -152,7 +153,7 @@ module.exports = {
                 $language: 'en'
               },
               'userid': {$in: idarray},
-              'lastactive': {$gt: new Date(new Date().setMonth(new Date().getMonth() - 1))},
+              // 'lastactive': {$gt: new Date(new Date().setMonth(new Date().getMonth() - 1))},
               'skills.infantcare': {$in: queryobj.infantcare},
               'skills.childcare': {$in: queryobj.childcare},
               'skills.elderlycare': {$in: queryobj.elderlycare},
@@ -210,7 +211,7 @@ module.exports = {
         if (!req.body.query || req.body.query === '') {
           Helper.count({
             'userid': {$in: idarray},
-            'lastactive': {$gt: new Date(new Date().setMonth(new Date().getMonth() - 1))},
+            // 'lastactive': {$gt: new Date(new Date().setMonth(new Date().getMonth() - 1))},
             'skills.infantcare': {$in: filterobj.infantcare},
             'skills.childcare': {$in: filterobj.childcare},
             'skills.elderlycare': {$in: filterobj.elderlycare},
@@ -225,7 +226,7 @@ module.exports = {
             if (err) { return next(err) }
             Helper.find({
               'userid': {$in: idarray},
-              'lastactive': {$gt: new Date(new Date().setMonth(new Date().getMonth() - 1))},
+              // 'lastactive': {$gt: new Date(new Date().setMonth(new Date().getMonth() - 1))},
               'skills.infantcare': {$in: filterobj.infantcare},
               'skills.childcare': {$in: filterobj.childcare},
               'skills.elderlycare': {$in: filterobj.elderlycare},
@@ -255,7 +256,7 @@ module.exports = {
               $language: 'en'
             },
             'userid': {$in: idarray},
-            'lastactive': {$gt: new Date(new Date().setMonth(new Date().getMonth() - 1))},
+            // 'lastactive': {$gt: new Date(new Date().setMonth(new Date().getMonth() - 1))},
             'skills.infantcare': {$in: filterobj.infantcare},
             'skills.childcare': {$in: filterobj.childcare},
             'skills.elderlycare': {$in: filterobj.elderlycare},
@@ -275,7 +276,7 @@ module.exports = {
                 $language: 'en'
               },
               'userid': {$in: idarray},
-              'lastactive': {$gt: new Date(new Date().setMonth(new Date().getMonth() - 1))},
+              // 'lastactive': {$gt: new Date(new Date().setMonth(new Date().getMonth() - 1))},
               'skills.infantcare': {$in: filterobj.infantcare},
               'skills.childcare': {$in: filterobj.childcare},
               'skills.elderlycare': {$in: filterobj.elderlycare},
@@ -354,7 +355,7 @@ module.exports = {
         })
         Helper.find({
           'userid': {$in: idarray},
-          'lastactive': {$gt: new Date(new Date().setMonth(new Date().getMonth() - 1))},
+          // 'lastactive': {$gt: new Date(new Date().setMonth(new Date().getMonth() - 1))},
           // 'transfer': helperInfo.transfer,
           'skills.infantcare': {$in: query.infantcare},
           'skills.childcare': {$in: query.childcare},

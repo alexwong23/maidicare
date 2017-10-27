@@ -31,19 +31,19 @@
           <form method="post" action="/helpersignup" class="local-signup">
             <div class="form-group inner-addon">
               <i class="left-addon glyphicon glyphicon-lock"></i>
-              <input type="password" class="form-control input-lg" name="user[adminpermission]" placeholder="Admin code to create" maxlength="50">
+              <input type="password" class="form-control input-lg" name="user[adminpermission]" placeholder="Admin code to create" maxlength="50" tabindex=1>
             </div>
             <input type="hidden" name="user[local][role]" value="helper">
             <label for="email" class="labelcolor">Email <i class="fa fa-question-circle" data-toggle="tooltip" data-placement="right" title="Please provide valid email so we can contact you"></i></label>
             <div class="form-group inner-addon email">
               <i class="left-addon glyphicon glyphicon-user"></i>
-              <input type="email" class="form-control input-lg" id="email" name="user[local][email]" placeholder="eg. davidlee@gmail.com" maxlength="50" tabindex=1>
+              <input type="email" class="form-control input-lg" id="email" name="user[local][email]" placeholder="eg. davidlee@gmail.com" maxlength="50" tabindex=2>
             </div>
             <p class="form-group-text temail">Email</p>
             <label class="margin-top labelcolor" for="password">Password</label>
             <div class="form-group inner-addon password">
               <i class="left-addon glyphicon glyphicon-lock"></i>
-              <input type="password" class="form-control input-lg" id="password" name="user[local][password]" placeholder="Password" maxlength="50" tabindex=2>
+              <input type="password" class="form-control input-lg" id="password" name="user[local][password]" placeholder="Password" maxlength="50" tabindex=3>
               <i class="right-addon glyphicon"></i>
             </div>
             <input class="not_in_my_house" type="password" class="form-control" name="user[local][pass]">
@@ -51,16 +51,16 @@
             <label class="margin-top labelcolor" for="confirm">Confirm</label>
             <div class="form-group inner-addon confirm">
               <i class="left-addon glyphicon glyphicon-lock"></i>
-              <input type="password" class="form-control input-lg" id="confirm" name="user[local][confirm]" placeholder="Confirm Password" maxlength="50" tabindex=3>
+              <input type="password" class="form-control input-lg" id="confirm" name="user[local][confirm]" placeholder="Confirm Password" maxlength="50" tabindex=4>
             </div>
             <p class="form-group-text tconfirm">Password</p>
             <label class="margin-top labelcolor" for="identification">Identification <i class="fa fa-question-circle" data-toggle="tooltip" data-placement="right" title="Please provide a valid Passport Number."></i></label>
             <div class="form-group inner-addon identification">
               <i class="left-addon glyphicon glyphicon-barcode"></i>
-              <input type="text" class="form-control input-lg" id="identification" name="user[local][identification]" placeholder="Passport Number" maxlength="20" tabindex=4>
+              <input type="text" class="form-control input-lg" id="identification" name="user[local][identification]" placeholder="Passport Number" maxlength="20" tabindex=5>
             </div>
             <p class="form-group-text tidentification labelcolor">Identification</p>
-            <button type="submit" class="btn btn-lg btn-success signupformbutton" tabindex=5>Create Account</button>
+            <button type="submit" class="btn btn-lg btn-success signupformbutton" tabindex=6>Create Account</button>
           </form>
         </div>
       </div>
