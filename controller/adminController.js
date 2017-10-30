@@ -97,26 +97,29 @@ module.exports = {
     res.render('admin/email', {message: req.flash('adminEmailMessage')})
   },
   postAdminEmailPage: function (req, res, next) {
-    var newMail = new Mail({
-      from: 'support@maidicare.com',
-      to: [{email: req.body.to}],
-      bcc: [{email: 'support@maidicare.com'}],
-      subject: req.body.subject,
-      message: req.body.message,
-      substitutions: {
-        '-subject-': req.body.subject,
-        '-to-': req.body.to
-      },
-      templateid: '2bf8b73a-9a01-4646-93a7-e09e632f372a'
-    })
-    newMail.sendEmailBcc(newMail, function (err, response) {
-      if (err) {
-        req.flash('adminEmailMessage', err.message)
-        res.redirect('/admin/email')
-      }
-      req.flash('adminEmailMessage', 'SUCCESS! Mail was sent to ' + req.body.to + '. View it at support@maidicare.com')
-      res.redirect('/admin/email')
-    })
+    req.flash('adminEmailMessage', 'This function has been disabled because of inconsistency to send email, sometimes resulting heroku app err h21.')
+    res.redirect('/admin/email')
+
+    // var newMail = new Mail({
+    //   from: 'support@maidicare.com',
+    //   to: [{email: req.body.to}],
+    //   bcc: [{email: 'support@maidicare.com'}],
+    //   subject: req.body.subject,
+    //   message: req.body.message,
+    //   substitutions: {
+    //     '-subject-': req.body.subject,
+    //     '-to-': req.body.to
+    //   },
+    //   templateid: '2bf8b73a-9a01-4646-93a7-e09e632f372a'
+    // })
+    // newMail.sendEmailBcc(newMail, function (err, response) {
+    //   if (err) {
+    //     req.flash('adminEmailMessage', err.message)
+    //     res.redirect('/admin/email')
+    //   }
+    //   req.flash('adminEmailMessage', 'SUCCESS! Mail was sent to ' + req.body.to + '. View it at support@maidicare.com')
+    //   res.redirect('/admin/email')
+    // })
   },
   postAdminUsersSearch: function (req, res, next) {
     User.findOne({'local.email': req.body.email}, function (err, userInfo) {
