@@ -48,6 +48,26 @@ $(document).ready(function () {
     return this.target
   }
 
+  // Function to add Spaces to Object Strings from HTML data
+  function addSpacesToObject (target) {
+    Object.keys(target).forEach(function (key) {
+      if (typeof target[key] === 'string') {
+        target[key] = target[key].replace(/_space_/g, ' ')
+      }
+      Object.keys(target[key]).forEach(function (key2) {
+        if (typeof target[key][key2] === 'string') {
+          target[key][key2] = target[key][key2].replace(/_space_/g, ' ')
+        }
+        Object.keys(target[key][key2]).forEach(function (key3) {
+          if (typeof target[key][key2][key3] === 'string') {
+            target[key][key2][key3] = target[key][key2][key3].replace(/_space_/g, ' ')
+          }
+        })
+      })
+    })
+    return this.target
+  }
+
   // Callback validate email regex
   function validateEmail (email) {
     var re = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/
