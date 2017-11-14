@@ -27,7 +27,7 @@ $(document).ready(function () {
       confirmButtonColor: 'rgb(38, 166, 91)'
     })
   }
-
+  // for helper & employer textarea, for user and admin pages
   // Function to add Spaces to Object Strings from HTML data
   function addSpacesToObject (target) {
     Object.keys(target).forEach(function (key) {
