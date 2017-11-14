@@ -28,6 +28,26 @@ $(document).ready(function () {
     })
   }
 
+  // Function to add Spaces to Object Strings from HTML data
+  function addSpacesToObject (target) {
+    Object.keys(target).forEach(function (key) {
+      if (typeof target[key] === 'string') {
+        target[key] = target[key].replace(/_space_/g, ' ')
+      }
+      Object.keys(target[key]).forEach(function (key2) {
+        if (typeof target[key][key2] === 'string') {
+          target[key][key2] = target[key][key2].replace(/_space_/g, ' ')
+        }
+        Object.keys(target[key][key2]).forEach(function (key3) {
+          if (typeof target[key][key2][key3] === 'string') {
+            target[key][key2][key3] = target[key][key2][key3].replace(/_space_/g, ' ')
+          }
+        })
+      })
+    })
+    return this.target
+  }
+
   // Callback validate email regex
   function validateEmail (email) {
     var re = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/
@@ -598,7 +618,8 @@ $(document).ready(function () {
       $('.editemployer .jobscope input').css('display', 'inline-block')
     }
     // load form data
-    var employerdata = $('.editemployer').data('employer')[0]
+var employerdata = $('.editemployer').data('employer')[0]
+    addSpacesToObject(employerdata)
     var editemployer = '.editemployer .form-group '
     function employerloadddlNtextarea () {
       $(editemployer + '#housetype').val(employerdata.profile.housetype.split(',')[0])
@@ -859,6 +880,7 @@ $(document).ready(function () {
 
     // load form data
     var helperdata = $('.edithelper').data('helper')[0]
+    addSpacesToObject(helperdata)
     var edithelper = '.edithelper .form-group '
     function appendyear (element, yearrange) {
       var currentyearminus = new Date().getFullYear()
