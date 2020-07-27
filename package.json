@@ -16,7 +16,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "bcrypt": "^3.0.6",
+    "bcrypt": "^3.0.8",
     "body-parser": "^1.17.1",
     "cloudinary": "^1.14.0",
     "compression": "^1.6.2",
@@ -28,6 +28,7 @@
     "express-ejs-layouts": "^2.2.0",
     "express-session": "^1.14.1",
     "helmet": "^3.5.0",
+    "heroku": "^7.42.5",
     "method-override": "^2.3.6",
     "mongoose": "^5.6.0",
     "morgan": "^1.9.1",
@@ -39,6 +40,7 @@
     "sendgrid": "^4.8.2",
     "snyk": "^1.180.0",
     "socket.io": "^2.2.0",
+    "stack": "heroku-18",
     "sweetalert2": "^6.4.0"
   },
   "description": "",
