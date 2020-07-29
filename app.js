@@ -25,11 +25,16 @@ var server = require('http').Server(app)
 
 // connect mongoose to which environment
 mongoose.Promise = global.Promise
+
+if (process.env.NODE_ENV !== 'production') {
+  process.env.NODE_ENV = 'local'
+}
+
 console.log('the environment is on ' + process.env.NODE_ENV)
 dotenv.load({path: '.env.' + process.env.NODE_ENV})
-// mongoose.connect(process.env.MONGO_URI, {
-//   useMongoClient: true
-// })
+mongoose.connect(process.env.MONGO_URI, {
+  useNewUrlParser: true
+})
 
 // comment out morgan to prevent clogging of terminal
 // set view engine to ejs and use layout
