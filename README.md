@@ -1,6 +1,6 @@
 # MaidiCare
 
-http://maidicare.com/
+https://maidicare.herokuapp.com/
 
 An online Employment Agency built using NodeJS Express 4.0, MongoDB, Sendgrid and Cloudinary.
 
